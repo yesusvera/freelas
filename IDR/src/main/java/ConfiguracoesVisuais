@@ -1,0 +1,116 @@
+# The list of widgets to load by default. This file may be used in other
+# Jars too, their widgets will be loaded automatically after this list.
+
+# General
+org.faceless.pdf2.viewer3.feature.Toolbars
+org.faceless.pdf2.viewer3.feature.Menus
+org.faceless.pdf2.viewer3.feature.ActiveWindowMenu
+org.faceless.pdf2.viewer3.feature.MultiWindow
+org.faceless.pdf2.viewer3.feature.ToolbarDisabling
+org.faceless.pdf2.viewer3.feature.ToolbarFloating
+org.faceless.pdf2.viewer3.feature.Undo
+org.faceless.pdf2.viewer3.feature.EditMenu
+org.faceless.pdf2.viewer3.feature.DragAndDrop
+# Importers/Exporters/Service Providers
+org.faceless.pdf2.viewer3.feature.PDFImporter
+org.faceless.pdf2.viewer3.feature.PDFExporter
+org.faceless.pdf2.viewer3.feature.TIFFExporter
+org.faceless.pdf2.viewer3.feature.TextExporter
+org.faceless.pdf2.viewer3.feature.ImageImporter
+org.faceless.pdf2.viewer3.feature.KeyStoreSignatureProvider
+org.faceless.pdf2.viewer3.feature.RemoteSignatureProvider
+# Widgets
+org.faceless.pdf2.viewer3.feature.Open
+org.faceless.pdf2.viewer3.feature.OpenRecent
+org.faceless.pdf2.viewer3.feature.Save
+org.faceless.pdf2.viewer3.feature.SaveAs
+org.faceless.pdf2.viewer3.feature.NetworkSave
+org.faceless.pdf2.viewer3.feature.Print
+org.faceless.pdf2.viewer3.feature.Info
+org.faceless.pdf2.viewer3.feature.Close
+org.faceless.pdf2.viewer3.feature.Quit
+#org.faceless.pdf2.viewer3.feature.FullScreenMode
+org.faceless.pdf2.viewer3.feature.PageFirst
+org.faceless.pdf2.viewer3.feature.PagePrevious
+org.faceless.pdf2.viewer3.feature.PageNumber
+org.faceless.pdf2.viewer3.feature.TotalPages
+org.faceless.pdf2.viewer3.feature.PageNext
+org.faceless.pdf2.viewer3.feature.PageLast
+org.faceless.pdf2.viewer3.feature.ZoomFit
+org.faceless.pdf2.viewer3.feature.ZoomFitWidth
+org.faceless.pdf2.viewer3.feature.ZoomFitHeight
+org.faceless.pdf2.viewer3.feature.ZoomOut
+org.faceless.pdf2.viewer3.feature.ZoomLevel
+org.faceless.pdf2.viewer3.feature.ZoomIn
+org.faceless.pdf2.viewer3.feature.RotateClockwise
+org.faceless.pdf2.viewer3.feature.RotateAntiClockwise
+org.faceless.pdf2.viewer3.feature.SinglePageView
+org.faceless.pdf2.viewer3.feature.ContinuousPageView
+org.faceless.pdf2.viewer3.feature.DualPageView
+# Modes
+org.faceless.pdf2.viewer3.feature.DragScroll
+org.faceless.pdf2.viewer3.feature.TextTool
+org.faceless.pdf2.viewer3.feature.ZoomSelection
+org.faceless.pdf2.viewer3.feature.AnnotationAdd
+org.faceless.pdf2.viewer3.feature.AnnotationAddLine
+org.faceless.pdf2.viewer3.feature.SelectArea
+# Selection actions
+org.faceless.pdf2.viewer3.feature.TextCopyAction
+org.faceless.pdf2.viewer3.feature.HighlightSelectionAction
+org.faceless.pdf2.viewer3.feature.UnderlineSelectionAction
+org.faceless.pdf2.viewer3.feature.StrikeOutSelectionAction
+org.faceless.pdf2.viewer3.feature.RedactSelectionAction
+org.faceless.pdf2.viewer3.feature.CropPage
+# Search
+org.faceless.pdf2.viewer3.feature.SearchField
+# Digital Signature Management
+org.faceless.pdf2.viewer3.feature.ManageIdentities
+org.faceless.pdf2.viewer3.feature.InvisiblySignDocument
+# Panels
+org.faceless.pdf2.viewer3.feature.OutlinePanel
+org.faceless.pdf2.viewer3.feature.ThumbnailPanel
+org.faceless.pdf2.viewer3.feature.SignaturePanel
+#org.faceless.pdf2.viewer3.feature.SearchPanel
+# Thumbmail Actions
+org.faceless.pdf2.viewer3.feature.ThumbnailDeleteAction
+org.faceless.pdf2.viewer3.feature.ThumbnailExtractAction
+org.faceless.pdf2.viewer3.feature.ThumbnailCutAction
+org.faceless.pdf2.viewer3.feature.ThumbnailPasteAction
+# Form Widgets
+org.faceless.pdf2.viewer3.feature.FormButtonWidgetFactory
+org.faceless.pdf2.viewer3.feature.FormRadioButtonWidgetFactory
+org.faceless.pdf2.viewer3.feature.FormTextWidgetFactory
+org.faceless.pdf2.viewer3.feature.FormChoiceWidgetFactory
+org.faceless.pdf2.viewer3.feature.FormBlankSignatureWidgetFactory
+org.faceless.pdf2.viewer3.feature.FormSignedSignatureWidgetFactory
+org.faceless.pdf2.viewer3.feature.FormBarCodeWidgetFactory
+org.faceless.pdf2.viewer3.feature.XFA
+# General Annotations - missing are FileAttachment and others
+org.faceless.pdf2.viewer3.feature.AnnotationLinkFactory
+org.faceless.pdf2.viewer3.feature.AnnotationNoteFactory
+org.faceless.pdf2.viewer3.feature.AnnotationSoundFactory
+org.faceless.pdf2.viewer3.feature.AnnotationTextFactory
+org.faceless.pdf2.viewer3.feature.AnnotationTextCalloutFactory
+org.faceless.pdf2.viewer3.feature.AnnotationStampFactory
+org.faceless.pdf2.viewer3.feature.AnnotationLineFactory
+org.faceless.pdf2.viewer3.feature.AnnotationEllipseFactory
+org.faceless.pdf2.viewer3.feature.AnnotationRectangleFactory
+# Action handlers. Missing GoToE, GoToR, Launch, Thread, Movie, SetOCGState, Trans
+org.faceless.pdf2.viewer3.feature.GoToActionHandler
+org.faceless.pdf2.viewer3.feature.ShowHideActionHandler
+org.faceless.pdf2.viewer3.feature.SoundActionHandler
+org.faceless.pdf2.viewer3.feature.FormResetActionHandler
+org.faceless.pdf2.viewer3.feature.FormImportDataActionHandler
+org.faceless.pdf2.viewer3.feature.FormSubmitActionHandler
+org.faceless.pdf2.viewer3.feature.URLActionHandler
+org.faceless.pdf2.viewer3.feature.SplashScreen
+org.faceless.pdf2.viewer3.feature.About
+org.faceless.pdf2.viewer3.feature.ShowConsole
+org.faceless.pdf2.viewer3.feature.BackgroundTextExtractor
+org.faceless.pdf2.viewer3.feature.BackgroundSignatureVerifier
+org.faceless.pdf2.viewer3.feature.Coordinates
+org.faceless.pdf2.viewer3.feature.TextHighlighter
+org.faceless.pdf2.viewer3.feature.SignatureCapture
+# Always last
+org.faceless.pdf2.viewer3.feature.GenericNamedActionHandler
+org.faceless.pdf2.viewer3.feature.AppleSupport
