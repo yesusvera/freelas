@@ -1,0 +1,365 @@
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:pretty="http://ocpsoft.com/prettyfaces">
+
+
+<script src="/templates/backend/arvore/bootstrap.js"></script> 
+<link type="text/css" rel="stylesheet" href="/templates/backend/arvore/common.css" />
+<link rel="stylesheet" href="/templates/backend/css/bootstrap.css" />
+<link rel="stylesheet" href="/templates/backend/css/font-awesome.min.css" />
+<link rel="stylesheet" href="/templates/backend/css/font.css" />
+<link rel="stylesheet" href="/templates/backend/css/style.css" /> <!-- posicionamentos da arvore -->
+<link rel="stylesheet" href="/templates/backend/css/plugin.css" />
+
+
+<ui:composition template="/dashboard"> 
+<ui:define name="arvore">
+<div class="container ng-scope" ng-controller="principalController">
+
+ 
+
+<style>
+body {
+	font-family: arial; 
+}
+.preview {
+	width: 200px;
+	border: solid 1px #dedede;
+}
+#preview {
+	color: #cc0000;
+	font-size: 12px
+}
+.img-circle90{
+	
+	width:40px;
+	}
+</style>
+ 
+<div id="content">
+  <div class="main padder">
+    <div class="row h4_topo">
+      
+<div class="col-lg-10" ng-view=""> 
+<style type="text/css" class="ng-scope">
+		.img-circle60 {
+			width: 70px;
+		}
+		.img-circle30 {
+			width: 39px;
+		}
+		
+		.img-circle50 {
+			width: 60px;
+		}
+		
+		.img-circle45 {
+			width: 50px;
+		}
+</style>
+
+  <div class="col-lg-12 interna" style="margin-left: -70 px">
+    <div class="panelx">
+      
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="panelx" style="height:500px;">
+            	
+                <div class="tree" style="margin-top: -29px;">
+                
+                  <ul>
+                  
+                    <li>
+                    	
+                    	<h:commandLink data-toggle="tab">
+
+							<f:ajax render="@form"  listener="#{dashboardBean.moveToNode('0')}" />
+							<span class=" "><!-- Root enabled --> 
+                      			<img class="img-circle60"
+								alt="#{loginBean.userAuth.account.fullname}"
+								title="#{dashboardBean.getLabelAccountNode('0')}"
+								src="#{dashboardBean.getIconNode('0')}" />
+							</span> 					
+													
+						</h:commandLink> 
+                    	
+                    	
+			                 	<ul><!-- 1.x disabled-->
+			                        <li> 
+				                        	<span>
+				                        	
+				                        	<h:commandLink data-toggle="tab"> 
+				                        		<f:ajax render="@form" listener="#{dashboardBean.moveToNode('1')}" />
+				                        		<img class="img-circle50" alt="#{dashboardBean.getLabelAccountNode('1')}"  title="#{dashboardBean.getLabelAccountNode('1')}" src="#{dashboardBean.getIconNode('1')}" />
+				                        	</h:commandLink>
+				                        	</span>
+<!-- 				                        </a> -->
+					                        <ul>
+					                            <li>  
+					                               <!-- 1.1 enabled-->
+					                            	<h:commandLink data-toggle="tab"  > 
+					                              		<span class=""> 
+					                              			<img class="img-circle45" alt="#{dashboardBean.getLabelAccountNode('1_1')}" title="#{dashboardBean.getLabelAccountNode('1_1')}" src="#{dashboardBean.getIconNode('1_1')}" /> 
+					                              		</span> 
+					                              	</h:commandLink>
+					                              <ul>
+					                                <li> 
+					                                	<a href="#"> 
+<!-- 						                                    <span class="badge bg-primary vendas ng-binding" style="display: block;"> Label </span>  -->
+						                                    <span class=""> 
+						                                    	<img class="img-circle30" alt="#{dashboardBean.getLabelAccountNode('1_1_1')}" title="#{dashboardBean.getLabelAccountNode('1_1_1')}" src="#{dashboardBean.getIconNode('1_1_1')}" /> 
+						                                    </span> 
+					                                    </a>
+					                                  <ul>
+					                                    <li> 
+					                                    	<a href="#"> 
+					                                    		<span class="ng-binding"></span>
+<!-- 					                                      		<span class="badge bg-primary vendas ng-binding" style="display: block;">  -->
+<!-- 					                                      		</span>  -->
+					                                      		<span class=""> <!-- 1.1.1.1 enabled-->
+					                                      		<img class="img-circle30" alt="#{dashboardBean.getLabelAccountNode('1_1_1_1')}" title="#{dashboardBean.getLabelAccountNode('1_1_1_1')}" src="#{dashboardBean.getIconNode('1_1_1_1')}" /> 
+					                                      		</span> 
+					                                      	</a> 
+					                                    </li>
+					                                    <li> 
+					                                    	<a href="#" style="display: block;">
+					                                    		<span class=""> <!-- 1.1.1.2 enabled-->
+					                                    			<img class="img-circle30"  alt="#{dashboardBean.getLabelAccountNode('1_1_1_2')}" title="#{dashboardBean.getLabelAccountNode('1_1_1_2')}"  src="#{dashboardBean.getIconNode('1_1_1_2')}"  />
+					                                    		</span> 
+					                                    	</a> 
+					                                    </li>
+					                                    
+					                                  </ul>
+					                                </li>
+					                                <li> 
+					                                	<a href="#"> 
+					                                		<span class=""><!-- 1.1.2 disabled -->
+					                                			<img class="img-circle30"  alt="#{dashboardBean.getLabelAccountNode('1_1_2')}" title="#{dashboardBean.getLabelAccountNode('1_1_2')}" src="#{dashboardBean.getIconNode('1_1_2')}" /> 
+					                                		</span> 
+					                                	</a> 
+					                                  <ul>
+					                                    <li> 
+					                                    	<a href="#">
+						                                    	<span class="">
+						                                    		<img class="img-circle30" alt="#{dashboardBean.getLabelAccountNode('1_1_2_1')}" title="#{dashboardBean.getLabelAccountNode('1_1_2_1')}" src="#{dashboardBean.getIconNode('1_1_2_1')}" />
+						                                    	</span> 
+					                                    	</a>  
+					                                    </li>
+						                                    <li> 
+						                                    	<a href="#"> 
+							                                    	<span class="">
+							                                    	<img class="img-circle30" alt="#{dashboardBean.getLabelAccountNode('1_1_2_2')}" title="#{dashboardBean.getLabelAccountNode('1_1_2_2')}" src="#{dashboardBean.getIconNode('1_1_2_2')}"  /> </span> 
+						                                    	</a> 
+						                                    </li>
+					                                  </ul>
+					                                </li>
+					                              </ul>
+					                            </li>
+					                            <li> <a href="#"> 
+					                            	 <span class="">
+					                            	 	<img class="img-circle45" alt="#{dashboardBean.getLabelAccountNode('1_2')}" title="#{dashboardBean.getLabelAccountNode('1_2')}" src="#{dashboardBean.getIconNode('1_2')}" /> 
+					                            	 </span> 
+					                            	 </a> 
+					                            	
+					                              <ul>
+					                                <li> 
+					                                	<a href="#"> 
+					                                		<span class="">
+					                                			<img class="img-circle30" alt="#{dashboardBean.getLabelAccountNode('1_2_1')}" title="#{dashboardBean.getLabelAccountNode('1_2_1')}" src="#{dashboardBean.getIconNode('1_2_1')}" /> 
+					                                		</span> 
+					                                	</a> 
+					                                	<a href="#" style="display: block;"> 
+					                                  	</a>
+						                                <ul>
+						                                    <li> <a href="#"> 
+						                                    		<span class="">
+						                                    		<img class="img-circle30" alt="#{dashboardBean.getLabelAccountNode('1_2_1_1')}" title="#{dashboardBean.getLabelAccountNode('1_2_1_1')}" src="#{dashboardBean.getIconNode('1_2_1_1')}" /> 
+						                                    		</span> 
+						                                    	</a> 
+						                                    	<a href="#" style="display: block;"> 
+						                                       	</a> 
+						                                       	</li>
+						                                    <li> 
+						                                    	<a href="#"> 
+						                                    		<span class="">
+						                                    			<img class="img-circle30" alt="#{dashboardBean.getLabelAccountNode('1_2_1_2')}" title="#{dashboardBean.getLabelAccountNode('1_2_1_2')}" src="#{dashboardBean.getIconNode('1_2_1_2')}" /> 
+						                                    		</span> 
+						                                    	</a> 
+						                                    </li>
+						                                </ul>
+					                                </li>
+					                                <li> <a href="#"> 
+					                                		<span class="">
+					                                			<img class="img-circle30" alt="#{dashboardBean.getLabelAccountNode('1_2_2')}" title="#{dashboardBean.getLabelAccountNode('1_2_2')}" src="#{dashboardBean.getIconNode('1_2_2')}" /> 
+					                                		</span> 
+					                                	 </a> 
+					                                  <ul>
+					                                    <li> 
+					                                    	<a href="#"> 
+					                                    	<span class="">
+					                                    	<img class="img-circle30"  alt="#{dashboardBean.getLabelAccountNode('1_2_2_1')}" title="#{dashboardBean.getLabelAccountNode('1_2_2_1')}" src="#{dashboardBean.getIconNode('1_2_2_1')}" /> 
+					                                    	</span> 
+					                                    	</a> 
+					                                    </li>
+					                                    <li> 
+					                                    	<a href="#"> 
+					                                    	<span class="">
+					                                    		<img class="img-circle30" alt="#{dashboardBean.getLabelAccountNode('1_2_2_2')}" title="#{dashboardBean.getLabelAccountNode('1_2_2_2')}" src="#{dashboardBean.getIconNode('1_2_2_2')}" /> 
+					                                    	</span> 
+					                                    	</a> 
+					                                    </li>
+					                                  </ul>
+					                                </li>
+					                              </ul>
+					                            </li>
+					                        </ul>
+			                        </li>
+			                        
+			                        <li>  
+		                          <a href="#"> <span class="ng-binding"></span>
+			                          <div style="clear:both"></div>
+			                          <span class=""> 
+			                          		<img class="img-circle50" alt="#{dashboardBean.getLabelAccountNode('2')}" title="#{dashboardBean.getLabelAccountNode('2')}" src="#{dashboardBean.getIconNode('2')}" /> 
+			                          </span> 
+			                          </a>
+			                          <ul>
+			                            <li> <a href="#" style="display: block;"> 
+			                            	<span class="">
+			                            		<img class="img-circle45" alt="#{dashboardBean.getLabelAccountNode('2_1')}" title="#{dashboardBean.getLabelAccountNode('2_1')}" src="#{dashboardBean.getIconNode('2_1')}" /> 
+			                            	</span> 
+			                            	</a> 
+			                              <ul>
+			                                <li> 
+			                                <a href="#" style="display: block;"> 
+			                                <span class="">
+			                                <img class="img-circle30" alt="#{dashboardBean.getLabelAccountNode('2_1_1')}" title="#{dashboardBean.getLabelAccountNode('2_1_1')}" src="#{dashboardBean.getIconNode('2_1_1')}" /> 
+			                                </span> 
+			                                </a> 
+			                                  <ul>
+			                                    <li>
+			                                    <a href="#" style="display: block;"> 
+			                                    <span class="">
+			                                    <img class="img-circle30" alt="#{dashboardBean.getLabelAccountNode('2_1_1_1')}" title="#{dashboardBean.getLabelAccountNode('2_1_1_1')}" src="#{dashboardBean.getIconNode('2_1_1_1')}" /> 
+			                                    </span> 
+			                                    </a> 
+
+			                                   </li>
+			                                   <li> 
+			                                      	<a href="#" style="display: block;">
+			                                      		<span class="">
+			                                      			<img class="img-circle30" alt="#{dashboardBean.getLabelAccountNode('2_1_1_2')}" title="#{dashboardBean.getLabelAccountNode('2_1_1_2')}" src="#{dashboardBean.getIconNode('2_1_1_2')}" /> 
+			                                      		</span> 
+			                                      		</a> 
+			                                      		
+			                                      </li>
+			                                  </ul>
+			                                </li>
+			                                <li> 
+			                                	<a href="#"> 
+			                                		<span class="">
+			                                			<img class="img-circle30" alt="#{dashboardBean.getLabelAccountNode('2_1_2')}" title="#{dashboardBean.getLabelAccountNode('2_1_2')}" src="#{dashboardBean.getIconNode('2_1_2')}" /> 
+			                                		</span> 
+			                                	</a> 
+			                                  	<ul>
+				                                    <li> 
+				                                    	<a href="#"> 
+				                                    	<span class="">
+				                                    	<img class="img-circle30" alt="#{dashboardBean.getLabelAccountNode('2_1_2_1')}" title="#{dashboardBean.getLabelAccountNode('2_1_2_1')}" src="#{dashboardBean.getIconNode('2_1_2_1')}" /> 
+				                                    	</span> 
+				                                    	</a> 
+				                                    </li>
+				                                    <li> 
+					                                    <a href="#"> 
+					                                    <span class="">
+					                                    <img class="img-circle30" alt="#{dashboardBean.getLabelAccountNode('2_1_2_2')}" title="#{dashboardBean.getLabelAccountNode('2_1_2_2')}" src="#{dashboardBean.getIconNode('2_1_2_2')}" /> 
+					                                    </span> 
+					                                    </a> 
+				                                    </li>
+				                                  </ul>
+			                                </li>
+			                              </ul>
+			                            </li>
+			                            <li> <a href="#" style="display: block;"> 
+			                            	  <span class="">
+			                            	  <img class="img-circle45" title="2.2" src="#{dashboardBean.getIconNode('2_2')}" /> </span> </a> 
+			                              <ul>
+			                                <li> <a href="#" style="display: block;"> 
+			                                		<span class="">
+			                                		<img class="img-circle30" title="#{dashboardBean.getLabelAccountNode('2_2_1')}" alt="#{dashboardBean.getLabelAccountNode('2_2_1')}" src="#{dashboardBean.getIconNode('2_2_1')}" /> 
+			                                		</span> 
+			                                	 </a> 
+			                                  <ul>
+			                                    <li> 
+			                                    	<a href="#"> 
+			                                    	<span class="">
+			                                    	<img class="img-circle30" title="#{dashboardBean.getLabelAccountNode('2_2_1_1')}" alt="#{dashboardBean.getLabelAccountNode('2_2_1_1')}" src="#{dashboardBean.getIconNode('2_2_1_1')}" /> 
+			                                    	</span> 
+			                                    	</a> 
+			                                      	</li>
+			                                    <li> 
+			                                    	<a href="#"> 
+			                                    	<span class="">
+			                                    	<img class="img-circle30" title="#{dashboardBean.getLabelAccountNode('2_2_1_2')}" alt="#{dashboardBean.getLabelAccountNode('2_2_1_2')}" src="#{dashboardBean.getIconNode('2_2_1_2')}" /> 
+			                                    	</span> 
+			                                    	</a> 
+			                                    	 
+			                                      </li>
+			                                  </ul>
+			                                </li>
+			                                <li> <a href="#" style="display: block;"> 
+			                                		<span class="">
+			                                		<img class="img-circle30" title="#{dashboardBean.getLabelAccountNode('2_2_2')}" alt="#{dashboardBean.getLabelAccountNode('2_2_2')}" src="#{dashboardBean.getIconNode('2_2_2')}" /> 
+			                                		</span> 
+			                                		</a> 
+			                                  <ul>
+			                                    <li> <a href="#" style="display: block;"> 
+			                                    	 <span class="">
+			                                    	 <img class="img-circle30" title="#{dashboardBean.getLabelAccountNode('2_2_2_1')}" alt="#{dashboardBean.getLabelAccountNode('2_2_2_1')}" src="#{dashboardBean.getIconNode('2_2_2_1')}" /> 
+			                                    	 </span> 
+			                                    	 </a> 
+			                                      	</li>
+			                                    <li> <a href="#" style="display: block;"> 
+			                                    	 <span class="">
+			                                    	 <img class="img-circle30" title="#{dashboardBean.getLabelAccountNode('2_2_2_2')}" alt="#{dashboardBean.getLabelAccountNode('2_2_2_2')}" src="#{dashboardBean.getIconNode('_2_22_2')}" /> <!-- /templates/backend/arvore/1g_0.jpg -->
+			                                    	 </span> 
+			                                    	 </a> 
+			                                    </li>
+			                                  </ul>
+			                                </li>
+			                              </ul>
+			                            </li>
+			                          </ul>
+			                        </li>
+			                    </ul>
+                  
+                    </li>
+                  </ul>
+                  
+                
+                </div>
+              	
+            </div>
+          </div>
+        </div>
+        
+        
+    	</div>
+    	</div>
+    	</div>
+    	
+    	
+    	</div>
+    	</div>
+    	</div>
+    	</div>
+    	</div>
+    	
+</ui:define>
+</ui:composition>
+</html>

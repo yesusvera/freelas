@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.radaee.reader.PDFReader
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bar_find"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
+
+    </com.radaee.reader.PDFReader>
+
+    <LinearLayout
+        android:id="@+id/bar_find"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="false"
+        android:layout_centerInParent="false" 
+        android:background="@color/cor_prateada"
+        >
+
+        <EditText
+            android:id="@+id/txt_find"
+            android:layout_width="168dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:background="@color/cor_branca"
+            android:ems="10"
+            android:text="Pesquisa" />
+        <ImageView
+            android:id="@+id/btn_prev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+              android:layout_weight="0.06"
+            android:src="@drawable/ic_prev" />
+        <ImageView
+            android:id="@+id/btn_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+              android:layout_weight="0.06"
+            android:src="@drawable/ic_next" />
+
+        <ImageView
+            android:id="@+id/btn_anotacoes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_notas" />	
+
+        <ImageView
+            android:id="@+id/btn_escolher_lista"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             android:layout_weight="0.06"
+            android:src="@drawable/ic_indice2" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bar_cmd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
+
+        <Button
+            android:id="@+id/btn_ink"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ink"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/btn_rect"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rect"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/btn_oval"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Oval"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/btn_note_temp"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Note"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/btn_line"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Line"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/btn_cancel"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" X "
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/btn_save"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/btn_close"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Close"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bar_act"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/bar_cmd" >
+
+        <Button
+            android:id="@+id/btn_sel"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:text="Sel" />
+
+        <Button
+            android:id="@+id/btn_edit"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:text="Edit" />
+
+        <Button
+            android:id="@+id/btn_act"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:text="Do" />
+
+        <Button
+            android:id="@+id/btn_remove"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:text="Remove" />
+    </LinearLayout>
+
+    <com.radaee.util.PDFThumbView
+        android:id="@+id/thumbs"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_above="@+id/bar_find" />
+
+</RelativeLayout>

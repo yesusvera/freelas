@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pretty="http://ocpsoft.com/prettyfaces"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:jp="http://xmlns.jcp.org/jsf/passthrough">
+
+<!--tab-pane-->
+<div class="#{dashboardBean.getTabEhAtiva('notifications')}" id="tab_1_22">
+		<div class="#{dashboardBean.getTabEhAtiva('notifications')}" id="tab_1_1_1">
+			<div class="scroller" data-height="350px" data-always-visible="1" data-rail-visible1="1">
+				
+				<ul class="feeds">
+				
+
+				                <p:outputPanel autoUpdate="true">
+				
+				                    <!-- nossa lista será repetida aqui -->
+				                    <ui:repeat id="listaRepeticao" var="notification" value="#{dashboardBean.notifications}" >
+				                        <li>
+											<div class="col1">
+												<div class="cont">
+													<div class="cont-col1">
+														<div class="label label-info">
+															<i class="fa fa-bell-o"></i>
+														</div>
+													</div>
+													<div class="cont-col2">
+														<div class="desc">
+															 #{notification.title} 
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col2">
+												<div class="date">
+													 Just now
+												</div>
+											</div>
+										</li>
+				                    </ui:repeat>
+									
+				                    <h:panelGroup>
+				                        <!-- esta div apenas vai exibir um gif para informar ao usuário que está sendo carregado -->
+				                        <div style="text-align: center; margin: 20px; height: 30px;">
+				                            
+				                            <div id="carregando" style="display: none">
+				                                <img src="/templates/frontend/images/preloader_3.gif"/>
+				                            </div>
+				                        </div>
+				                        <!-- o p:remoteCommand vai chamar o metodo no ManagedBean -->
+				                        <p:remoteCommand oncomplete="$('#carregando').css('display', 'none');"
+				                            update="listaRepeticao" name="mais_noticias"
+				                            actionListener="#{dashboardBean.carregarMais()}" />
+				                    </h:panelGroup>
+				
+				                </p:outputPanel>
+				
+				
+					
+				</ul>
+
+			</div>
+		</div>
+	</div>
+	
+
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file is not required if you don't need any extra configuration. -->
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="         http://java.sun.com/xml/ns/javaee         http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+	<converter>
+		<converter-id>chaveConverteObjeto</converter-id>
+		<converter-class>br.com.iejb.sgi.converter.ConverterEntity</converter-class>
+	</converter>
+	
+	<application>
+		<message-bundle>br.com.iejb.sgi.Messages_Validator</message-bundle>
+		<resource-bundle>
+			<base-name>br.com.iejb.sgi.Messages</base-name>
+			<var>msg</var>
+		</resource-bundle>
+		<locale-config>
+			<default-locale>pt</default-locale>
+		</locale-config>
+	</application>
+	<factory>
+		<exception-handler-factory>org.omnifaces.exceptionhandler.FullAjaxExceptionHandlerFactory</exception-handler-factory>
+	</factory>
+</faces-config>

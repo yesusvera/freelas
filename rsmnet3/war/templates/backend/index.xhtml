@@ -1,0 +1,207 @@
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pretty="http://ocpsoft.com/prettyfaces"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:jp="http://xmlns.jcp.org/jsf/passthrough">   
+   
+ <h:head id="head">
+       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>RSM | Rede Social Multinível</title>
+		
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<meta content="" name="description" />
+		<meta content="" name="author" />
+		
+ 		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+		
+		<!-- BEGIN GLOBAL MANDATORY STYLES -->
+		<link href="../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+		<link href="../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+		<link href="../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+		<link href="../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+		<link href="../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+		
+		
+		<!-- END GLOBAL MANDATORY STYLES -->
+		<!-- BEGIN PAGE LEVEL STYLES -->
+		<link href="../../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css"/>
+		<link href="../../assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css"/>
+		<!-- END PAGE LEVEL STYLES -->
+		<!-- BEGIN THEME STYLES -->
+		<link href="../../assets/global/css/components.css" rel="stylesheet" type="text/css"/>
+		<link href="../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+		<link href="../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+		<link id="style_color" href="../../assets/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css"/>
+		<link href="../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+		<!-- END THEME STYLES -->
+		<link rel="shortcut icon" href="../../assets/admin/layout/img/favicon_rsm.png"/>
+		
+		
+		<script src="/templates/backend/arvore/bootstrap.js"></script> 
+		<script src="/templates/backend/js/RSM.js"></script> 
+		<link type="text/css" rel="stylesheet" href="/templates/backend/arvore/common.css" />
+		<link rel="stylesheet" href="/templates/backend/css/bootstrap.css" />
+		<link rel="stylesheet" href="/templates/backend/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="/templates/backend/css/font.css" />
+		<link rel="stylesheet" href="/templates/backend/css/style.css" /> <!-- posicionamentos da arvore -->
+		<link rel="stylesheet" href="/templates/backend/css/plugin.css" />
+
+		  <script type="text/javascript">
+		  
+	            $(document).ready(function() {
+	                //evento scroll
+	                $(window).scroll(function() {
+	                    //quando o usuario chegar no fim da rolagem
+	                    if($(window).scrollTop() + $(window).height() == $(document).height()) {
+	                        //chama o p:remoteCommand            
+	                        mais_noticias();
+	                        //exibe o gif carregando para o usuario
+	                        $("#carregando").css("display", "block");
+	
+	                    }
+	                });
+	            });
+	            
+	            function abreFechaBracos(){
+	            	var liBracoEsquerdo = document.getElementById('liBracoEsquerdo');
+	            	var liBracoDireito = document.getElementById('liBracoDireito');
+	            	
+	            	if(liBracoEsquerdo.style.display=='block'){
+	            		liBracoEsquerdo.style.display='none';
+	            		liBracoDireito.style.display='none';
+	            	}else{
+	            		liBracoEsquerdo.style.display='block';
+	            		liBracoDireito.style.display='block';
+	            	}
+	            	
+	            }
+		 </script>
+	
+		<h:outputScript name="jsf.js" library="javax.faces" target="head" />
+
+</h:head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
+<!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
+<!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
+<!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
+<!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
+<!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
+<!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
+<h:body class="page-header-fixed page-quick-sidebar-over-content">
+<h:form id="formGeneral">
+<!-- BEGIN HEADER -->
+<div class="page-header navbar navbar-fixed-top" style="z-index:1">
+    
+	<!-- BEGIN HEADER INNER -->
+	<div class="page-header-inner">
+		<!-- BEGIN LOGO -->
+		<div class="page-logo">
+			<pretty:link mappingId="dashboard"  title="Rede Social Multinível" alt="Rede Social Multinível">
+					<img src="../../assets/admin/layout/img/logo.png" alt="logo" class="logo-default" style="margin-top:-3px;"/>
+			</pretty:link>
+			<div class="menu-toggler sidebar-toggler hide">
+				<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+			</div>
+		</div>
+		<div class="top-menu">
+		
+			<ul class="nav navbar-nav pull-right">
+				<ui:include src="credentials_component.xhtml"></ui:include>				
+								
+				<li class="dropdown dropdown-quick-sidebar-toggler" >
+					<h:commandLink immediate="true" id="lnkLogout" name="lnkLogout" action="#{loginBean.efetuarLogout()}" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+						 <i class="icon-logout" style="color:#ffffff;"></i> 
+					</h:commandLink>
+				</li>
+				
+				<!-- END QUICK SIDEBAR TOGGLER -->
+			</ul>
+		
+	</div>
+		<!-- END TOP NAVIGATION MENU -->
+	</div>
+	<!-- END HEADER INNER -->
+</div>
+<!-- END HEADER -->
+<div class="clearfix"></div>
+<div class="page-container">
+		<p:confirmDialog global="true">
+		       <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"
+		       icon="ui-icon-check"/>
+		       <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"
+		       icon="ui-icon-close"/>
+		</p:confirmDialog>
+					
+		<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+		<p:dialog widgetVar="statusDialog" style="background-color:transparent;border:none;" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+		    <!-- <p:graphicImage name="/demo/images/ajaxloadingbar.gif" /> -->
+		    <i class="fa fa-refresh fa-spin fa-5x "></i>
+		</p:dialog>
+		
+	
+		<div class="page-content">
+			
+			<div class="row">
+				<div class="col-md-12">
+					<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+					
+					
+					<!-- END PAGE TITLE & BREADCRUMB-->
+				</div>
+			</div>
+			<!-- END PAGE HEADER-->
+			<!-- BEGIN PAGE CONTENT-->
+			<div class="row profile">
+				<p:growl id="growl"  styleClass="position:absolute;" showDetail="false" sticky="false"/> 
+				
+				<div class="col-md-12" >
+					<!--BEGIN TABS-->
+					<div class="tabbable tabbable-custom tabbable-full-width">
+						<div class="tab-content">
+							<div class="tab-pane active" id="tab_1_1">
+								<div class="row">
+									<div class="col-md-3">
+										<ui:include src="account_panel.xhtml"></ui:include>
+									</div>
+									<div class="col-md-9">
+										<!--end row-->
+										<div class="tabbable tabbable-custom tabbable-custom-profile">
+												<ui:include src="heads_tabs.xhtml"/>
+												
+												<div class="tab-content">
+														<ui:include src="notifications_tab.xhtml"/>
+														<ui:include src="network_tab.xhtml"/>
+														<ui:include src="account_tab.xhtml"/>
+														<ui:include src="help_tab.xhtml"/>
+														<ui:include src="market_tab.xhtml"/>
+														<ui:include src="administrator_tab.xhtml"/>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+</div>
+<div class="page-footer" style="background-color:#25aae2;">
+	<div class="page-footer-inner" style="width:300px;color:#ffffff;margin-left:40%;margin-right: 50%">
+		 Copyright © 2015 RSM. Todos os direitos reservados.
+	</div>
+</div>
+</h:form>
+</h:body>
+</html>

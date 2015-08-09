@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file is not required if you don't need any extra configuration. -->
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="         http://java.sun.com/xml/ns/javaee         http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+	<converter>
+		<converter-id>chaveConverteObjeto</converter-id>
+		<converter-class>br.com.poupex.commons.jsf.converter.ConverterStringObject</converter-class>
+	</converter>
+	<!-- CONSULTAR CHECKLIST DOCUMENTO ETAPA -->
+	<navigation-rule>
+		<display-name>Consultar CheckList Documentos Por Etapa</display-name>
+		<from-view-id>/ManterChecklistDocumento/consultarCheckListDocumentosPorEtapa.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>incluir</from-outcome>
+			<to-view-id>/ManterChecklistDocumento/mantemCheckListDocumentosPorEtapa.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancelar</from-outcome>
+			<to-view-id>/ManterChecklistDocumento/consultarCheckListDocumentosPorEtapa.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>Manter CheckList Documentos Por Etapa</display-name>
+		<from-view-id>/ManterChecklistDocumento/mantemCheckListDocumentosPorEtapa.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>cancelar</from-outcome>
+			<to-view-id>/ManterChecklistDocumento/consultarCheckListDocumentosPorEtapa.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/ManterChecklistDocumento/detalharCheckListDocumentosPorEtapa.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<application>
+		<message-bundle>br.com.iejb.sgi.Messages_Validator</message-bundle>
+		<resource-bundle>
+			<base-name>br.com.iejb.sgi.Messages</base-name>
+			<var>msg</var>
+		</resource-bundle>
+		<locale-config>
+			<default-locale>pt</default-locale>
+		</locale-config>
+	</application>
+	<factory>
+		<exception-handler-factory>org.omnifaces.exceptionhandler.FullAjaxExceptionHandlerFactory</exception-handler-factory>
+	</factory>
+</faces-config>

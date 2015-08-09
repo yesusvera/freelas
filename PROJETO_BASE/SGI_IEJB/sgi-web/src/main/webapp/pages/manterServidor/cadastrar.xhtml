@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pexinput="http://poupex.com.br/jsf/input"
+	xmlns:cc="http://java.sun.com/jsf/composite/poupex"
+	xmlns:pex="http://poupex.com.br/jsf/input"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/pagina.xhtml">
+
+	<ui:define name="corpo">
+		<p:panel header="Cadastrar Servidor">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="pull-right">
+						<font class="cp-obg">Campo Obrigatório: [<span
+							class="glyphicon glyphicon-asterisk ico-obg"></span>]
+						</font>
+					</div>
+				</div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-2 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel value="CPF: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<p:inputMask styleClass="form-control input-sm"
+							mask="999.999.999.99"
+							value="#{manterServidorController.view.pessoaFisica.cpf}"
+							maxlength="20" disabled="#{manterServidorController.desabilitar}"
+							id="idCpf" />
+					</div>
+				</div>
+
+				<div class="col-md-8 col-sm-9">
+					<div class="form-group">
+						<h:outputLabel value="Nome: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:inputText styleClass="form-control input-sm"
+							value="#{manterServidorController.view.pessoaFisica.nome}"
+							maxlength="155" required="true"
+							requiredMessage="Campo Nome Obrigatório" id="idNome" />
+					</div>
+				</div>
+
+				<div class="col-md-2 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel value="Sexo: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:selectOneMenu styleClass="form-control input-sm"
+							value="#{manterServidorController.view.pessoaFisica.sexo}"
+							required="true" requiredMessage="Campo Sexo Obrigatório">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+							<f:selectItem itemValue="M" itemLabel="Masculino" />
+							<f:selectItem itemValue="F" itemLabel="Feminino" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="col-md-2 col-sm-3">
+					<div class="form-group">
+						<p:outputLabel value="Data Nasc:" />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<p:calendar
+							value="#{manterServidorController.view.pessoaFisica.dtNascimento}"
+							id="idDataNascimento" navigator="true" showOtherMonths="true"
+							required="true" requiredMessage="Campo Data Nasc: Obrigatório"
+							showButtonPanel="true" showEffect="fade" hideEffect="fade"
+							yearRange="c-50:c+10" locale="pt_BR" pattern="dd/MM/yyyy"
+							mask="true" />
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-9">
+					<div class="form-group">
+						<h:outputLabel value="Nacionalidade: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:selectOneMenu styleClass="form-control input-sm"
+							value="#{manterPresoView.preso.sexo}" id="IdNacionalidade">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+							<f:selectItem itemValue="AF" itemLabel="Afeganistão" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel value="UF Naturalidade: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:selectOneMenu styleClass="form-control input-sm"
+							value="#{manterPresoView.preso.sexo}" id="idUfNacionalidade">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+							<f:selectItem itemValue="AF" itemLabel="Afeganistão" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="col-md-4 col-sm-9">
+					<div class="form-group">
+						<h:outputLabel value="Naturalidade: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:selectOneMenu styleClass="form-control input-sm"
+							value="#{manterPresoView.preso.sexo}" id="idNaturalidade">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+							<f:selectItem itemValue="AF" itemLabel="Afeganistão" />
+						</h:selectOneMenu>
+
+					</div>
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<h:outputLabel value="Nome Mãe: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:inputText styleClass="form-control input-sm"
+							value="#{manterServidorController.view.pessoaFisica.mae}"
+							required="true" requiredMessage="Campo Nome Mãe Obrigatório"
+							maxlength="96" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<h:outputLabel value="Nome Pai:" />
+						<h:inputText styleClass="form-control input-sm"
+							value="#{manterServidorController.view.pessoaFisica.pai}"
+							maxlength="96" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-2 col-sm-4">
+					<div class="form-group">
+						<h:outputLabel value="Est. Civil: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:selectOneMenu styleClass="form-control input-sm"
+							value="#{manterServidorController.view.pessoaFisica.estadoCivil}"
+							id="idEstadoCivil">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+							<f:selectItem itemValue="AF" itemLabel="Afeganistão" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="col-md-2 col-sm-4">
+					<div class="form-group">
+						<h:outputLabel value="RG: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:inputText styleClass="form-control input-sm"
+							value="#{manterServidorController.view.pessoaFisica.identidade}"
+							maxlength="120" />
+					</div>
+				</div>
+				<div class="col-md-2 col-sm-4">
+					<div class="form-group">
+						<h:outputLabel value="Órgão Exp: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:inputText styleClass="form-control input-sm"
+							value="#{manterServidorController.view.pessoaFisica.orgaoExpedidor}"
+							maxlength="120" />
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-12">
+					<div class="form-group">
+						<h:outputLabel value="E-mail: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:inputText styleClass="form-control input-sm"
+							value="#{manterServidorController.view.pessoaFisica.emailPessoaFisica}"
+							maxlength="120" />
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4 col-sm-9">
+					<div class="form-group">
+						<h:outputLabel value="Endereço:" />
+						<h:inputText styleClass="form-control input-sm"
+							value="#{manterServidorController.view.pessoaFisica.endereco}"
+							maxlength="120" />
+					</div>
+				</div>
+				<div class="col-md-2 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel value="UF: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:selectOneMenu styleClass="form-control input-sm"
+							value="#{manterPresoView.preso.sexo}" id="idUf">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+							<f:selectItem itemValue="AF" itemLabel="Afeganistão" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="col-md-4 col-sm-9">
+					<div class="form-group">
+						<h:outputLabel value="Cidade: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:selectOneMenu styleClass="form-control input-sm"
+							value="#{manterPresoView.preso.sexo}" id="idCidade">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+							<f:selectItem itemValue="AF" itemLabel="Afeganistão" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+				<div class="col-md-2 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel value="CEP:" />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:inputText styleClass="form-control input-sm"
+							value="#{manterServidorController.view.pessoaFisica.cep}"
+							maxlength="120" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<h5 class="b">Telefones:</h5>
+					<hr />
+				</div>
+			</div>
+
+			<div class="row" id="idTelefone">
+				<div class="col-md-2 col-sm-5">
+					<div class="form-group">
+						<h:outputLabel value="Tipo: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:selectOneMenu styleClass="form-control input-sm"
+							value="#{manterServidorController.view.telefone.tipo}" id="idTipo">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+							<f:selectItem itemValue="C" itemLabel="Comercial" />
+							<f:selectItem itemValue="Ce" itemLabel="Celular" />
+							<f:selectItem itemValue="R" itemLabel="Residencial" />
+							<f:selectItem itemValue="F" itemLabel="Fax" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="col-md-1 col-sm-2">
+					<div class="form-group">
+						<h:outputLabel value="DDD:" />
+						<h:inputText styleClass="form-control input-sm"	value="#{manterServidorController.view.telefone.ddd}"
+							maxlength="2" />
+					</div>
+				</div>
+
+				<div class="col-md-2 col-sm-5">
+					<div class="form-group">
+						<h:outputLabel value="Número:" />
+						<h:inputText styleClass="form-control input-sm"
+							value="#{manterServidorController.view.telefone.numero}"
+							maxlength="16" />
+					</div>
+				</div>
+
+				<div class="col-md-6 col-sm-10">
+					<div class="form-group">
+						<h:outputLabel value="Observações:" />
+						<h:inputText styleClass="form-control input-sm"
+							value="#{manterServidorController.view.telefone.observacoes}" />
+					</div>
+				</div>
+				<div class="col-md-1 col-sm-2">
+					<br />
+					 <p:commandLink id="btn_add" styleClass="glyphicon glyphicon-plus" update="idFone @parent" action="#{manterServidorController.reinit}" >
+                		<p:collector value="#{manterServidorController.view.telefone}" addTo="#{manterServidorController.view.listTelefone}" unique="true"/>
+            		</p:commandLink>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-12 col-sm-2">
+					<p:dataTable rendered="#{not empty manterServidorController.view.listTelefone}" 
+					value="#{manterServidorController.view.listTelefone}" var="fone" id="idFone">
+			            <p:column headerText="Tipo">
+			                <h:outputText value="#{fone.tipo}" />
+			            </p:column>
+			            <p:column headerText="DDD">
+			                <f:facet name="header">
+			                    <h:outputText value="DDD" />
+			                </f:facet>
+			                <h:outputText value="#{fone.ddd}" />
+			            </p:column>
+			             <p:column headerText="Telefone">
+			                <h:outputText value="#{fone.numero}" />
+			            </p:column>
+			             <p:column headerText="ObservaÃ§Ã£o">
+			                <h:outputText value="#{fone.observacoes}" />
+			            </p:column>
+			            
+			            <p:column headerText="Action">
+			                <p:commandLink value="Remove" update="@form" process="idFone">
+			                    <p:collector value="#{fone}" removeFrom="#{manterServidorController.view.listTelefone}" unique="true"/> 
+			                </p:commandLink>
+			            </p:column>
+        			</p:dataTable>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<h5 class="b">Dados Funcionais:</h5>
+					<hr />
+				</div>
+			</div>
+
+
+			<div class="row" id="idDadosFuncionais">
+
+				<div class="col-md-3 col-sm-9">
+					<div class="form-group">
+						<h:outputLabel value="Cargo:" />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:selectOneMenu styleClass="form-control input-sm"
+							value="#{manterServidorController.view.pessoaFisica.cargo}"
+							id="idCargo">
+							<f:selectItem itemValue="" itemLabel="Selecione" />
+							<f:selectItem itemValue="AF" itemLabel="Comercial" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+
+				<div class="col-md-2 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel value="Data Ingresso: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<p:calendar
+							value="#{manterServidorView.pessoaFisica.dtNascimento}"
+							id="idDataIngresso" navigator="true" showOtherMonths="true"
+							showButtonPanel="true" showEffect="fade" hideEffect="fade"
+							yearRange="c-50:c+10" locale="pt_BR" pattern="dd/MM/yyyy"
+							readonlyInput="true" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+
+				<div class="col-md-5 col-sm-9">
+					<div class="form-group">
+						<h:outputLabel value="Função:" />
+						<h:inputText styleClass="form-control input-sm"
+							value="#{manterServidorView.pessoaFisica.emailPessoaFisica}"
+							maxlength="2" />
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel value="Matricula:" />
+						<h:inputText styleClass="form-control input-sm"
+							value="#{manterServidorView.pessoaFisica.emailPessoaFisica}"
+							maxlength="2" />
+					</div>
+				</div>
+
+				<div class="col-md-2 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel value="Situação:" />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:selectOneMenu styleClass="form-control input-sm"
+							value="#{manterPresoView.preso.sexo}" id="idSituacao">
+							<f:selectItem itemValue="" itemLabel="Selecione" />
+							<f:selectItem itemValue="" itemLabel="Ativo Permanente" />
+							<f:selectItem itemValue="" itemLabel="Requisitado" />
+							<f:selectItem itemValue="" itemLabel="Sem Vinculo" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="col-md-2 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel value="Horário de Expediente:" />
+						<h:inputText styleClass="form-control input-sm"
+							value="#{manterServidorView.pessoaFisica.emailPessoaFisica}"
+							maxlength="2" />
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<h5 class="b">Lotação:</h5>
+					<hr />
+				</div>
+			</div>
+
+			<div class="row" id="lotacoes">
+
+				<div class="col-md-2 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel value="UF:" />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:selectOneMenu styleClass="form-control input-sm"
+							value="#{manterServidorController.view.pessoaFisica.ufLotacao}"
+							id="estados">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+							<f:selectItem itemValue="AC" itemLabel="AC" />
+							<f:selectItem itemValue="AL" itemLabel="AL" />
+							<f:selectItem itemValue="AM" itemLabel="AM" />
+							<f:selectItem itemValue="AP" itemLabel="AP" />
+							<f:selectItem itemValue="BA" itemLabel="BA" />
+							<f:selectItem itemValue="CE" itemLabel="CE" />
+							<f:selectItem itemValue="DF" itemLabel="DF" />
+							<f:selectItem itemValue="ES" itemLabel="ES" />
+							<f:selectItem itemValue="GO" itemLabel="GO" />
+							<f:selectItem itemValue="MA" itemLabel="MA" />
+							<f:selectItem itemValue="MG" itemLabel="MG" />
+							<f:selectItem itemValue="MS" itemLabel="MS" />
+							<f:selectItem itemValue="MT" itemLabel="MT" />
+							<f:selectItem itemValue="PA" itemLabel="PA" />
+							<f:selectItem itemValue="PB" itemLabel="PB" />
+							<f:selectItem itemValue="PE" itemLabel="PE" />
+							<f:selectItem itemValue="PI" itemLabel="PI" />
+							<f:selectItem itemValue="PR" itemLabel="PR" />
+							<f:selectItem itemValue="RJ" itemLabel="RJ" />
+							<f:selectItem itemValue="RN" itemLabel="RN" />
+							<f:selectItem itemValue="RO" itemLabel="RO" />
+							<f:selectItem itemValue="RR" itemLabel="RR" />
+							<f:selectItem itemValue="RS" itemLabel="RS" />
+							<f:selectItem itemValue="SC" itemLabel="SC" />
+							<f:selectItem itemValue="SE" itemLabel="SE" />
+							<f:selectItem itemValue="SP" itemLabel="SP" />
+							<f:selectItem itemValue="TO" itemLabel="TO" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="col-md-10 col-sm-9">
+					<div class="form-group">
+						<h:outputLabel value="Órgão:" />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:selectOneMenu styleClass="form-control input-sm"
+							value="#{manterServidorController.view.pessoaFisica.orgao}"
+							id="orgaos">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="row">
+				<div class="col-md-2 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel value="Município:" />
+						<h:selectOneMenu styleClass="form-control input-sm"
+							value="#{manterServidorController.view.pessoaFisica.munucipio}"
+							id="cidades">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="col-md-10 col-sm-9">
+					<div class="form-group">
+						<h:outputLabel value="Estabelecimento:" />
+						<h:selectOneMenu styleClass="form-control input-sm"
+							value="#{manterServidorController.view.pessoaFisica.estabelecimento}"
+							id="estabelecimentos">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+		   </div>
+				
+		  <div class="row">
+			 <div class="col-md-5 col-sm-6">
+				 <div class="form-group">
+					 <h:outputLabel value="Setor:" />
+					 <h:inputText styleClass="form-control input-sm" />
+				 </div>
+			</div>
+		</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="tab-v2">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#home-1" data-toggle="tab">Dados
+									de Login</a></li>
+
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane active" id="home-1">
+								<br />
+								<h5 class="b">Indicador (Dominio.login):</h5>
+								<br />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row" id="botoes">
+				<div class="col-md-12">
+					<div class="pull-right">
+						<h:commandButton value="Cancelar"
+							action="#{manterServidorController.voltar}" immediate="true" />
+						<h:commandButton value="Salvar" ajax="false"
+							action="#{manterServidorController.salvarServidor}"
+							onclick="return confirm('Deseja realmente salvar');" />
+					</div>
+				</div>
+			</div>
+		</p:panel>
+	</ui:define>
+</ui:composition>

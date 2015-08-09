@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pexinput="http://poupex.com.br/jsf/input"
+	xmlns:cc="http://java.sun.com/jsf/composite/poupex"
+	xmlns:pex="http://poupex.com.br/jsf/input"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/paginaExterna.xhtml">
+
+	<ui:define name="corpo">
+	 <f:view>
+		<p:panel>
+			<div class="row">
+				<div class="col-md-3">
+					<p:outputLabel value="Login:" />
+					<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+					<p:inputText id="loginId" styleClass="form-control input-sm" value="#{efetuarLoginController.view.loginEstrangeiro.login}"
+						requiredMessage="O campo nome é obrigatório" />
+				</div>
+			</div>
+
+			<p:spacer />
+
+			<div class="row">
+				<div class="col-md-3">
+					<p:outputLabel value="Senha:" />
+					<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+					<p:password  id="senhaId" styleClass="form-control input-sm" value="#{efetuarLoginController.view.loginEstrangeiro.senha}"
+						requiredMessage="O campo nome é obrigatório" />
+				</div>
+			</div>
+			
+			<p:spacer />
+			
+			<div class="row">
+				<div class="col-md-6">
+					<p:commandLink action="solicitarSenha" value="Esqueceu a senha?" ajax="false" />
+				</div>
+			</div>
+			
+			<p:spacer />
+			
+			<div class="row">
+				<div class="col-md-6">
+					<h:commandButton action="#{efetuarLoginController.autenticar}" value="Entrar" ajax="false" />
+				</div>
+			</div>
+			
+			<p:spacer />
+			
+			<h6>Ainda não é cadastrado?</h6>
+			
+			<p:spacer />
+
+			<div class="row">
+				<div class="col-md-6">
+					<h:commandButton action="/pages/manterIdentificacaoRequerente/cadastrar.xhtml" value="CADASTRE-SE AGORA" />
+				</div>
+			</div>
+			
+		 </p:panel>
+	  </f:view>
+	</ui:define>
+</ui:composition>

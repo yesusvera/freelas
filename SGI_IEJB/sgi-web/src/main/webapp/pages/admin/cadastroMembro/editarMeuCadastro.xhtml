@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/pagina.xhtml">
+
+	<ui:define name="corpo">
+		<p:panel header="Cadastro de Membro" closable="false">
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="pull-right">
+						<font class="cp-obg">Campo Obrigatório: [<span
+							class="glyphicon glyphicon-asterisk ico-obg"></span>]
+						</font>
+					</div>
+				</div>
+			</div>
+			<br />
+				<p:panel  toggleable="true" toggleSpeed="500" closeSpeed="500" header="Dados Pessoais">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<h:outputLabel value="Nome: " />
+								<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+								<h:inputText styleClass="form-control input-sm" maxlength="100"
+									required="true" requiredMessage="O campo Nome é obrigatório."
+									id="idNome"
+									value="#{cadastrarMembroController.view.membro.nome}" />
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<h:outputLabel value="Cônjuge:" />
+								<p:inputText maxlength="100"
+									value="#{cadastrarMembroController.view.membro.nomeConjuge}" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-2 col-sm-3">
+							<div class="form-group">
+								<h:outputLabel value="CPF: " />
+								<p:inputMask styleClass="form-control input-sm"
+									mask="999.999.999-99"
+									requiredMessage="O campo CPF é obrigatório." maxlength="20"
+									value="#{cadastrarMembroController.view.membro.cpf}" id="idCpf" />
+							</div>
+						</div>
+
+						<div class="col-md-3 col-sm-9">
+							<div class="form-group">
+								<h:outputLabel value="Sexo: " />
+								<h:selectOneMenu styleClass="form-control input-sm"
+									requiredMessage="Campo Sexo Obrigatório"
+									value="#{cadastrarMembroController.view.membro.sexo}">
+									<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+									<f:selectItem itemValue="M" itemLabel="Masculino" />
+									<f:selectItem itemValue="F" itemLabel="Feminino" />
+								</h:selectOneMenu>
+							</div>
+						</div>
+						<div class="col-md-2 col-sm-3">
+							<div class="form-group">
+								<p:outputLabel value="Data Nasc:" />
+								<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+								<p:calendar id="idDataNascimento" navigator="true"
+									showOtherMonths="true"
+									required="true"
+									requiredMessage="O campo Data de Nascimento é obrigatório."
+									showButtonPanel="true" showEffect="fade" hideEffect="fade"
+									yearRange="c-50:c+10" locale="pt_BR" pattern="dd/MM/yyyy"
+									value="#{cadastrarMembroController.view.membro.dataNascimento}"
+									mask="true" />
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-9">
+							<div class="form-group">
+								<h:outputLabel value="Tipo Sanguíneo: " />
+								<h:selectOneMenu
+									value="#{cadastrarMembroController.view.membro.tipoSanguineo}"
+									styleClass="form-control input-sm" id="selectTipoSanguineo">
+									<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+									<f:selectItem itemValue="O-" itemLabel="O-" />
+									<f:selectItem itemValue="O+" itemLabel="O+" />
+									<f:selectItem itemValue="A-" itemLabel="A-" />
+									<f:selectItem itemValue="A+" itemLabel="A+" />
+									<f:selectItem itemValue="B-" itemLabel="B-" />
+									<f:selectItem itemValue="B+" itemLabel="B+" />
+									<f:selectItem itemValue="AB-" itemLabel="AB-" />
+									<f:selectItem itemValue="AB+" itemLabel="AB+" />
+								</h:selectOneMenu>
+							</div>
+						</div>
+
+						<div class="col-md-3 col-sm-3">
+							<div class="form-group">
+								<h:outputLabel value="Quantidade de filhos:" />
+								<h:selectOneMenu styleClass="form-control input-sm"
+									id="selectQtdeFilhos">
+									<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+									<f:selectItem itemValue="1" itemLabel="1" />
+									<f:selectItem itemValue="2" itemLabel="2" />
+									<f:selectItem itemValue="3" itemLabel="3" />
+									<f:selectItem itemValue="4" itemLabel="4" />
+									<f:selectItem itemValue="5" itemLabel="5" />
+									<f:selectItem itemValue="6" itemLabel="6" />
+									<f:selectItem itemValue="7" itemLabel="8" />
+									<f:selectItem itemValue="8" itemLabel="8" />
+									<f:selectItem itemValue="9" itemLabel="9" />
+									<f:selectItem itemValue="10" itemLabel="10" />
+									<f:selectItem itemValue="11" itemLabel="11" />
+									<f:selectItem itemValue="12" itemLabel="12" />
+									<f:selectItem itemValue="13" itemLabel="13" />
+									<f:selectItem itemValue="14" itemLabel="14" />
+									<f:selectItem itemValue="15" itemLabel="15" />
+									<f:selectItem itemValue="16" itemLabel="16" />
+									<f:selectItem itemValue="17" itemLabel="17" />
+									<f:selectItem itemValue="18" itemLabel="18" />
+									<f:selectItem itemValue="19" itemLabel="19" />
+									<f:selectItem itemValue="20" itemLabel="20" />
+								</h:selectOneMenu>
+							</div>
+						</div>
+					</div>
+				</p:panel>
+				<p:panel  toggleable="true" toggleSpeed="500" closeSpeed="500" header="Endereço">
+					<div class="row">
+						<div class="col-md-4 col-sm-9">
+							<div class="form-group">
+								<h:outputLabel value="Endereço:" />
+								<h:inputText styleClass="form-control input-sm"
+									value="#{cadastrarMembroController.view.membro.endereco}"
+									maxlength="120" />
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-9">
+							<div class="form-group">
+								<h:outputLabel value="Bairro:" />
+								<h:inputText styleClass="form-control input-sm"
+									value="#{cadastrarMembroController.view.membro.bairro}"
+									maxlength="120" />
+							</div>
+						</div>
+						<div class="col-md-2 col-sm-3">
+							<div class="form-group">
+								<h:outputLabel value="UF: " />
+								<h:selectOneMenu
+									value="#{cadastrarMembroController.view.uf}"
+									styleClass="form-control input-sm" id="selectUf">
+									<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+									<f:converter converterId="chaveConverteObjeto"/>
+									<f:selectItems value="#{cadastrarMembroController.view.listaUF}" var="uf" itemValue="#{uf}" itemLabel="#{uf.sigla}"/>
+									<p:ajax event="change" listener="#{cadastrarMembroController.carregarCidades}" update="selectCidade" />
+								</h:selectOneMenu>
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-9">
+							<div class="form-group">
+								<h:outputLabel value="Cidade: " />
+								<h:selectOneMenu
+									value="#{cadastrarMembroController.view.membro.cidade}"
+									styleClass="form-control input-sm" id="selectCidade">
+									<f:converter converterId="chaveConverteObjeto"/>
+									<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+									<f:selectItems value="#{cadastrarMembroController.view.listaCidade}" />
+								</h:selectOneMenu>
+							</div>
+						</div>
+						<div class="col-md-2 col-sm-3">
+							<div class="form-group">
+								<h:outputLabel value="CEP:" />
+								<h:inputText
+									value="#{cadastrarMembroController.view.membro.cep}"
+									styleClass="form-control input-sm" maxlength="120" />
+							</div>
+						</div>
+					</div>
+				</p:panel>
+				<p:panel  toggleable="true" toggleSpeed="500" closeSpeed="500" header="Contatos">
+					<div class="row">
+						<div class="col-md-3">
+							<div class="form-group">
+								<h:outputLabel value="Fixo: " />
+								<p:inputMask mask="(99)9999-9999" value="#{cadastrarMembroController.view.membro.telefoneFixo}"/>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<h:outputLabel value="Celular: " />
+								<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+								<p:inputMask mask="(99)9999-9999" required="true" requiredMessage="O campo Celular é obrigatório." value="#{cadastrarMembroController.view.membro.telefoneCelular}"/>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<h:outputLabel value="Comercial: " />
+								<p:inputMask mask="(99)9999-9999" value="#{cadastrarMembroController.view.membro.telefoneComercial}"/>
+							</div>
+						</div>
+					</div>
+				</p:panel>
+				<p:panel toggleable="true" toggleSpeed="500" closeSpeed="500" header="Login">
+					<div class="row">
+						<div class="col-md-3">
+							<div class="form-group">
+								<h:outputLabel value="Email: " />
+								<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+								<p:inputText id="txtEmail" required="true" requiredMessage="O campo Email é obrigatório." value="#{cadastrarMembroController.view.membro.email}"/>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							<div class="form-group">
+								<h:outputLabel value="Usuário" />
+								<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+								<p:inputText id="txtUsuario" required="true" maxlength="20" requiredMessage="O campo Usuário é obrigatório." value="#{cadastrarMembroController.view.membro.usuario.login}"/>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<h:outputLabel value="Senha: " />
+								<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+								<p:password id="txtSenha" required="true" maxlength="10" requiredMessage="O campo Senha é obrigatório" value="#{cadastrarMembroController.view.membro.usuario.senha}"/>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<h:outputLabel value="Confirmar Senha: " />
+								<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+								<p:password  required="true" maxlength="10" requiredMessage="O campo Confirmar Senha é obrigatório" value="#{cadastrarMembroController.view.senhaConfirmacao}"/>
+							</div>
+						</div>
+					</div>
+				</p:panel>
+
+			<div class="row" id="botoes">
+				<div class="col-md-12">
+					<div class="pull-right">
+						<h:commandButton value="Cancelar" immediate="true" />
+						<p:commandButton value="Salvar"
+							action="#{cadastrarMembroController.salvarMembro()}">
+							<p:confirm header="Salvar"
+								message="Deseja realmente salvar o Membro?"></p:confirm>
+						</p:commandButton>
+					</div>
+				</div>
+			</div>
+		</p:panel>
+	</ui:define>
+</ui:composition>

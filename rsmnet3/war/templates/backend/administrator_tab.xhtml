@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pretty="http://ocpsoft.com/prettyfaces"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:jp="http://xmlns.jcp.org/jsf/passthrough">
+
+<style>
+	.estiloTxtInputID{
+		color:gray; 
+		height:34px;
+		font-size:large;
+		vertical-align:middle;
+		text-transform: uppercase;
+		margin-right:2px;
+	}
+</style>
+
+<div class="#{dashboardBean.getTabEhAtiva('administrator')}" id="tab_1_22_b">
+		<fieldset>
+			<legend>Funcões de Administrator</legend>
+			
+			<p:accordionPanel>
+		        <p:tab title="Suspender Conta">
+		        	<h:panelGroup id="pnlSuspender" >
+			            <h:panelGrid columns="2" cellpadding="10">
+			                <h:outputLabel value="Digite o Id *:"/>
+			                <h:inputText required="true" requiredMessage="O Id é obrigatório." styleClass="estiloTxtInputID" value="#{dashboardBean.sanctionSuspend.userId}" size="7" maxlength="6" alt="Suspender ID"/>
+							
+							<h:outputLabel value="Justificativa * :"/>
+							<p:editor required="true" requiredMessage="A Justificativa é obrigatória." widgetVar="editorWidget" value="#{dashboardBean.sanctionSuspend.description}" width="600" />
+							 
+							<h:commandButton  action="#{dashboardBean.suspendID()}" class="btn red button-previous" value="Suspender ID">
+								<f:ajax render="@form" execute="pnlSuspender" />
+							</h:commandButton>
+			            </h:panelGrid>
+		            </h:panelGroup>
+		        </p:tab>
+		        <p:tab title="Reativar Conta">
+		             <h:panelGrid id="pnlReativarConta" columns="2" cellpadding="10">
+		                <h:outputLabel value="Digite o Id *:"/>
+		                <h:inputText required="true"  styleClass="estiloTxtInputID" value="#{dashboardBean.sanctionActivate.userId}" size="7" maxlength="6" alt="Suspender ID"/>
+						
+						<h:outputLabel value="Justificativa *:"/>
+						<p:editor required="true" widgetVar="editorWidget" value="#{dashboardBean.sanctionActivate.description}" width="600" />
+						 
+						<h:commandButton  action="#{dashboardBean.reactivateSuspendedID()}" style="margin-left:1px" class="btn blue button-previous" value="Reativar conta suspensa">
+							<f:ajax render="@form" execute="pnlReativarConta" />
+						</h:commandButton>
+		            </h:panelGrid>
+		        </p:tab>
+		        
+		        <p:tab title="Listar Contas Suspensas">
+		        
+		        </p:tab>
+		    </p:accordionPanel>
+		</fieldset>
+</div>
+
+</html>

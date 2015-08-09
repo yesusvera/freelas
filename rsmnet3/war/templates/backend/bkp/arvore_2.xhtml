@@ -1,0 +1,372 @@
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:pretty="http://ocpsoft.com/prettyfaces">
+
+ <h:head id="head">
+       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>RSM | Rede Social Multinível</title>
+		
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<meta content="" name="description" />
+		<meta content="" name="author" />
+<!-- <script async="" src="/templates/backend/arvore/analytics.js"></script><script src="/templates/backend/arvore/jquery.min.js"></script>  -->
+ 
+
+
+<script src="/templates/backend/arvore/bootstrap.js"></script> 
+<!-- <script src="/templates/backend/arvore/jquery.alphanumeric.pack.js"></script>  -->
+ 
+<!-- <script src="/templates/backend/arvore/angular.min.js"></script><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak{display:none;}ng\:form{display:block;}</style> -->
+<!-- <script src="/templates/backend/arvore/angular-resource.min.js"></script> -->
+<!-- <script src="/templates/backend/arvore/angular-locale_pt-br.js"></script> -->
+
+<!-- <script src="/templates/backend/arvore/ui-utils.min.js"></script> -->
+<!-- <script src="/templates/backend/arvore/mask.js"></script> -->
+ 
+
+
+<link type="text/css" rel="stylesheet" href="/templates/backend/arvore/common.css" />
+<!-- <script src="/templates/backend/arvore/angular-file-upload-shim.js"></script> -->
+<!-- <script src="/templates/backend/arvore/angular-file-upload.js"></script> -->
+ 
+
+<!-- <script src="/templates/backend/arvore/app.js"></script> -->
+<!-- <script src="/templates/backend/arvore/principalController.js"></script> -->
+<!-- <script src="/templates/backend/arvore/homeController.js"></script> -->
+<!-- <script src="/templates/backend/arvore/perfilController.js"></script> -->
+<!-- <script src="/templates/backend/arvore/suporteController.js"></script> -->
+<!-- <script src="/templates/backend/arvore/redeController.js"></script> -->
+<!-- <script src="/templates/backend/arvore/financeiroController.js"></script> -->
+<!-- <script src="/templates/backend/arvore/cadastroController.js"></script> -->
+<!-- <script src="/templates/backend/arvore/contratoController.js"></script> -->
+<!-- <script src="/templates/backend/arvore/enviarServicoController.js"></script> -->
+<!-- <script src="/templates/backend/arvore/enviarDeclaracaoController.js"></script> -->
+<!-- <script src="/templates/backend/arvore/enviarInstrumentoController.js"></script> -->
+<!-- <script src="/templates/backend/arvore/enviarDocumentosController.js"></script> -->
+<!-- <script src="/templates/backend/arvore/enviarCompravantesController.js"></script> -->
+
+
+<!-- <script src="/templates/backend/arvore/produtosController.js"></script> -->
+<!-- <script src="/templates/backend/arvore/vendaController.js"></script> -->
+<!-- <script src="/templates/backend/arvore/agendamentoController.js"></script> -->
+<!-- <script src="/templates/backend/arvore/gecadastroController.js"></script> -->
+<!-- <script src="/templates/backend/arvore/carcadastroController.js"></script> -->
+<!-- <script src="/templates/backend/arvore/upgradeController.js"></script> -->
+<!-- <script src="/templates/backend/arvore/upgradeGlobalController.js"></script> -->
+<!-- <script src="/templates/backend/arvore/upgradeCarController.js"></script> -->
+
+
+<link rel="stylesheet" href="/templates/backend/css/bootstrap.css" />
+<link rel="stylesheet" href="/templates/backend/css/font-awesome.min.css" />
+<link rel="stylesheet" href="/templates/backend/css/font.css" />
+<link rel="stylesheet" href="/templates/backend/css/style.css" /> <!-- posicionamentos da arvore -->
+<link rel="stylesheet" href="/templates/backend/css/plugin.css" />
+
+<!--[if lt IE 9]>
+    <script src="http://www.forlifenetwork.com/templates/backoffice/js/ie/respond.min.js"></script>
+    <script src="http://www.forlifenetwork.com/templates/backoffice/js/ie/html5.js"></script>
+    <script src="http://www.forlifenetwork.com/templates/backoffice/js/ie/excanvas.js"></script>
+  <![endif]-->
+
+</h:head>
+<h:body style="background-color:#fff">
+ 
+<div class="container ng-scope" ng-controller="principalController">
+
+ 
+
+<style>
+body {
+	font-family: arial; 
+}
+.preview {
+	width: 200px;
+	border: solid 1px #dedede;
+}
+#preview {
+	color: #cc0000;
+	font-size: 12px
+}
+.img-circle90{
+	
+	width:40px;
+	}
+</style>
+ 
+<div id="content">
+  <div class="main padder">
+    <div class="row h4_topo">
+      
+<div class="col-lg-10" ng-view=""> 
+<style type="text/css" class="ng-scope">
+		.img-circle60 {
+			width: 70px;
+		}
+		.img-circle30 {
+			width: 39px;
+		}
+		
+		.img-circle50 {
+			width: 60px;
+		}
+		
+		.img-circle45 {
+			width: 50px;
+		}
+</style>
+
+<div class="row ng-scope" ng-init="binaria()">
+  <div class="col-lg-12 interna" style="margin-left: -110px">
+    <div class="panel">
+      
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="panel" style="height:500px;">
+              <div class="panel-body" ng-hide="showLoaderFlag">
+                <div class="tree" style="margin-top: -29px;">
+                  <ul>
+                  
+                    <li>
+                    	<a href="#" style="display: none;"> 
+                    		<span class=""><!-- Root disabled -->
+                    			<img class="img-circle60"  alt="#{loginBean.userAuth.account.fullname}" title="#{loginBean.userAuth.account.fullname}" src="/templates/backend/arvore/0.jpg" /> 
+                    		</span> 
+                    	</a> 
+                    	<a href="#"> 
+                      		<span class=" "><!-- Root enabled --> 
+                      			<img class="img-circle60" alt="#{loginBean.userAuth.account.fullname}" title="#{loginBean.userAuth.account.fullname}" src="/templates/backend/arvore/2f_0.jpg" /> 
+                      		</span> 
+                      	</a>
+			                 	<ul><!-- 1.x disabled-->
+			                        <li> 
+			                        	<a href="#" style="display: none;"> 
+			                        		<span class="">
+			                        			<img class="img-circle50" alt="1.x"  title="1.x"  src="/templates/backend/arvore/0.jpg" />
+			                        		</span> 
+			                        	</a> 
+			                        	<a href="#"> <!-- 1.x enabled--> 
+				                        	<span>
+				                        		<img class="img-circle50" alt="1.x"  title="1.x"  src="/templates/backend/arvore/2f_0.jpg" />
+				                        	</span>
+				                        </a>
+					                        <ul>
+					                            <li> <!-- 1.1 disabled-->
+					                            	<a href="#" style="display: none;"> 
+						                            	<span class="">
+						                            		<img class="img-circle45" alt="1.1" title="1.1" src="/templates/backend/arvore/0.jpg" /> 
+						                            	</span> 
+					                            	</a> 
+					                            	<a href="#">  <!-- 1.1 enabled--> 
+					                              		<span class=""> 
+					                              			<img class="img-circle45" alt="1.1" title="1.1" src="/templates/backend/arvore/2f_0.jpg" /> 
+					                              		</span> </a>
+					                              <ul>
+					                                <li> 
+					                                	<a href="#" style="display: none;"> 
+					                                		<span class="">
+					                                				<img class="img-circle30" src="/templates/backend/arvore/0.jpg" /> 
+					                                		</span> 
+					                                	</a> 
+					                                	<a href="#"> 
+<!-- 						                                    <span class="badge bg-primary vendas ng-binding" style="display: block;"> Label </span>  -->
+						                                    <span class=""> 
+						                                    	<img class="img-circle30" alt="1.1.1" title="1.1.1" src="/templates/backend/arvore/2f_0.jpg" /> 
+						                                    </span> 
+					                                    </a>
+					                                  <ul>
+					                                    <li> 
+					                                    	<a href="#" style="display: none;"> 
+					                                    	<span class=""><!-- 1.1.1.1 disabled-->
+					                                    	<img class="img-circle30"  alt="1.1.1.1" title="1.1.1.1" src="/templates/backend/arvore/0.jpg" /> 
+					                                    	</span> 
+					                                    	</a> 
+					                                    	<a href="#"> 
+					                                    		<span class="ng-binding"></span>
+					                                      		<span class="badge bg-primary vendas ng-binding" style="display: none;"> 
+					                                      		</span> 
+					                                      		<span class=""> <!-- 1.1.1.1 enabled-->
+					                                      		<img class="img-circle30" alt="1.1.1.1" title="1.1.1.1" src="/templates/backend/arvore/2f_0.jpg" /> 
+					                                      		</span> 
+					                                      	</a> 
+					                                    </li>
+					                                    <li> 
+					                                    	<a href="#" style="display: block;">
+					                                    		<span class=""> <!-- 1.1.1.2 enabled-->
+					                                    			<img class="img-circle30"  alt="1.1.1.2" title="1.1.1.2"  src="/templates/backend/arvore/0.jpg" />
+					                                    		</span> 
+					                                    	</a> 
+					                                    </li>
+					                                    
+					                                  </ul>
+					                                </li>
+					                                <li> 
+					                                	<a href="#"> 
+					                                		<span class=""><!-- 1.1.2 disabled -->
+					                                			<img class="img-circle30"  alt="1.1.2" title="1.1.2"  src="/templates/backend/arvore/0.jpg" /> 
+					                                		</span> 
+					                                	</a> 
+					                                	<a href="#" style="display: none;"> 
+						                                  	<span class="badge bg-primary vendas ng-binding" style="display: none;"></span> 
+						                                  	<span class=""> 
+						                                  	<img class="img-circle30" alt="1.1.1.2" title="1.1.1.2" src="/templates/backend/arvore/0_0.jpgxx" /> </span> 
+					                                  	</a>
+					                                  <ul>
+					                                    <li> 
+					                                    	<a href="#">
+						                                    	<span class="">
+						                                    		<img class="img-circle30" src="/templates/backend/arvore/0.jpg####" />
+						                                    	</span> 
+					                                    	</a> 
+					                                    	<a href="#" style="display: block;"> 
+						                                    	<span class="ng-binding">0</span>
+						                                      	<div style="clear:both"></div>
+						                                      	<span class="badge bg-primary vendas ng-binding" style="display: block;"> 0
+						                                      	</span> 
+						                                      	<span class=""> 
+						                                      	<img class="img-circle30" alt="xxxxxxxx" title="xxxxxxxxx" src="/templates/backend/arvore/0_0.jpg" /> </span> 
+					                                      	</a> 
+					                                    </li>
+					                                    <li> 
+					                                    	<a href="#"> 
+						                                    	<span class="">
+						                                    	<img class="img-circle30" src="/templates/backend/arvore/0.jpg" /> </span> 
+					                                    	</a> 
+					                                    	<a href="#" style="display: block;"> 
+					                                    	<span class="ng-binding">0</span>
+					                                      	<div style="clear:both"></div>
+					                                      	<span ng-show="registros.d4.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> 0</span> 
+					                                      	<span class=""> <img class="img-circle30" alt="zzzzzzzzzzzz" title="zzzzzzzzzzzzzz" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0_0.jpg" src="/templates/backend/arvore/0_0.jpg" /> </span> </a> </li>
+					                                  </ul>
+					                                </li>
+					                              </ul>
+					                            </li>
+					                            <li> <a ng-hide="registros.b2.vaga" href="http://www.forlifenetwork.com/backoffice/#"> <span class=""><img class="img-circle45" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0.jpg" src="/templates/backend/arvore/0.jpg" /> </span> </a> <a ng-show="registros.b2.vaga" href="http://www.forlifenetwork.com/backoffice/#/rede/binaria/0" style="display: none;"> <span class="ng-binding">0</span>
+					                              <div style="clear:both"></div>
+					                              <span ng-show="registros.b2.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> 0</span> <span class=""> <img data-toggle="popover" data-html="true" data-trigger="hover" data-placement="top" data-content="&lt;div style=width:200px&gt;&lt;b&gt;#0&lt;/b&gt;&lt;br&gt;Esquerda: [0] Direita: [0]&lt;/div&gt;" data-original-title="Informações do usuário" class="img-circle45" alt="0" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0_0.jpg" src="/templates/backend/arvore/0_0.jpg" /> </span> </a>
+					                              <ul>
+					                                <li> <a ng-hide="registros.c3.vaga" href="http://www.forlifenetwork.com/backoffice/#"> <span class=""><img class="img-circle30" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0.jpg" src="/templates/backend/arvore/0.jpg" /> </span> </a> <a ng-show="registros.c3.vaga" href="http://www.forlifenetwork.com/backoffice/#/rede/binaria/0" style="display: none;"> <span class="ng-binding">0</span>
+					                                  <div style="clear:both"></div>
+					                                  <span ng-show="registros.c3.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> 0</span> <span class=""> <img data-toggle="popover" data-html="true" data-trigger="hover" data-placement="top" data-content="&lt;div style=width:200px&gt;&lt;b&gt;#0&lt;/b&gt;&lt;br&gt;Esquerda: [0] Direita: [0]&lt;/div&gt;" data-original-title="Informações do usuário" class="img-circle30" alt="0" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0_0.jpg" src="/templates/backend/arvore/0_0.jpg" /> </span> </a>
+					                                  <ul>
+					                                    <li> <a ng-hide="registros.d5.vaga" href="http://www.forlifenetwork.com/backoffice/#"> <span class=""><img class="img-circle30" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0.jpg" src="/templates/backend/arvore/0.jpg" /> </span> </a> <a ng-show="registros.d5.vaga" href="http://www.forlifenetwork.com/backoffice/#/rede/binaria/0" style="display: none;"> <span class="ng-binding">0</span>
+					                                      <div style="clear:both"></div>
+					                                      <span ng-show="registros.d5.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> 0</span> <span class=""> <img data-toggle="popover" data-html="true" data-trigger="hover" data-placement="top" data-content="&lt;div style=width:200px&gt;&lt;b&gt;#0&lt;/b&gt;&lt;br&gt;Esquerda: [0] Direita: [0]&lt;/div&gt;" data-original-title="Informações do usuário" class="img-circle30" alt="0" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0_0.jpg" src="/templates/backend/arvore/0_0.jpg" /> </span> </a> </li>
+					                                    <li> <a ng-hide="registros.d6.vaga" href="http://www.forlifenetwork.com/backoffice/#"> <span class=""><img class="img-circle30" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0.jpg" src="/templates/backend/arvore/0.jpg" /> </span> </a> <a ng-show="registros.d6.vaga" href="http://www.forlifenetwork.com/backoffice/#/rede/binaria/0" style="display: none;"> <span class="ng-binding">0</span>
+					                                      <div style="clear:both"></div>
+					                                      <span ng-show="registros.d6.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> 0</span> <span class=""> <img data-toggle="popover" data-html="true" data-trigger="hover" data-placement="top" data-content="&lt;div style=width:200px&gt;&lt;b&gt;#0&lt;/b&gt;&lt;br&gt;Esquerda: [0] Direita: [0]&lt;/div&gt;" data-original-title="Informações do usuário" class="img-circle30" alt="0" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0_0.jpg" src="/templates/backend/arvore/0_0.jpg" /> </span> </a> </li>
+					                                  </ul>
+					                                </li>
+					                                <li> <a ng-hide="registros.c4.vaga" href="http://www.forlifenetwork.com/backoffice/#"> <span class=""><img class="img-circle30" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0.jpg" src="/templates/backend/arvore/0.jpg" /> </span> </a> <a ng-show="registros.c4.vaga" href="http://www.forlifenetwork.com/backoffice/#/rede/binaria/0" style="display: none;"> <span class="ng-binding">0</span>
+					                                  <div style="clear:both"></div>
+					                                  <span ng-show="registros.c4.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> 0</span> <span class=""> <img data-toggle="popover" data-html="true" data-trigger="hover" data-placement="top" data-content="&lt;div style=width:200px&gt;&lt;b&gt;#0&lt;/b&gt;&lt;br&gt;Esquerda: [0] Direita: [0]&lt;/div&gt;" data-original-title="Informações do usuário" class="img-circle30" alt="0" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0_0.jpg" src="/templates/backend/arvore/0_0.jpg" /> </span> </a>
+					                                  <ul>
+					                                    <li> <a ng-hide="registros.d7.vaga" href="http://www.forlifenetwork.com/backoffice/#"> <span class=""><img class="img-circle30" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0.jpg" src="/templates/backend/arvore/0.jpg" /> </span> </a> <a ng-show="registros.d7.vaga" href="http://www.forlifenetwork.com/backoffice/#/rede/binaria/0" style="display: none;"> <span class="ng-binding">0</span>
+					                                      <div style="clear:both"></div>
+					                                      <span ng-show="registros.d7.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> 0</span> <span class=""> <img data-toggle="popover" data-html="true" data-trigger="hover" data-placement="top" data-content="&lt;div style=width:200px&gt;&lt;b&gt;#0&lt;/b&gt;&lt;br&gt;Esquerda: [0] Direita: [0]&lt;/div&gt;" data-original-title="Informações do usuário" class="img-circle30" alt="0" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0_0.jpg" src="/templates/backend/arvore/0_0.jpg" /> </span> </a> </li>
+					                                    <li> <a ng-hide="registros.d8.vaga" href="http://www.forlifenetwork.com/backoffice/#"> <span class=""><img class="img-circle30" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0.jpg" src="/templates/backend/arvore/0.jpg" /> </span> </a> <a ng-show="registros.d8.vaga" href="http://www.forlifenetwork.com/backoffice/#/rede/binaria/0" style="display: none;"> <span class="ng-binding">0</span>
+					                                      <div style="clear:both"></div>
+					                                      <span ng-show="registros.d8.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> 0</span> <span class=""> <img data-toggle="popover" data-html="true" data-trigger="hover" data-placement="top" data-content="&lt;div style=width:200px&gt;&lt;b&gt;#0&lt;/b&gt;&lt;br&gt;Esquerda: [0] Direita: [0]&lt;/div&gt;" data-original-title="Informações do usuário" class="img-circle30" alt="0" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0_0.jpg" src="/templates/backend/arvore/0_0.jpg" /> </span> </a> </li>
+					                                  </ul>
+					                                </li>
+					                              </ul>
+					                            </li>
+					                        </ul>
+			                        </li>
+			                        <li> <a ng-hide="registros.a2.vaga" href="http://www.forlifenetwork.com/backoffice/#" style="display: none;"> <span class=""><img class="img-circle50" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0.jpg" src="/templates/backend/arvore/0.jpg" /> </span> </a> <a ng-show="registros.a2.vaga" href="http://www.forlifenetwork.com/backoffice/#/rede/binaria/e36286b94d3c219f414e0427e5f73aa5"> <span class="ng-binding"></span>
+			                          <div style="clear:both"></div>
+			                          <span ng-show="registros.a2.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> </span> <span class=""> <img data-toggle="popover" data-html="true" data-trigger="hover" data-placement="top" data-content="&lt;div style=width:200px&gt;&lt;b&gt;#rezende&lt;/b&gt;&lt;br&gt;Esquerda: [4] Direita: [9]&lt;/div&gt;" data-original-title="Informações do usuário" class="img-circle50" alt="rezende" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/2f_1.jpg" src="/templates/backend/arvore/2f_1.jpg" /> </span> </a>
+			                          <ul>
+			                            <li> <a ng-hide="registros.b3.vaga" href="http://www.forlifenetwork.com/backoffice/#" style="display: none;"> <span class=""><img class="img-circle45" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0.jpg" src="/templates/backend/arvore/0.jpg" /> </span> </a> <a ng-show="registros.b3.vaga" href="http://www.forlifenetwork.com/backoffice/#/rede/binaria/d3802b1dc0d80d8a3c8ccc6ccc068e7c"> <span class="ng-binding"></span>
+			                              <div style="clear:both"></div>
+			                              <span ng-show="registros.b3.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> </span> <span class=""> <img data-toggle="popover" data-html="true" data-trigger="hover" data-placement="top" data-content="&lt;div style=width:200px&gt;&lt;b&gt;#ivo&lt;/b&gt;&lt;br&gt;Esquerda: [3] Direita: [0]&lt;/div&gt;" data-original-title="Informações do usuário" class="img-circle45" alt="ivo" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/1g_0.jpg" src="/templates/backend/arvore/1g_0.jpg" /> </span> </a>
+			                              <ul>
+			                                <li> <a ng-hide="registros.c5.vaga" href="http://www.forlifenetwork.com/backoffice/#" style="display: none;"> <span class=""><img class="img-circle30" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0.jpg" src="/templates/backend/arvore/0.jpg" /> </span> </a> <a ng-show="registros.c5.vaga" href="http://www.forlifenetwork.com/backoffice/#/rede/binaria/63ce12dcf1ede17589befd56bb5281a5"> <span class="ng-binding"></span>
+			                                  <div style="clear:both"></div>
+			                                  <span ng-show="registros.c5.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> </span> <span class=""> <img data-toggle="popover" data-html="true" data-trigger="hover" data-placement="top" data-content="&lt;div style=width:200px&gt;&lt;b&gt;#natalia&lt;/b&gt;&lt;br&gt;Esquerda: [1] Direita: [1]&lt;/div&gt;" data-original-title="Informações do usuário" class="img-circle30" alt="natalia" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/2f_0.jpg" src="/templates/backend/arvore/2f_0.jpg" /> </span> </a>
+			                                  <ul>
+			                                    <li><a ng-hide="registros.d9.vaga" href="http://www.forlifenetwork.com/backoffice/#" style="display: none;"> <span class=""><img class="img-circle30" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0.jpg" src="/templates/backend/arvore/0.jpg" /> </span> </a> <a ng-show="registros.d9.vaga" href="http://www.forlifenetwork.com/backoffice/#/rede/binaria/258e130476290221f597c56d351224b6"> <span class="ng-binding"></span>
+			                                      <div style="clear:both"></div>
+			                                      <span ng-show="registros.d9.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> </span> <span class=""> <img data-toggle="popover" data-html="true" data-trigger="hover" data-placement="top" data-content="&lt;div style=width:200px&gt;&lt;b&gt;#risaldosilva&lt;/b&gt;&lt;br&gt;Esquerda: [0] Direita: [0]&lt;/div&gt;" data-original-title="Informações do usuário" class="img-circle30" alt="risaldosilva" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/1g_0.jpg" src="/templates/backend/arvore/1g_0.jpg" /> </span> </a> </li>
+			                                    <li> <a ng-hide="registros.d10.vaga" href="http://www.forlifenetwork.com/backoffice/#" style="display: none;"> <span class=""><img class="img-circle30" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0.jpg" src="/templates/backend/arvore/0.jpg" /> </span> </a> <a ng-show="registros.d10.vaga" href="http://www.forlifenetwork.com/backoffice/#/rede/binaria/48df7b8e8d586a55cf3e7054a4c85b30"> <span class="ng-binding"></span>
+			                                      <div style="clear:both"></div>
+			                                      <span ng-show="registros.d10.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> </span> <span class=""> <img data-toggle="popover" data-html="true" data-trigger="hover" data-placement="top" data-content="&lt;div style=width:200px&gt;&lt;b&gt;#paulolima&lt;/b&gt;&lt;br&gt;Esquerda: [0] Direita: [0]&lt;/div&gt;" data-original-title="Informações do usuário" class="img-circle30" alt="paulolima" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/1g_0.jpg" src="/templates/backend/arvore/1g_0.jpg" /> </span> </a> </li>
+			                                  </ul>
+			                                </li>
+			                                <li> <a ng-hide="registros.c6.vaga" href="http://www.forlifenetwork.com/backoffice/#"> <span class=""><img class="img-circle30" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0.jpg" src="/templates/backend/arvore/0.jpg" /> </span> </a> <a ng-show="registros.c6.vaga" href="http://www.forlifenetwork.com/backoffice/#/rede/binaria/0" style="display: none;"> <span class="ng-binding">0</span>
+			                                  <div style="clear:both"></div>
+			                                  <span ng-show="registros.c6.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> 0</span> <span class=""> <img data-toggle="popover" data-html="true" data-trigger="hover" data-placement="top" data-content="&lt;div style=width:200px&gt;&lt;b&gt;#0&lt;/b&gt;&lt;br&gt;Esquerda: [0] Direita: [0]&lt;/div&gt;" data-original-title="Informações do usuário" class="img-circle30" alt="0" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0_0.jpg" src="/templates/backend/arvore/0_0.jpg" /> </span> </a>
+			                                  <ul>
+			                                    <li> <a ng-hide="registros.d11.vaga" href="http://www.forlifenetwork.com/backoffice/#"> <span class=""><img class="img-circle30" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0.jpg" src="/templates/backend/arvore/0.jpg" /> </span> </a> <a ng-show="registros.d11.vaga" href="http://www.forlifenetwork.com/backoffice/#/rede/binaria/0" style="display: none;"> <span class="ng-binding">0</span>
+			                                      <div style="clear:both"></div>
+			                                      <span ng-show="registros.d11.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> 0</span> <span class=""> <img data-toggle="popover" data-html="true" data-trigger="hover" data-placement="top" data-content="&lt;div style=width:200px&gt;&lt;b&gt;#0&lt;/b&gt;&lt;br&gt;Esquerda: [0] Direita: [0]&lt;/div&gt;" data-original-title="Informações do usuário" class="img-circle30" alt="0" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0_0.jpg" src="/templates/backend/arvore/0_0.jpg" /> </span> </a> </li>
+			                                    <li> <a ng-hide="registros.d12.vaga" href="http://www.forlifenetwork.com/backoffice/#"> <span class=""><img class="img-circle30" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0.jpg" src="/templates/backend/arvore/0.jpg" /> </span> </a> <a ng-show="registros.d12.vaga" href="http://www.forlifenetwork.com/backoffice/#/rede/binaria/0" style="display: none;"> <span class="ng-binding">0</span>
+			                                      <div style="clear:both"></div>
+			                                      <span ng-show="registros.d12.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> 0</span> <span class=""> <img data-toggle="popover" data-html="true" data-trigger="hover" data-placement="top" data-content="&lt;div style=width:200px&gt;&lt;b&gt;#0&lt;/b&gt;&lt;br&gt;Esquerda: [0] Direita: [0]&lt;/div&gt;" data-original-title="Informações do usuário" class="img-circle30" alt="0" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0_0.jpg" src="/templates/backend/arvore/0_0.jpg" /> </span> </a> </li>
+			                                  </ul>
+			                                </li>
+			                              </ul>
+			                            </li>
+			                            <li> <a ng-hide="registros.b4.vaga" href="http://www.forlifenetwork.com/backoffice/#" style="display: none;"> <span class=""><img class="img-circle45" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0.jpg" src="/templates/backend/arvore/0.jpg" /> </span> </a> <a ng-show="registros.b4.vaga" href="http://www.forlifenetwork.com/backoffice/#/rede/binaria/33ef701c8059391708f1c3ddbe9f1f81"> <span class="ng-binding"></span>
+			                              <div style="clear:both"></div>
+			                              <span ng-show="registros.b4.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> </span> <span class=""> <img data-toggle="popover" data-html="true" data-trigger="hover" data-placement="top" data-content="&lt;div style=width:200px&gt;&lt;b&gt;#soniacardoso&lt;/b&gt;&lt;br&gt;Esquerda: [1] Direita: [7]&lt;/div&gt;" data-original-title="Informações do usuário" class="img-circle45" alt="soniacardoso" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/1g_0.jpg" src="/templates/backend/arvore/1g_0.jpg" /> </span> </a>
+			                              <ul>
+			                                <li> <a ng-hide="registros.c7.vaga" href="http://www.forlifenetwork.com/backoffice/#" style="display: none;"> <span class=""><img class="img-circle30" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0.jpg" src="/templates/backend/arvore/0.jpg" /> </span> </a> <a ng-show="registros.c7.vaga" href="http://www.forlifenetwork.com/backoffice/#/rede/binaria/f9beb1e831faf6aaec2a5cecaf1af293"> <span class="ng-binding"></span>
+			                                  <div style="clear:both"></div>
+			                                  <span ng-show="registros.c7.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> </span> <span class=""> <img data-toggle="popover" data-html="true" data-trigger="hover" data-placement="top" data-content="&lt;div style=width:200px&gt;&lt;b&gt;#leomartb&lt;/b&gt;&lt;br&gt;Esquerda: [0] Direita: [0]&lt;/div&gt;" data-original-title="Informações do usuário" class="img-circle30" alt="leomartb" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/1g_0.jpg" src="/templates/backend/arvore/1g_0.jpg" /> </span> </a>
+			                                  <ul>
+			                                    <li> <a ng-hide="registros.d13.vaga" href="http://www.forlifenetwork.com/backoffice/#"> <span class=""><img class="img-circle30" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0.jpg" src="/templates/backend/arvore/0.jpg" /> </span> </a> <a ng-show="registros.d13.vaga" href="http://www.forlifenetwork.com/backoffice/#/rede/binaria/0" style="display: none;"> <span class="ng-binding">0</span>
+			                                      <div style="clear:both"></div>
+			                                      <span ng-show="registros.d13.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> 0</span> <span class=""> <img data-toggle="popover" data-html="true" data-trigger="hover" data-placement="top" data-content="&lt;div style=width:200px&gt;&lt;b&gt;#0&lt;/b&gt;&lt;br&gt;Esquerda: [0] Direita: [0]&lt;/div&gt;" data-original-title="Informações do usuário" class="img-circle30" alt="0" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0_0.jpg" src="/templates/backend/arvore/0_0.jpg" /> </span> </a> </li>
+			                                    <li> <a ng-hide="registros.d14.vaga" href="http://www.forlifenetwork.com/backoffice/#"> <span class=""><img class="img-circle30" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0.jpg" src="/templates/backend/arvore/0.jpg" /> </span> </a> <a ng-show="registros.d14.vaga" href="http://www.forlifenetwork.com/backoffice/#/rede/binaria/0" style="display: none;"> <span class="ng-binding">0</span>
+			                                      <div style="clear:both"></div>
+			                                      <span ng-show="registros.d14.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> 0</span> <span class=""> <img data-toggle="popover" data-html="true" data-trigger="hover" data-placement="top" data-content="&lt;div style=width:200px&gt;&lt;b&gt;#0&lt;/b&gt;&lt;br&gt;Esquerda: [0] Direita: [0]&lt;/div&gt;" data-original-title="Informações do usuário" class="img-circle30" alt="0" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0_0.jpg" src="/templates/backend/arvore/0_0.jpg" /> </span> </a> </li>
+			                                  </ul>
+			                                </li>
+			                                <li> <a ng-hide="registros.c8.vaga" href="http://www.forlifenetwork.com/backoffice/#" style="display: none;"> <span class=""><img class="img-circle30" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0.jpg" src="/templates/backend/arvore/0.jpg" /> </span> </a> <a ng-show="registros.c8.vaga" href="http://www.forlifenetwork.com/backoffice/#/rede/binaria/94ef7214c4a90790186e255304f8fd1f"> <span class="ng-binding"></span>
+			                                  <div style="clear:both"></div>
+			                                  <span ng-show="registros.c8.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> </span> <span class=""> <img data-toggle="popover" data-html="true" data-trigger="hover" data-placement="top" data-content="&lt;div style=width:200px&gt;&lt;b&gt;#gadelha&lt;/b&gt;&lt;br&gt;Esquerda: [4] Direita: [2]&lt;/div&gt;" data-original-title="Informações do usuário" class="img-circle30" alt="gadelha" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/1g_0.jpg" src="/templates/backend/arvore/1g_0.jpg" /> </span> </a>
+			                                  <ul>
+			                                    <li> <a ng-hide="registros.d15.vaga" href="http://www.forlifenetwork.com/backoffice/#" style="display: none;"> <span class=""><img class="img-circle30" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0.jpg" src="/templates/backend/arvore/0.jpg" /> </span> </a> <a ng-show="registros.d15.vaga" href="http://www.forlifenetwork.com/backoffice/#/rede/binaria/bf5cd8b2509011b9502a72296edc14a0"> <span class="ng-binding"></span>
+			                                      <div style="clear:both"></div>
+			                                      <span ng-show="registros.d15.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> </span> <span class=""> <img data-toggle="popover" data-html="true" data-trigger="hover" data-placement="top" data-content="&lt;div style=width:200px&gt;&lt;b&gt;#omarmarra&lt;/b&gt;&lt;br&gt;Esquerda: [1] Direita: [2]&lt;/div&gt;" data-original-title="Informações do usuário" class="img-circle30" alt="omarmarra" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/1g_0.jpg" src="/templates/backend/arvore/1g_0.jpg" /> </span> </a> </li>
+			                                    <li> <a ng-hide="registros.d16.vaga" href="http://www.forlifenetwork.com/backoffice/#" style="display: none;"> <span class=""><img class="img-circle30" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/0.jpg" src="/templates/backend/arvore/0.jpg" /> </span> </a> <a ng-show="registros.d16.vaga" href="http://www.forlifenetwork.com/backoffice/#/rede/binaria/685ac8cadc1be5ac98da9556bc1c8d9e"> <span class="ng-binding"></span>
+			                                      <div style="clear:both"></div>
+			                                      <span ng-show="registros.d16.vendas" class="badge bg-primary vendas ng-binding" style="display: none;"> </span> <span class=""> <img data-toggle="popover" data-html="true" data-trigger="hover" data-placement="top" data-content="&lt;div style=width:200px&gt;&lt;b&gt;#pedrocastro&lt;/b&gt;&lt;br&gt;Esquerda: [0] Direita: [1]&lt;/div&gt;" data-original-title="Informações do usuário" class="img-circle30" alt="pedrocastro" ng-src="http://www.forlifenetwork.com/templates/backoffice/icones/1g_0.jpg" src="/templates/backend/arvore/1g_0.jpg" /> </span> </a> </li>
+			                                  </ul>
+			                                </li>
+			                              </ul>
+			                            </li>
+			                          </ul>
+			                        </li>
+			                    </ul>
+                  
+                    </li>
+                  </ul>
+                  
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        
+    	</div>
+    	</div>
+    	</div>
+    	</div>
+    	</div>
+    	</div>
+    	</div>
+    	</div>
+    	</div>
+    	
+</h:body>
+</html>

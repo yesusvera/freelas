@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pexinput="http://poupex.com.br/jsf/input"
+	xmlns:cc="http://java.sun.com/jsf/composite/poupex"
+	xmlns:pex="http://poupex.com.br/jsf/input"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/paginaExterna.xhtml">
+
+	<ui:define name="corpo">
+		<p:panel styleClass="text-align:center;">
+			<h3>SOLICITAR SENHA</h3>
+			<p:spacer />
+			<h6>Preencha o campo abaixo e solicite sua senha</h6>
+			<p:spacer />
+			<div class="row">
+				<div class="col-md-3">
+					<p:inputText id="loginId" styleClass="form-control input-sm" 
+						value="#{solicitarSenhaController.view.loginEstrangeiro.login}"
+						requiredMessage="O campo nome é obrigatório" placeholder="Login"/>
+				</div>
+			</div>
+			<p:spacer />
+			<p:spacer />
+			<h6>Preencha conforme o e-mail que foi cadastrado no Sistema</h6>
+			<p:spacer />
+			<div class="row">
+				<div class="col-md-3">
+					<p:inputText id="emailId" styleClass="form-control input-sm"
+						value="#{solicitarSenhaController.view.estrangeiro.emailPrincipal}"
+						requiredMessage="O campo nome é obrigatório" placeholder="email@email.com" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<p:commandButton action="#{solicitarSenhaController.verificaLogin()}" value="Solicitar" ajax="false" />
+				</div>
+			</div>
+		</p:panel>
+	</ui:define>
+</ui:composition>

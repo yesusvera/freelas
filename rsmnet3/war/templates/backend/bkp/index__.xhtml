@@ -1,0 +1,1479 @@
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:pretty="http://ocpsoft.com/prettyfaces">
+   
+ <h:head id="head">
+       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>RSM | Rede Social Multinível</title>
+		
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<meta content="" name="description" />
+		<meta content="" name="author" />
+		
+		<!-- BEGIN GLOBAL MANDATORY STYLES -->
+		<link href="../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+		<link href="../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+		<link href="../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+		<link href="../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+		<link href="../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+
+	
+	<!-- END GLOBAL MANDATORY STYLES -->
+	<!-- BEGIN PAGE LEVEL STYLES -->
+	<link href="../../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css"/>
+	<link href="../../assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css"/>
+	<!-- END PAGE LEVEL STYLES -->
+	<!-- BEGIN THEME STYLES -->
+	<link href="../../assets/global/css/components.css" rel="stylesheet" type="text/css"/>
+	<link href="../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+	<link href="../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+	<link id="style_color" href="../../assets/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css"/>
+	<link href="../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+	<!-- END THEME STYLES -->
+	<link rel="shortcut icon" href="../../assets/admin/layout/img/favicon_rsm.png"/>
+</h:head>
+
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
+<!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
+<!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
+<!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
+<!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
+<!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
+<!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
+<h:body class="page-header-fixed page-quick-sidebar-over-content ">
+<!-- BEGIN HEADER -->
+<div class="page-header navbar navbar-fixed-top">
+	<!-- BEGIN HEADER INNER -->
+	<div class="page-header-inner">
+		<!-- BEGIN LOGO -->
+		<div class="page-logo">
+			<a href="index.html">
+			<img src="../../assets/admin/layout/img/logo.png" alt="logo" class="logo-default" style="margin-top:-3px;"/>
+			</a>
+			<div class="menu-toggler sidebar-toggler hide">
+				<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+			</div>
+		</div>
+		<!-- END LOGO -->
+		<!-- BEGIN RESPONSIVE MENU TOGGLER -->
+		
+		<!-- END RESPONSIVE MENU TOGGLER -->
+		<!-- BEGIN TOP NAVIGATION MENU -->
+		<div class="top-menu">
+			<h:form id="form1">
+			<ul class="nav navbar-nav pull-right">
+				
+				
+				<!-- BEGIN USER LOGIN DROPDOWN -->
+				<li class="dropdown dropdown-user">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+<!-- 					<img alt="" class="img-circle" src="../../assets/admin/layout/img/avatar3_small.jpg"/> -->
+					<span class="username"> #{loginBean.userAuth.account.fullname} </span>
+					
+					</a>
+					
+				</li>
+				<!-- END USER LOGIN DROPDOWN -->
+				<!-- BEGIN QUICK SIDEBAR TOGGLER -->
+				
+				<li class="dropdown dropdown-quick-sidebar-toggler" >
+					<h:commandLink id="lnkLogout" name="lnkLogout" action="#{loginBean.efetuarLogout()}" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+						 <i class="icon-logout" style="color:#ffffff;"></i> 
+					</h:commandLink>
+				</li>
+				
+				<!-- END QUICK SIDEBAR TOGGLER -->
+			</ul>
+			</h:form>
+		</div>
+		<!-- END TOP NAVIGATION MENU -->
+	</div>
+	<!-- END HEADER INNER -->
+</div>
+<!-- END HEADER -->
+<div class="clearfix">
+</div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+	<!-- BEGIN SIDEBAR -->
+	
+	<!-- BEGIN CONTENT -->
+	
+		<div class="page-content">
+			<!-- BEGIN PAGE HEADER-->
+			<div class="row">
+				<div class="col-md-12">
+					<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+					
+					
+					<!-- END PAGE TITLE & BREADCRUMB-->
+				</div>
+			</div>
+			<!-- END PAGE HEADER-->
+			<!-- BEGIN PAGE CONTENT-->
+			<div class="row profile">
+				<div class="col-md-12">
+					<!--BEGIN TABS-->
+					<div class="tabbable tabbable-custom tabbable-full-width">
+						
+						<div class="tab-content">
+							<div class="tab-pane active" id="tab_1_1">
+								<div class="row">
+									<div class="col-md-3">
+										<ul class="list-unstyled profile-nav">
+											<li>
+												<a href="#">
+												Validade da ativação  (Dias)<span>
+												320 </span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+												Indicados diretos <span>
+												10 </span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+												Total da rede <span>
+												18 </span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+												Tickets gerados <span>
+												4 </span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+												Tickets utilizados <span>
+												2 </span>
+												</a>
+											</li>
+											
+										</ul>
+									</div>
+									<div class="col-md-9">
+										
+										<!--end row-->
+										<div class="tabbable tabbable-custom tabbable-custom-profile">
+											<ul class="nav nav-tabs"  >
+												
+												<li  class="active">
+													<a href="#tab_1_11" data-toggle="tab">
+													Rede </a>
+												</li>
+												
+												<li>
+												<a href="#tab_1_22" data-toggle="tab">
+													Notificações </a>
+												</li>
+												
+												<li>
+												<a href="#tab_1_22_a" data-toggle="tab">
+													Conta
+ 												</a>
+												</li>
+												
+												<li>
+												<a href="#tab_1_22_b" data-toggle="tab">
+													Ajuda 
+ 												</a>
+												</li>
+												
+												
+											</ul>
+										
+										<div class="tab-content">
+												<div class="tab-pane active" id="tab_1_11">
+													<img alt="" src="../../assets/admin/layout/img/arvore.png" class="img-responsive" style=""/>
+													<div style="border:2px #fff solid; width:800px; margin-left:6%; ">
+													
+													<div style="border:2px #fff solid; width:300px; margin-left:7%; ">
+													
+													<img alt="" src="../../assets/admin/layout/img/avatar.png" class="img-responsive" style="margin-left: 92%; margin-top: 10px;" />
+													<img alt="" src="../../assets/admin/layout/img/avatar_b.png" class="img-responsive" style="margin-left: -7%; margin-top: -46px;" />
+													<img alt="" src="../../assets/admin/layout/img/avatar_a.png" class="img-responsive" style="margin-top: 40px; margin-left: 42%;" />
+												
+													
+													</div>
+													
+													
+													
+													<div style="border:2px #fff solid; width:300px;  float: right; margin-top:-128px; margin-right:8%;  ">
+													
+													<img alt="" src="../../assets/admin/layout/img/avatar.png" class="img-responsive" style="margin-left: 92%; margin-top: 10px;" />
+													<img alt="" src="../../assets/admin/layout/img/avatar.png" class="img-responsive" style="margin-left: -7%; margin-top: -46px;" />
+													<img alt="" src="../../assets/admin/layout/img/avatar_b.png" class="img-responsive" style="margin-top: 40px; margin-left: 42%;" />
+													
+													</div>
+													
+													
+													
+													<div style="border:2px #fff solid; height:200px; width:450px; margin-left:165px;">
+													<img alt="" src="../../assets/admin/layout/img/" class="img-responsive" style="margin-top: -79px; margin-left: 56%;" />
+													
+													<img alt="" src="../../assets/admin/layout/img/avatar_b.png" class="img-responsive" style="margin-left: 44%; margin-top: 4px;" />
+												
+													</div>
+												
+													</div>
+												
+												</div>
+												<!--tab-pane-->
+												<div class="tab-pane" id="tab_1_22">
+													<div class="tab-pane active" id="tab_1_1_1">
+														<div class="scroller" data-height="350px" data-always-visible="1" data-rail-visible1="1">
+															<ul class="feeds">
+																<li>
+																	<div class="col1">
+																		<div class="cont">
+																			<div class="cont-col1">
+																				<div class="label label-success">
+																					<i class="fa fa-bell-o"></i>
+																				</div>
+																			</div>
+																			<div class="cont-col2">
+																				<div class="desc">
+																					 You have 4 pending tasks. <span class="label label-danger label-sm">
+																					Take action <i class="fa fa-share"></i>
+																					</span>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col2">
+																		<div class="date">
+																			 Just now
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<a href="#">
+																	<div class="col1">
+																		<div class="cont">
+																			<div class="cont-col1">
+																				<div class="label label-success">
+																					<i class="fa fa-bell-o"></i>
+																				</div>
+																			</div>
+																			<div class="cont-col2">
+																				<div class="desc">
+																					 New version v1.4 just lunched!
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col2">
+																		<div class="date">
+																			 20 mins
+																		</div>
+																	</div>
+																	</a>
+																</li>
+																<li>
+																	<div class="col1">
+																		<div class="cont">
+																			<div class="cont-col1">
+																				<div class="label label-danger">
+																					<i class="fa fa-bolt"></i>
+																				</div>
+																			</div>
+																			<div class="cont-col2">
+																				<div class="desc">
+																					 Database server #12 overloaded. Please fix the issue.
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col2">
+																		<div class="date">
+																			 24 mins
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<div class="col1">
+																		<div class="cont">
+																			<div class="cont-col1">
+																				<div class="label label-info">
+																					<i class="fa fa-bullhorn"></i>
+																				</div>
+																			</div>
+																			<div class="cont-col2">
+																				<div class="desc">
+																					 New order received. Please take care of it.
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col2">
+																		<div class="date">
+																			 30 mins
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<div class="col1">
+																		<div class="cont">
+																			<div class="cont-col1">
+																				<div class="label label-success">
+																					<i class="fa fa-bullhorn"></i>
+																				</div>
+																			</div>
+																			<div class="cont-col2">
+																				<div class="desc">
+																					 New order received. Please take care of it.
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col2">
+																		<div class="date">
+																			 40 mins
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<div class="col1">
+																		<div class="cont">
+																			<div class="cont-col1">
+																				<div class="label label-warning">
+																					<i class="fa fa-plus"></i>
+																				</div>
+																			</div>
+																			<div class="cont-col2">
+																				<div class="desc">
+																					 New user registered.
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col2">
+																		<div class="date">
+																			 1.5 hours
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<div class="col1">
+																		<div class="cont">
+																			<div class="cont-col1">
+																				<div class="label label-success">
+																					<i class="fa fa-bell-o"></i>
+																				</div>
+																			</div>
+																			<div class="cont-col2">
+																				<div class="desc">
+																					 Web server hardware needs to be upgraded. <span class="label label-inverse label-sm">
+																					Overdue </span>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col2">
+																		<div class="date">
+																			 2 hours
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<div class="col1">
+																		<div class="cont">
+																			<div class="cont-col1">
+																				<div class="label label-default">
+																					<i class="fa fa-bullhorn"></i>
+																				</div>
+																			</div>
+																			<div class="cont-col2">
+																				<div class="desc">
+																					 New order received. Please take care of it.
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col2">
+																		<div class="date">
+																			 3 hours
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<div class="col1">
+																		<div class="cont">
+																			<div class="cont-col1">
+																				<div class="label label-warning">
+																					<i class="fa fa-bullhorn"></i>
+																				</div>
+																			</div>
+																			<div class="cont-col2">
+																				<div class="desc">
+																					 New order received. Please take care of it.
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col2">
+																		<div class="date">
+																			 5 hours
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<div class="col1">
+																		<div class="cont">
+																			<div class="cont-col1">
+																				<div class="label label-info">
+																					<i class="fa fa-bullhorn"></i>
+																				</div>
+																			</div>
+																			<div class="cont-col2">
+																				<div class="desc">
+																					 New order received. Please take care of it.
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col2">
+																		<div class="date">
+																			 18 hours
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<div class="col1">
+																		<div class="cont">
+																			<div class="cont-col1">
+																				<div class="label label-default">
+																					<i class="fa fa-bullhorn"></i>
+																				</div>
+																			</div>
+																			<div class="cont-col2">
+																				<div class="desc">
+																					 New order received. Please take care of it.
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col2">
+																		<div class="date">
+																			 21 hours
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<div class="col1">
+																		<div class="cont">
+																			<div class="cont-col1">
+																				<div class="label label-info">
+																					<i class="fa fa-bullhorn"></i>
+																				</div>
+																			</div>
+																			<div class="cont-col2">
+																				<div class="desc">
+																					 New order received. Please take care of it.
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col2">
+																		<div class="date">
+																			 22 hours
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<div class="col1">
+																		<div class="cont">
+																			<div class="cont-col1">
+																				<div class="label label-default">
+																					<i class="fa fa-bullhorn"></i>
+																				</div>
+																			</div>
+																			<div class="cont-col2">
+																				<div class="desc">
+																					 New order received. Please take care of it.
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col2">
+																		<div class="date">
+																			 21 hours
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<div class="col1">
+																		<div class="cont">
+																			<div class="cont-col1">
+																				<div class="label label-info">
+																					<i class="fa fa-bullhorn"></i>
+																				</div>
+																			</div>
+																			<div class="cont-col2">
+																				<div class="desc">
+																					 New order received. Please take care of it.
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col2">
+																		<div class="date">
+																			 22 hours
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<div class="col1">
+																		<div class="cont">
+																			<div class="cont-col1">
+																				<div class="label label-default">
+																					<i class="fa fa-bullhorn"></i>
+																				</div>
+																			</div>
+																			<div class="cont-col2">
+																				<div class="desc">
+																					 New order received. Please take care of it.
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col2">
+																		<div class="date">
+																			 21 hours
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<div class="col1">
+																		<div class="cont">
+																			<div class="cont-col1">
+																				<div class="label label-info">
+																					<i class="fa fa-bullhorn"></i>
+																				</div>
+																			</div>
+																			<div class="cont-col2">
+																				<div class="desc">
+																					 New order received. Please take care of it.
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col2">
+																		<div class="date">
+																			 22 hours
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<div class="col1">
+																		<div class="cont">
+																			<div class="cont-col1">
+																				<div class="label label-default">
+																					<i class="fa fa-bullhorn"></i>
+																				</div>
+																			</div>
+																			<div class="cont-col2">
+																				<div class="desc">
+																					 New order received. Please take care of it.
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col2">
+																		<div class="date">
+																			 21 hours
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<div class="col1">
+																		<div class="cont">
+																			<div class="cont-col1">
+																				<div class="label label-info">
+																					<i class="fa fa-bullhorn"></i>
+																				</div>
+																			</div>
+																			<div class="cont-col2">
+																				<div class="desc">
+																					 New order received. Please take care of it.
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col2">
+																		<div class="date">
+																			 22 hours
+																		</div>
+																	</div>
+																</li>
+															</ul>
+														</div>
+													</div>
+												</div>
+												<!--tab-pane-->
+												
+												<div class="tab-pane" id="tab_1_22_a">
+													<div class="tab-pane active" id="tab_1_1_1">
+														<div class="scroller" data-height="455px" data-always-visible="1" data-rail-visible1="1">
+															<div class="col-md-3">
+										<ul class="ver-inline-menu tabbable margin-bottom-10">
+											<li class="active">
+												<a data-toggle="tab" href="#tab_1-1">
+												<i class="fa fa-cog"></i> Informações Pessoais </a>
+												<span class="after">
+												</span>
+											</li>
+											<li>
+												<a data-toggle="tab" href="#tab_3-3">
+												<i class="fa fa-lock"></i> Alterar a senha </a>
+											</li>
+											
+										</ul>
+									</div>
+									
+					<div class="col-md-9">
+										<div class="tab-content">
+											<div id="tab_1-1" class="tab-pane active">
+												<form role="form" action="#">
+													<div class="form-group">
+														<label class="control-label">Nome</label>
+														<input type="text" placeholder="Lucas" class="form-control"/>
+													</div>
+													<div class="form-group">
+														<label class="control-label">Sobrenome</label>
+														<input type="text" placeholder="Nascimento" class="form-control"/>
+													</div>
+													<div class="form-group">
+														<label class="control-label">Número </label>
+														<input type="text" placeholder="+55 (61) 9999-9999" class="form-control"/>
+													</div>
+													
+													
+													
+													<div class="margiv-top-10">
+														<a href="#" class="btn green">
+														Salvar Alterações </a>
+														<a href="#" class="btn default">
+														Cancelar </a>
+													</div>
+												</form>
+											</div>
+											<div id="tab_3-3" class="tab-pane">
+												<form action="#">
+													<div class="form-group">
+														<label class="control-label">Senha Atual</label>
+														<input type="password" class="form-control"/>
+													</div>
+													<div class="form-group">
+														<label class="control-label">Nova Senha</label>
+														<input type="password" class="form-control"/>
+													</div>
+													<div class="form-group">
+														<label class="control-label">Confirme a Nova Senha</label>
+														<input type="password" class="form-control"/>
+													</div>
+													<div class="margin-top-10">
+														<a href="#" class="btn green">
+														Alterar a Senha </a>
+														<a href="#" class="btn default">
+														Cancelar </a>
+													</div>
+												</form>
+											</div>
+											<div id="tab_4-4" class="tab-pane">
+												<form action="#">
+													<table class="table table-bordered table-striped">
+													<tr>
+														<td>
+															 Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus..
+														</td>
+														<td>
+															<label class="uniform-inline">
+															<input type="radio" name="optionsRadios1" value="option1" />
+															Sim </label>
+															<label class="uniform-inline">
+															<input type="radio" name="optionsRadios1" value="option2" />
+															Não </label>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															 Enim eiusmod high life accusamus terry richardson ad squid wolf moon
+														</td>
+														<td>
+															<label class="uniform-inline">
+															<input type="checkbox" value=""/> Sim </label>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															 Enim eiusmod high life accusamus terry richardson ad squid wolf moon
+														</td>
+														<td>
+															<label class="uniform-inline">
+															<input type="checkbox" value=""/> Sim </label>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															 Enim eiusmod high life accusamus terry richardson ad squid wolf moon
+														</td>
+														<td>
+															<label class="uniform-inline">
+															<input type="checkbox" value=""/> Sim </label>
+														</td>
+													</tr>
+													</table>
+													<!--end profile-settings-->
+													<div class="margin-top-10">
+														<a href="#" class="btn green">
+														Salvar Alterações </a>
+														<a href="#" class="btn default">
+														Cancelar </a>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+														</div>
+													</div>
+												</div>
+												<!--tab-pane-->
+												
+												
+												<!--tab-pane-->
+												
+												<div class="tab-pane" id="tab_1_22_b">
+													<div class="tab-pane active" id="tab_1_1_1">
+														<div class="scroller" data-height="450px" data-always-visible="1" data-rail-visible1="1">
+															
+									<div class="col-md-3">
+										<ul class="ver-inline-menu tabbable margin-bottom-10">
+											<li class="active">
+												<a data-toggle="tab" href="#tab_1">
+												<i class="fa fa-briefcase"></i> Ciclo de atividades </a>
+												<span class="after">
+												</span>
+											</li>
+											<li>
+												<a data-toggle="tab" href="#tab_2">
+												<i class="fa fa-group"></i> Plano de marketing </a>
+											</li>
+											<li>
+												<a data-toggle="tab" href="#tab_3">
+												<i class="fa fa-leaf"></i> Manual de procedimentos </a>
+											</li>
+											<li>
+												<a data-toggle="tab" href="#tab_3_22">
+												<i class="fa fa-info-circle"></i> Termo de adesão </a>
+											</li>
+											
+											<li>
+												<a data-toggle="tab" href="#tab_3_11">
+												<i class="fa fa-plus"></i> Suporte </a>
+											</li>
+											
+											
+										</ul>
+									</div>
+									<div class="col-md-9">
+										<div class="tab-content">
+											<div id="tab_1" class="tab-pane active">
+												<div id="accordion1" class="panel-group">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_1">
+															 Ciclo de Atividade </a>
+															</h4>
+														</div>
+														<div id="accordion1_1" class="panel-collapse collapse in">
+															<div class="panel-body">
+																 
+																 <img src="../../assets/admin/pages/media/profile/ciclo_de_atividade.png" class="img-responsive" alt="" style="width:100%;" />
+																
+															</div>
+														</div>
+													</div>
+													
+													
+													
+												</div>
+											</div>
+											
+											
+											<div id="tab_3" class="tab-pane active">
+												<div id="accordion1" class="panel-group">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_1">
+															 Manual de Procedimentos </a>
+															</h4>
+														</div>
+														<div id="accordion1_1" class="panel-collapse collapse in">
+															<div class="panel-body">
+																 
+																 <img src="../../assets/admin/pages/media/profile/1a07_a.jpg" class="img-responsive" alt="" style="width:100%;" />
+																
+															</div>
+														</div>
+													</div>
+													
+													
+													
+												</div>
+											</div>
+											
+											
+											<div id="tab_3_22" class="tab-pane active">
+												<div id="accordion1" class="panel-group">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_1">
+															 Termo de Adesão </a>
+															</h4>
+														</div>
+														<br />
+														<br />
+														<h3 style="margin-left:20px;">Termo de Adesão à Parceria Independente com a RSM</h3>
+														<div id="accordion1_1" class="panel-collapse collapse in">
+															<div class="panel-body">
+																 
+																<div id="accordion1_1" class="panel-collapse collapse in">
+															<div class="panel-body">
+																
+																<p style="margin-left:105px;">(Formulário de Cadastro Preenchido gerado pelo sistema)</p>
+																<br />
+																<br />
+																 Eu desejo me tornar parceiro da organização RSM e para tanto declaro que li
+																
+																cuidadosamente e aceito os termos e condições deste termo de adesão, do manual de 
+																
+																procedimentos da RSM, do plano de incentivos e do ciclo de atividades da empresa e 
+																
+																concordo com as condições destes documentos. Eu entendo que eu posso terminar 
+																
+																meu contrato de parceria independente a qualquer momento, com ou sem justificativa, 
+																
+																enviando uma notificação para a empresa através do endereço: SRTVS 701, bloco K, 
+																
+																sala 428, Asa Sul, Brasília DF, CEP 70.340-908.
+
+														<br />
+														<br />
+                                                      	
+                                                      	<p style="margin-left:203px;">(Cidade atual), (data)</p>
+													  
+													  	<br />
+													  	<br />
+														
+														<img alt="" src="../../assets/admin/layout/img/assinatura.png" class="img-responsive" style="margin-left: 128px;" />
+															
+														<br /><br />
+
+														Termos e Condições:
+														
+														<br /><br />
+														1. Eu compreendo que estou assinando um contrato com a empresa Rede Social 
+														
+														Multinível – RSM neste ato representada pela DMND SISTEMAS conforme 
+														
+														o documento “SPE_Constituição_RSM.pdf” disponível online no url (http://
+														
+														legal.RSMnetwork.com) e que ao findar a validade da referida SPE todas as 
+														
+														reponsabilidades deste documento serão automaticamente transferidas para 
+														
+														a empresa detentora da marca Rede Social Multinível – RSM bem como suas 
+														
+														responsabilidades.
+														
+														
+														Condições.
+														<br /><br />
+														4. Eu possuo o direito de indicar novos parceiros independentes para atuação 
+														
+														comercial junto a RSM.
+														<br /><br />
+														5. Se qualificado, eu tenho o direito de receber Bônus de acordo com o Plano de
+														
+														Incentivos da RSM.
+														<br /><br />
+														6. Compreendo que o status qualificado se dá quando eu indiquei 2 novos parceiros 
+														
+														posicionados 1 em cada braço da minha organização de parceiros e estou em dia 
+														
+														com o pagamento da taxa anual de serviços da RSM.
+														<br /><br />
+														7. Eu concordo em apresentar o Plano de Incentivos da RSM assim como os 
+														
+														produtos e serviços vinculados a RSM, conforme estabelecido nos materiais 
+														
+														oficiais da RSM.
+														<br /><br />
+														8. Eu concordo que, na qualidade de Parceiro Independente da RSM, sou um
+														
+														contratado independente para todos os fins, inclusive fiscais, não configurando 
+														
+														qualquer relação de empregado, sócio, representante legal ou franqueado da 
+														
+														RSM. Eu concordo que eu serei exclusivamente responsável pelo pagamento de 
+														
+														todas as despesas por mim incorridas, incluindo, mas não limitado às despesas 
+														
+														de viagem, alimentação, acomodação, secretariais, de escritório, telefonemas 
+														
+														de longa distância e quaisquer outras despesas. EU COMPREENDO QUE 
+														
+														NÃO SEREI TRATADO COMO UM EMPREGADO DA RSM PARA QUALQUER 
+														
+														FINALIDADE.
+														<br /><br />
+														9. Eu cuidadosamente li e concordo em cumprir com o Manual de Procedimentos, o 
+														
+														Plano de incentivos da RSM, e o Ciclo de Atividades os quais são incorporados e 
+														
+														passam a integrar estes Termos e Condições (estes quatro documentos deverão 
+														
+														ser conjuntamente designados como o “Contrato”).
+														<br /><br />
+														10.Eu compreendo que devo estar em situação regular, e não em violação ao 
+														
+														Contrato para me tornar elegível aos bônus da RSM.
+														<br /><br />
+														11.Eu compreendo que estes Termos e Condições, Manual de Procedimentos 
+														
+														da RSM, Plano de Incentivos da RSM e Ciclo de Atividades da RSM poderão 
+														
+														ser alterados a exclusivo critério da RSM, e eu concordo em aderir a todas as 
+														
+														mencionadas alterações. As notificações de alterações serão incluídas na página 
+														
+														de internet da RSM. As alterações entrarão em vigor no prazo de 30 dias a contar 
+														
+														de sua publicação. A continuidade do meu negócio RSM ou minha aceitação dos 
+														
+														bônus deverão constituir minha aceitação a todas e quaisquer alterações.
+														<br /><br />
+														12.O prazo deste Contrato é indeterminado (sujeito ao cancelamento antecipado 
+														
+														conforme estabelecido no Manual de Procedimentos). Se eu não renovar (pagar 
+														
+														a taxa de serviços) anualmente meu negócio RSM, ou se o meu negócio RSM 
+														
+														for cancelado ou rescindido por qualquer motivo, eu compreendo que perderei 
+														
+														definitivamente todos os direitos na qualidade de um Parceiro Independente. Eu 
+														
+														não terei direito de revender os produtos e serviços da RSM nem serei elegível 
+														
+														para o recebimento de bônus ou outros incentivos resultantes das atividades 
+														
+														de minha organização independente de revenda anterior. Na hipótese de 
+														
+														cancelamento, rescisão ou ausência de renovação, eu renuncio a todos os direitos 
+														
+														que possuo, incluindo, mas não limitado aos direitos de propriedade relativos a 
+														
+														minha organização “Árvore de Patrocínios” anterior e a quaisquer bônus, ou outra 
+														
+														bonificação resultante das revendas e de outras atividades de minha organização 
+														
+														anterior.
+														<br /><br />
+														13. A RSM se reserva o direito de rescindir este Contrato de Parceria Independente 
+														
+														através de uma notificação com 30 dias de antecedência, se a Companhia decidir: 
+														
+														(1) encerrar suas operações comerciais; (2) encerrar sua pessoa jurídica; ou (3) 
+														
+														terminar a distribuição de seus produtos e/ou serviços através de canais de venda 
+														
+														direta. O Parceiro Independente poderá cancelar o presente Contrato a qualquer 
+														
+														tempo, e por qualquer motivo, através de uma notificação, por escrito, à RSM ao 
+														
+														endereço de sua sede social. A RSM poderá cancelar o presente Contrato, por 
+														
+														qualquer motivo, através de uma notificação prévia, por escrito, com 30 dias de 
+														
+														antecedência ao Parceiro.
+														<br /><br />
+														
+														14. Cumprimento das Leis. Concordo em cumprir com todas as leis relevantes para 
+														
+														a realização de minhas atividades como um Parceiro independente no âmbito do 
+														
+														presente Acordo. Em particular (mas sem limitação), eu não devo fazer nenhuma 
+														
+														alegação real ou potencialmente enganosa em relação às comissões e outras 
+														
+														bonificações que podem ser derivadas de realização de atividades como um 
+														
+														Parceiro independente da RSM, ou em relação aos produtos vinculados à RSM.
+														
+														<br /><br />
+														
+														15.Compra Automática. Eu posso escolher ter produtos enviados para mim
+														
+														periodicamente por um pedido processado automaticamente chamado Compra 
+														
+														automática. O compra automática é um programa opcional de processamento 
+														
+														de pedidos automáticos (independentemente de qualquer outro pedido mais 
+														
+														específico) com programação ajustável.
+														
+														<br /><br />
+														
+														16. Concordo com as regras atuais do programa de Compra automática que estão
+														
+														listadas no Manual de Procedimentos da RSM. Todos os pedidos estão sujeitos 
+														
+														aos impostos sobre as vendas da minha região, que serão adicionados ao total do 
+														
+														valor do pedido. Custos de expedição e entrega caso incorram serão adicionados 
+														
+														também. O cartão de crédito ou outra forma de pagamento no meu cadastro será 
+														
+														automaticamente cobrado para estes pedidos de Compra automática dentro do 
+														
+														programa. Pedidos nos quais o método de pagamento for recusado podem não 
+														
+														ser processados. Se um pedido não puder ser processado devido a dificuldades 
+														
+														de pagamento, a RSM não será responsável por falhas nos Pontos de Volume. 
+														
+														Concordo que a RSM reserva-se o direito de alterar meus pedidos de Compra 
+														
+														Automática a métodos de pagamento subsequentes adicionados por mim, se meu 
+														
+														primeiro método de pagamento for negado. A sequência de cobrança será na 
+														
+														ordem em que eu listar meus métodos de pagamento no Escritório Virtual.
+														
+														<br /><br />
+														
+														17. Reembolso e devolução de produtos. Concordo que se eu revender os produtos 
+														
+														diretamente para um Cliente final, vou aderir a política de 100% de garantia de 
+														
+														satisfação da RSM, e devo fornecer ao Cliente final um reembolso total de todos 
+														
+														os pagamentos feitos, caso o Cliente final retornar os produtos a mim dentro 
+														
+														de sete (7) dias úteis da data da venda. Eu entendo que, sendo um Parceiro 
+														
+														independente da RSM, eu não sou um Cliente final.
+														
+														<br /><br />
+														
+														18.Pagamentos de Bônus. Eu entendo que eu não devo estar em violação do
+														
+														Contrato, para ser elegível para receber bônus nos termos do Plano de Incentivos.
+														
+														<br /><br />
+														
+														19. Licença para utilizar determinadas propriedades intelectuais. A RSM me concede 
+														
+														uma licença não exclusiva, livre de royalty, sublicença revogável para usar a 
+														
+														propriedade intelectual em nome da RSM, logotipo, marcas (registradas ou não), 
+														
+														e outros direitos de propriedade intelectual sublicenciados em quaisquer materiais 
+														
+														ou documentos fornecidos pela RSM pertencente ao objeto do presente Acordo 
+														
+														com a finalidade de promover os produtos e fornecimento a potenciais clientes. Eu 
+														
+														concordo que a RSM poderá impor restrições no meu uso do nome RSM, nomes 
+														
+														comerciais e marcas comerciais, logotipos e outras propriedades intelectuais e 
+														
+														publicidade, a fim de proteger os direitos, a reputação e imagem da RSM e que 
+														
+														tais restrições são aplicadas a todas as outras empresas Vinculadas a ela em 
+														
+														geral. Eu também concordo em não aplicar isoladamente ou em associação com 
+														
+														terceiros para registro de qualquer propriedade intelectual da RSM capaz de 
+														
+														inscrição, mas não registado e em dar toda a assistência requerida sem ônus para 
+														
+														a RSM no intuito de auxiliar a RSM a registrar qualquer propriedade intelectual.
+														
+														<br /><br />
+														
+														20. Atrasos. RSM não é responsável por atrasos no cumprimento de suas obrigações
+														
+														nos termos deste Contrato, quando o desempenho é tido como comercialmente 
+														
+														impraticável devido a circunstâncias além de seu controle.
+														
+														<br /><br />
+														
+														21. Eu não poderei ceder nenhum direito ou delegar minhas atribuições nos termos do 
+														
+														Contrato, sem o prévio consentimento, por escrito, da RSM. Qualquer tentativa de 
+														
+														transferência ou cessão do Contrato sem o expresso consentimento, por escrito, 
+														
+														da RSM tornará o Contrato nulo, a critério da RSM e poderá resultar na finalização 
+														
+														do meu negócio.
+														
+														<br /><br />
+														
+														22. Eu compreendo que se eu descumprir os termos deste Contrato, a RSM poderá,
+														
+														a seu critério, impor uma ação disciplinar conforme previsto no Manual de 
+														
+														Procedimentos. Se eu infringir, descumprir ou violar o Contrato, na rescisão, eu 
+														
+														não terei direito de receber quaisquer bônus futuros, tenham ou não as revendas 
+														
+														relativas a tais bônus sido concluídas.
+														
+														<br /><br />
+														
+														23. A RSM, sua matriz ou coligadas, conselheiros, diretores, acionistas, empregados,
+														
+														cessionários e representantes (conjuntamente designados como coligados) 
+														
+														não serão responsáveis e eu exonero a RSM e seus coligados de todas as 
+														
+														reivindicações por danos imprevistos e multas exemplares, por qualquer 
+														
+														reivindicação ou causa de pedir relativa ao Contrato. Eu ainda concordo em 
+														
+														exonerar a RSM e seus coligados de toda a responsabilidade resultante ou 
+														
+														relativa: (a) a qualquer violação pelo Parceiro Independente deste Contrato ou 
+														
+														do Manual de Procedimentos; (b) à promoção ou operação de um negócio RSM 
+														
+														pelo Parceiro Independente e quaisquer atividades a ele relacionadas, incluindo, 
+														
+														mas não limitado à apresentação dos produtos vinculados a RSM ou do Plano 
+														
+														de Incentivos da RSM, à operação de um veículo motorizado, a locação de 
+														
+														instalações para uma reunião ou treinamento, etc.), e concordo em indenizar a 
+														
+														RSM por qualquer responsabilidade, dano, multa, penalidade ou outros; (c) a 
+														
+														quaisquer dados ou informações incorretos fornecidos pelo Parceiro Independente 
+														
+														à RSM; (d) a falha pelo Parceiro Independente em fornecer quaisquer informações 
+														
+														ou dados necessários à RSM para a operação de seus negócios; ou (e) 
+														
+														premiações resultantes de qualquer conduta não autorizada que eu assuma na 
+														
+														operação dos meus negócios.
+														
+														<br /><br />
+														
+														24. O Contrato, no seu formato atual e conforme alterado pela RSM, a seu critério, 
+														
+														constitui o acordo integral entre a RSM e eu. Quaisquer promessas, declarações, 
+														
+														ofertas ou outras comunicações que não estejam expressamente previstos no 
+														
+														Contrato não estão em vigor ou efeito.
+														
+														<br />
+														<br />
+														
+														25.Qualquer renúncia pela RSM de qualquer violação do Contrato deverá ser 
+														
+														efetuada por escrito e assinada por um diretor autorizado da RSM. A renúncia 
+														
+														pela RSM de qualquer violação do Contrato por mim é apenas uma liberalidade 
+														
+														e não deverá operar ou ser interpretada como uma renúncia a qualquer violação 
+														
+														posterior.<br /><br />
+														
+														26.Se qualquer disposição do Contrato for considerada inválida ou inexequível, a
+														
+														referida disposição deverá ser alterada somente na extensão necessária para 
+														
+														torná-la exequível, e o remanescente do Contrato permanecerá em pleno vigor e 
+														
+														efeito.
+														
+														<br /><br />
+														
+														27.Se um Parceiro Independente desejar ajuizar uma ação contra a RSM por
+														
+														qualquer ato ou omissão relativo ou resultante do Contrato, a referida ação 
+														
+														deverá ser ajuizada no prazo de um ano a contar da data da alegada conduta 
+														
+														que acarretar a causa de pedir. A falha em ajuizar a mencionada ação no prazo 
+														
+														previsto prescreverá todas as reivindicações contra a RSM pelo referido ato 
+														
+														ou omissão. O Parceiro independente renuncia a todas as reivindicações de 
+														
+														quaisquer outras prescrições aplicáveis.
+														
+														<br /><br />
+														
+														28. Eu autorizo a RSM a utilizar meu nome, fotografia, histórico pessoal e/ou similares
+														
+														em materiais de propaganda ou promocionais e renuncio a todas as reivindicações 
+														
+														por remuneração para tal uso.
+														
+														<br /><br />
+														
+														29. Eu concordo em enviar uma via original assinada juntamente com uma cópia do
+														
+														meu RG, CPF e comprovante de residência no prazo máximo de 15 dias para a 
+														
+														sede social da RSM em Brasília DF.<br /><br />
+														
+														30. Em caso de cancelamento de pedido, devem ser seguidas as normas da política
+														
+														de cancelamento vigentes, conforme o Manual de Procedimentos.
+														
+														<br /><br />
+														
+														31. Eu Concordo que qualquer demanda judicial relativa ao presente contrato, será 
+														
+														tratada no foro da comarca de Brasília, com exclusão de qualquer outro por mais 
+														
+														privilegiado que seja.
+														
+														<br /><br />
+														
+														<div class="margiv-top-10">
+															<a href="#" class="btn green">
+															Baixar  </a>
+															<a href="#" class="btn default">
+															Imprimir </a>
+														</div>
+
+
+
+
+
+															
+															</div>
+															
+																</div>
+															
+															</div>
+														</div>
+													</div>
+													
+													
+													
+												</div>
+											</div>
+											
+											
+											
+											<div id="tab_3_11" class="tab-pane active">
+												<div id="accordion1" class="panel-group">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_1">
+															 Suporte </a>
+															</h4>
+														</div>
+														<div id="accordion1_1" class="panel-collapse collapse in">
+															<div class="panel-body">
+												
+
+
+
+
+													
+
+
+						 
+											<div class="col-md-4" style="margin-left:-13px;">
+												<select class="form-control input-medium select2me" data-placeholder="Assunto" >
+													<option value=""></option>
+													<option value="AL">Pergutas gerais</option>
+													<option value="AL">Financeiro</option>
+													<option value="AL">Conformidade</option>
+													<option value="WY">Outros</option>
+												
+												</select>
+											</div>
+										
+											<br /><br />
+											
+											<div class="form-group">
+					                          <label for="review">Conteudo <span class="require">*</span></label>
+					                          <textarea class="form-control" rows="8" id="review"></textarea>
+					                        </div>
+
+
+
+
+
+
+
+											<form class="form-horizontal">
+											<fieldset>
+											
+											<!-- Button -->
+											<div class="control-group">
+											  <label class="control-label" for="singlebutton"></label>
+											  <div class="controls">
+											    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Enviar</button>
+											  </div>
+											</div>
+											
+											</fieldset>
+											</form>
+									</div>
+								</div>
+							</div>
+							
+							
+							
+						</div>
+					</div>
+											
+											
+											
+											<div id="tab_2" class="tab-pane">
+												<div id="accordion2" class="panel-group">
+													<div class="panel panel-warning">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#accordion2_1">
+															Plano de Marketing </a>
+															</h4>
+														</div>
+														<div id="accordion2_1" class="panel-collapse collapse in">
+															<div class="panel-body">
+																
+																	<img src="../../assets/admin/pages/media/profile/1a07.png" class="img-responsive" alt="" style="width:100%;" />
+																
+																	 
+															</div>
+														</div>
+													</div>
+													
+													
+													
+													
+													
+													
+													
+													
+													
+												
+												
+												
+												</div>
+											</div>
+										</div>
+											
+											
+											
+											
+										</div>
+									</div>
+														</div>
+													</div>
+												</div>
+												<!--tab-pane-->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--tab_1_2-->
+							
+							
+							
+							<!--end tab-pane-->
+						</div>
+					</div>
+					<!--END TABS-->
+				</div>
+			</div>
+			<!-- END PAGE CONTENT-->
+		</div>
+	<!-- END CONTENT -->
+	<!-- BEGIN QUICK SIDEBAR -->
+    
+<!-- END QUICK SIDEBAR -->
+<!-- END CONTAINER -->
+<!-- BEGIN FOOTER -->
+<div class="page-footer">
+	<div class="page-footer-inner">
+		 2014 &copy; www.merkz.com .
+	</div>
+	<div class="page-footer-tools">
+		<span class="go-top">
+		<i class="fa fa-angle-up"></i>
+		</span>
+	</div>
+</div>
+<!-- END FOOTER -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="../../assets/global/plugins/respond.min.js"></script>
+<script src="../../assets/global/plugins/excanvas.min.js"></script> 
+<![endif]-->
+<script src="../../assets/global/plugins/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script src="../../assets/global/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="../../assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<script src="../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script type="text/javascript" src="../../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+<script>
+jQuery(document).ready(function() {       
+   // initiate layout and plugins
+   Metronic.init(); // init metronic core components
+Layout.init(); // init current layout
+QuickSidebar.init() // init quick sidebar
+});
+</script>
+<!-- END JAVASCRIPTS -->
+
+
+</h:body>
+<!-- END BODY -->
+
+</html>

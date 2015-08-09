@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:icon="@drawable/ic_list"
+        android:showAsAction="always"
+        android:title="Estantes">
+        <menu>
+            <item
+                android:id="@+id/menu_enviar_alunos"
+                android:icon="@drawable/ic_book"
+                android:showAsAction="always"
+                android:title="Visão Geral"/>
+            <item
+                android:id="@+id/menu_receber_provas"
+                android:icon="@drawable/ic_book"
+                android:showAsAction="always"
+                android:title="Disponíveis"/>
+            <item
+                android:id="@+id/menu_preferencias"
+                android:icon="@drawable/ic_book"
+                android:showAsAction="always"
+                android:title="Direito de Uso"/>
+        	<item
+                android:id="@+id/menu_preferencias2"
+                android:icon="@drawable/ic_book"
+                android:showAsAction="always"
+                android:title="Minha Biblioteca"/>
+        </menu>
+    </item>
+
+</menu>

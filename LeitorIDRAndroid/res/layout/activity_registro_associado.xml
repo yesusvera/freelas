@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registro Nacional" />
+
+        <EditText
+            android:id="@+id/registroNacional"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10" />
+
+        <TextView
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:text="Senha" />
+
+        <EditText
+            android:id="@+id/senha"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:visibility="invisible"
+            android:inputType="textPassword" >
+        </EditText>
+
+        <Spinner
+            android:id="@+id/spinnerDocumento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:entries="@array/tipo_documento_lista"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroup1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/cpfEditText"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10" />
+
+        <EditText
+            android:id="@+id/cnpjEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10" >
+
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mac Adress" />
+
+        <EditText
+            android:id="@+id/macAdress"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:enabled="false" />
+
+        <TextView
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="IP" />
+
+        <EditText
+            android:id="@+id/ip"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:enabled="false" />
+
+        <TextView
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dispositivo" />
+
+        <EditText
+            android:id="@+id/dispositivo"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:enabled="false" />
+
+        <TextView
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Serial" />
+
+        <EditText
+            android:id="@+id/serial"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:enabled="false" />
+
+        <TextView
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" " />
+
+        <Button
+            android:id="@+id/registrarAssociado"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:onClick="registrarAssociado"
+            android:text="Registrar" />
+    </LinearLayout>
+
+</ScrollView>

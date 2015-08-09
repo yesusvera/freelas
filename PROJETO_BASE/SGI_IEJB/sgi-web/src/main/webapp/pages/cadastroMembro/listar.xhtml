@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pexinput="http://poupex.com.br/jsf/input"
+	xmlns:cc="http://java.sun.com/jsf/composite/poupex"
+	xmlns:pex="http://poupex.com.br/jsf/input"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/paginaExterna.xhtml">
+
+	<ui:define name="corpo">
+		<p:panel header="Listar Membros" >
+			<div class="row">
+				<p:dataTable var="membro" value="#{cadastrarMembroController.listarMembros()}" 
+					draggableRows="true"
+					resizableColumns="true"
+					draggableColumns="true">
+				    <p:column headerText="Nome" filterBy="#{membro.nome}" sortBy="#{membro.nome}" >
+				        <h:outputText value="#{membro.nome}" />
+				    </p:column>
+				 
+				    <p:column headerText="CPF" filterBy="#{membro.cpf}">
+				        <h:outputText value="#{membro.cpf}" />
+				    </p:column>
+				 
+				    <p:column headerText="Nascimento">
+				        <h:outputText value="#{membro.dataNascimento}" />
+				    </p:column>
+				    
+				    <p:column headerText="Ações">
+				       
+				    </p:column>
+				</p:dataTable>
+			</div>
+			
+		</p:panel>
+	</ui:define>
+</ui:composition>

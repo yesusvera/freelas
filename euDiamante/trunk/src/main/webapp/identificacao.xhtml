@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition template="template/_template.xhtml">
+	<ui:define name="javascripts">
+		<!-- <script type="text/javascript" src="http://j.maxmind.com/app/geoip.js"></script>
+		<script>
+			function localizacao() {
+
+				var info = document.getElementById('info');
+				var lat = geoip_latitude();
+				var lon = geoip_longitude();
+				var city = geoip_city();
+				var out = '<h3>Informações para seu IP</h3>' + '<ul>'
+						+ '<li>Latitude: ' + lat + '</li>' + '<li>Longitude: '
+						+ lon + '</li>' + '<li>Cidade: ' + city + '</li>'
+						+ '<li>Cód. Região: ' + geoip_region() + '</li>'
+						+ '<li>Região: ' + geoip_region_name() + '</li>'
+						+ '<li>Código do País: ' + geoip_country_code()
+						+ '</li>' + '<li>Nome do País: ' + geoip_country_name()
+						+ '</li>' + '</ul>';
+				info.innerHTML = out;
+
+				alert("Região: " + geoip_region_name());
+
+			}
+		</script> -->
+	</ui:define>
+	<ui:define name="conteudo_principal">
+		<h:form id="formprinc" prependId="false">
+			<br />
+			<br />
+			<center>
+					<h:graphicImage library="img" name="imgcomo.png" style="margin-top: 30px"/>
+					
+					
+					<div id="meunome">
+						
+							<h:outputLabel id="nometxt" value="Meu nome: " for="txtUsuario" />
+							<h:inputText id="txtUsuario" class="inputTxt" value="#{salaBean.convite.nomeRazao}" style="width:150px;height:30px" name="usuario"/>
+							<h:commandButton  id="bAnvc" value="Continuar" action="#{salaBean.entrar}" class="btn btn-primary btn-large  tamanho cor_fundo tamanho_largura fonte forma_botao" />
+						
+					</div>	
+			
+					<div>
+						
+					<div id="conteudomale" ><h:graphicImage library="img" name="male.png"/></div>
+						
+						<div id="conteudofemale"><h:graphicImage library="img" name="female.png"/>	</div>
+						
+						<div id="mejoao"><h:commandButton value="Me chame de João" id="btnCallMeJoao" action="#{salaBean.callMeJoao}"  class="posicao tamanho cor_fundo tamanho_largura fonte forma_botao" style="padding: 10px" />
+						
+						</div>
+						
+						<div id="memaria">
+							<h:commandButton value="Me chame de Maria" id="btnCallMeMaria" action="#{salaBean.callMeMaria}" class="posicao tamanho cor_fundo tamanho_largura fonte forma_botao" style="padding: 10px" />
+						</div>
+					
+					</div>
+				
+						                           
+				
+			</center>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

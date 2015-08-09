@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	
+	
+	
+	xmlns:p="http://primefaces.org/ui">
+
+<body>
+	<ui:composition>
+		<div class="navbar navbar-default" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span> 
+						<span class="icon-bar"></span> 
+						<span class="icon-bar"></span> 
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li class="active">
+							<a href="#{request.contextPath}/pages/admin/index.xhtml">Home</a>
+						</li>
+						<li class="menu-item dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Administração
+								<b class="caret" />
+							</a>
+							<ul class="dropdown-menu">
+								<li class="menu-item dropdown dropdown-submenu">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Membros</a>
+									<ul class="dropdown-menu">
+										<li class="menu-item ">
+											<a href="#{request.contextPath}/pages/admin/cadastroMembro/listar">Listar</a>
+										</li>
+										<li class="menu-item ">
+											<a href="#{request.contextPath}/pages/admin/cadastroMembro/cadastrar">Cadastrar</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li class="menu-item dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Configurações
+								<b class="caret" />
+							</a>
+							<ul class="dropdown-menu">
+									<li class="menu-item ">
+										<a href="#{request.contextPath}/pages/admin/cadastroMembro/editarMeuCadastro">Editar meu cadastro</a>
+									</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</ui:composition>
+</body>
+</ui:composition>

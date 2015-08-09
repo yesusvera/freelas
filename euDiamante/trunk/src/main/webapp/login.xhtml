@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+	
+	<h:head>
+		<title>EuDiamante.com</title>
+		<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+	</h:head>
+	
+	<h:body>
+		<div id="cabecalho">
+			<h:graphicImage library="img" name="diam.png" id="logo" />
+		</div>
+		<h:form>
+			<h:panelGrid columns="2" styleClass="campos">
+			
+				<h:outputLabel value="Login: " for="login" />
+				<h:inputText id="login" value="#{loginBean.usuario.login}"/>
+				
+				<h:outputLabel value="Senha: " for="senha"/>
+				<h:inputSecret id="senha" value="#{loginBean.usuario.senha}"/>
+			
+				<h:commandButton value="Entrar" action="#{loginBean.efetuaLogin}" />			
+				
+			</h:panelGrid>
+		
+		
+		</h:form>
+		
+	</h:body>
+</html>

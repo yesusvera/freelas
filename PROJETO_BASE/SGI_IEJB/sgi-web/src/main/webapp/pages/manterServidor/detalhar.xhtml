@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pexinput="http://poupex.com.br/jsf/input"
+	xmlns:cc="http://java.sun.com/jsf/composite/poupex"
+	xmlns:pex="http://poupex.com.br/jsf/input"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/pagina.xhtml">
+
+	<ui:define name="corpo">
+		<p:panel header="Detalhar Servidor">
+			
+			<br />
+			<div class="row">
+				<div class="col-md-3 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel styleClass="b" value="CPF: " />
+						<br/>
+						<h:outputLabel 	value="#{manterServidorController.view.pessoaFisica.cpf}"/>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-9">
+					<div class="form-group">
+						<h:outputLabel styleClass="b" value="Nome: " />
+						<br/>
+						<h:outputLabel	value="#{manterServidorController.view.pessoaFisica.nome}"/>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel styleClass="b" value="Sexo: " />
+						<br/>
+						<h:outputText value="Masculino"  rendered="#{manterServidorController.view.pessoaFisica.sexo eq 'M'}"/>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-3">
+					<div class="form-group">
+						<p:outputLabel styleClass="b" value="Data Nasc:" />
+						<br/>
+						<h:outputText value="#{manterServidorController.view.pessoaFisica.dtNascimento}" >
+							<f:convertDateTime pattern="dd/MM/yyyy"/> 
+						</h:outputText>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="row">
+				
+
+				<div class="col-md-3 col-sm-9">
+					<div class="form-group">
+						<h:outputLabel styleClass="b" value="Nacionalidade: " />
+						<br />
+						<h:outputText value="xxxxxxxxxxxxx" />
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel styleClass="b" value="UF Naturalidade: " />
+						<br />
+						<h:outputText value="xx" />
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-9">
+					<div class="form-group">
+						<h:outputLabel styleClass="b" value="Naturalidade: " />
+						<br />
+						<h:outputText value="xxxxxxxxxxxxxxxxxxx" />
+					</div>
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<h:outputLabel styleClass="b" value="Nome Mãe: " />
+						<br/>
+						<h:outputLabel value="#{manterServidorController.view.pessoaFisica.mae}" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<h:outputLabel styleClass="b"  value="Nome Pai:" />
+						<br/>
+						<h:outputLabel 	value="#{manterServidorController.view.pessoaFisica.pai}" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-4">
+					<div class="form-group">
+						<h:outputLabel styleClass="b" value="Est. Civil: " />
+						<br />
+						<h:outputText value="xxxxxxxxx" />
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-4">
+					<div class="form-group">
+						<h:outputLabel styleClass="b" value="RG: " />
+						<br/>
+						<h:outputLabel	value="#{manterServidorController.view.pessoaFisica.identidade}" />
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-4">
+					<div class="form-group">
+						<h:outputLabel styleClass="b" value="Órgão Exp: " />
+						<br/>
+						<h:outputLabel 
+							value="#{manterServidorController.view.pessoaFisica.orgaoExpedidor}" />
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-12">
+					<div class="form-group">
+						<h:outputLabel styleClass="b"  value="E-mail: " />
+						<br/>
+						<h:outputLabel value="#{manterServidorController.view.pessoaFisica.emailPessoaFisica}" />
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-3 col-sm-9">
+					<div class="form-group">
+						<h:outputLabel styleClass="b"  value="Endereço:" />
+						<br/>
+						<h:outputLabel value="#{manterServidorController.view.pessoaFisica.endereco}" />
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel styleClass="b"  value="UF: " />
+						<br />
+						<h:outputText value="xx" />
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-9">
+					<div class="form-group">
+						<h:outputLabel styleClass="b"  value="Cidade: " />
+						<br />
+						<h:outputText value="xxxxxxxxxxxxxxxxxx xxxxxxxxx" />
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel styleClass="b"  value="CEP:" />
+						<br />
+						<h:outputLabel 	value="#{manterServidorController.view.pessoaFisica.cep}"
+							maxlength="120" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<h5 class="b">Telefones:</h5>
+					<hr />
+				</div>
+			</div>
+
+			<div class="row" id="idTelefone">
+				<div class="col-md-3 col-sm-5">
+					<div class="form-group">
+						<h:outputLabel styleClass="b"  value="Tipo: " />
+						<br />
+						<h:outputText value="xxxxxxxxxxxxxxxxxxx" />
+					</div>
+				</div>
+
+				<div class="col-md-1 col-sm-2">
+					<div class="form-group">
+						<h:outputLabel styleClass="b"  value="DDD:" />
+						<br />
+						<h:outputText value="xxx" />
+					</div>
+				</div>
+
+				<div class="col-md-2 col-sm-5">
+					<div class="form-group">
+						<h:outputLabel styleClass="b"  value="Número:" />
+						<br />
+						<h:outputText value="xxxx-xxxx" />
+					</div>
+				</div>
+
+				<div class="col-md-6 col-sm-10">
+					<div class="form-group">
+						<h:outputLabel styleClass="b"  value="Observações:" />
+					<br />
+						<h:outputText value="xxxxxxxxxxxxxxxxxxxxxxxxxxx xxx xxxxxxxxxxx xxxxxxxxxxxxxxxxxxx" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<h5 class="b">Dados Funcionais:</h5>
+					<hr />
+				</div>
+			</div>
+
+
+			<div class="row" id="idDadosFuncionais">
+
+				<div class="col-md-3 col-sm-9">
+					<div class="form-group">
+						<h:outputLabel styleClass="b"  value="Cargo:" />
+						<br />
+						<h:outputText value="xxxxxxxxxxxxxxxxxxx" />
+					</div>
+				</div>
+
+
+				<div class="col-md-3 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel styleClass="b"  value="Data Ingresso: " />
+						<br />
+						<h:outputText value="xx/xx/xxxx" />
+					</div>
+				</div>
+			
+
+				<div class="col-md-3 col-sm-9">
+					<div class="form-group">
+						<h:outputLabel styleClass="b"  value="Função:" />
+						<br />
+						<h:outputText value="xxxxxxxxxxxxxxxxxxx" />
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel styleClass="b"  value="Matricula:" />
+						<br />
+						<h:outputText value="xxxxxxxxxxxxxxxxxxx" />
+					</div>
+				</div>
+</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel styleClass="b"  value="Situação:" />
+						<br />
+						<h:outputText value="xxxxxxxxxxxxxxxxxxx" />
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel styleClass="b"  value="Horário de Expediente:" />
+					<br />
+						<h:outputText value="xx:xx xxx xx:xx" />
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<h5 class="b">Lotação:</h5>
+					<hr />
+				</div>
+			</div>
+
+			<div class="row" id="lotacoes">
+
+				<div class="col-md-3 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel styleClass="b"  value="UF:" />
+						<br />
+						<h:outputText value="xx" />
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<h:outputLabel styleClass="b"  value="Órgão:" />
+						<br />
+						<h:outputText value="xxxxxxxxxxxxxxxxxxx" />
+					</div>
+				</div>
+
+			
+				<div class="col-md-3 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel styleClass="b"  value="Município:" />
+						<br />
+						<h:outputText value="xxxxxxxxxxxxxxxxxxx" />
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<h:outputLabel styleClass="b"  value="Estabelecimento:" />
+						<br />
+						<h:outputText value="xxxxxxxxxxxxxxxxxxx" />
+					</div>
+				</div>
+		   </div>
+				
+		  <div class="row">
+			 <div class="col-md-3 col-sm-6">
+				 <div class="form-group">
+					 <h:outputLabel styleClass="b" value="Setor:" />
+					 <br />
+						<h:outputText value="xxxxxxxxxxxxxxxxxxx" />
+				 </div>
+			</div>
+		</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="tab-v2">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#home-1" data-toggle="tab">Dados
+									de Login</a></li>
+
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane active" id="home-1">
+								<br />
+								<h5 class="b">Indicador (Dominio.login):</h5>
+								<br />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row" id="botoes">
+				<div class="col-md-12">
+					<div class="pull-right">
+						<h:commandButton value="Voltar"
+							action="#{manterServidorController.voltar}" immediate="true" />
+					</div>
+				</div>
+			</div>
+		</p:panel>
+	</ui:define>
+</ui:composition>

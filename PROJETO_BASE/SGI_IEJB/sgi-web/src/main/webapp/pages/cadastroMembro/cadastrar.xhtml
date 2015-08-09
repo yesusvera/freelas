@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pexinput="http://poupex.com.br/jsf/input"
+	xmlns:cc="http://java.sun.com/jsf/composite/poupex"
+	xmlns:pex="http://poupex.com.br/jsf/input"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/paginaExterna.xhtml">
+
+	<ui:define name="corpo">
+		<p:panel header="Cadastro de Membro">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="pull-right">
+						<font class="cp-obg">Campo Obrigatório: [<span
+							class="glyphicon glyphicon-asterisk ico-obg"></span>]
+						</font>
+					</div>
+				</div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-2 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel value="CPF: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<p:inputMask styleClass="form-control input-sm"
+							mask="999.999.999.99"
+							required="true"
+							requiredMessage="O campo CPF é obrigatório."
+							maxlength="20" value="#{cadastrarMembroController.view.membro.cpf}"
+							id="idCpf" />
+					</div>
+				</div>
+
+				<div class="col-md-8 col-sm-9">
+					<div class="form-group">
+						<h:outputLabel value="Nome: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:inputText styleClass="form-control input-sm"
+							maxlength="155" required="true"
+							requiredMessage="Campo Nome Obrigatório" id="idNome" value="#{cadastrarMembroController.view.membro.nome}" />
+					</div>
+				</div>
+
+				<div class="col-md-2 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel value="Sexo: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:selectOneMenu styleClass="form-control input-sm"
+						    requiredMessage="Campo Sexo Obrigatório">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+							<f:selectItem itemValue="M" itemLabel="Masculino" />
+							<f:selectItem itemValue="F" itemLabel="Feminino" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="col-md-2 col-sm-3">
+					<div class="form-group">
+						<p:outputLabel value="Data Nasc:" />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<p:calendar
+							id="idDataNascimento" navigator="true" showOtherMonths="true"
+							required="true" requiredMessage="Campo Data Nasc: Obrigatório"
+							showButtonPanel="true" showEffect="fade" hideEffect="fade"
+							yearRange="c-50:c+10" locale="pt_BR" pattern="dd/MM/yyyy"
+							value="#{cadastrarMembroController.view.membro.dataNascimento}"
+							mask="true" />
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-9">
+					<div class="form-group">
+						<h:outputLabel value="Nacionalidade: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:selectOneMenu styleClass="form-control input-sm" id="IdNacionalidade">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+							<f:selectItem itemValue="AF" itemLabel="Afeganistão" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel value="UF Naturalidade: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:selectOneMenu styleClass="form-control input-sm" id="idUfNacionalidade">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+							<f:selectItem itemValue="AF" itemLabel="Afeganistão" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="col-md-4 col-sm-9">
+					<div class="form-group">
+						<h:outputLabel value="Naturalidade: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:selectOneMenu styleClass="form-control input-sm" id="idNaturalidade">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+							<f:selectItem itemValue="AF" itemLabel="Afeganistão" />
+						</h:selectOneMenu>
+
+					</div>
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<h:outputLabel value="Nome Mãe: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:inputText styleClass="form-control input-sm"
+						    requiredMessage="Campo Nome Mãe Obrigatório"
+							maxlength="96" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<h:outputLabel value="Nome Pai:" />
+						<h:inputText styleClass="form-control input-sm"
+							maxlength="96" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-2 col-sm-4">
+					<div class="form-group">
+						<h:outputLabel value="Est. Civil: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:selectOneMenu styleClass="form-control input-sm"
+							id="idEstadoCivil">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+							<f:selectItem itemValue="AF" itemLabel="Afeganistão" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="col-md-2 col-sm-4">
+					<div class="form-group">
+						<h:outputLabel value="RG: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:inputText styleClass="form-control input-sm"
+							maxlength="120" />
+					</div>
+				</div>
+				<div class="col-md-2 col-sm-4">
+					<div class="form-group">
+						<h:outputLabel value="Órgão Exp: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:inputText styleClass="form-control input-sm"
+							maxlength="120" />
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-12">
+					<div class="form-group">
+						<h:outputLabel value="E-mail: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:inputText styleClass="form-control input-sm"
+							maxlength="120" />
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4 col-sm-9">
+					<div class="form-group">
+						<h:outputLabel value="Endereço:" />
+						<h:inputText styleClass="form-control input-sm"
+							maxlength="120" />
+					</div>
+				</div>
+				<div class="col-md-2 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel value="UF: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:selectOneMenu styleClass="form-control input-sm" id="idUf">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+							<f:selectItem itemValue="AF" itemLabel="Afeganistão" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="col-md-4 col-sm-9">
+					<div class="form-group">
+						<h:outputLabel value="Cidade: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:selectOneMenu styleClass="form-control input-sm" id="idCidade">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+							<f:selectItem itemValue="AF" itemLabel="Afeganistão" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+				<div class="col-md-2 col-sm-3">
+					<div class="form-group">
+						<h:outputLabel value="CEP:" />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:inputText styleClass="form-control input-sm"
+							maxlength="120" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<h5 class="b">Telefones:</h5>
+					<hr />
+				</div>
+			</div>
+
+			<div class="row" id="idTelefone">
+				<div class="col-md-2 col-sm-5">
+					<div class="form-group">
+						<h:outputLabel value="Tipo: " />
+						<span class="glyphicon glyphicon-asterisk ico-obg"></span>
+						<h:selectOneMenu styleClass="form-control input-sm" id="idTipo">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+							<f:selectItem itemValue="C" itemLabel="Comercial" />
+							<f:selectItem itemValue="Ce" itemLabel="Celular" />
+							<f:selectItem itemValue="R" itemLabel="Residencial" />
+							<f:selectItem itemValue="F" itemLabel="Fax" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="col-md-1 col-sm-2">
+					<div class="form-group">
+						<h:outputLabel value="DDD:" />
+						<h:inputText styleClass="form-control input-sm"
+							maxlength="2" />
+					</div>
+				</div>
+
+				<div class="col-md-2 col-sm-5">
+					<div class="form-group">
+						<h:outputLabel value="Número:" />
+						<h:inputText styleClass="form-control input-sm"
+							maxlength="16" />
+					</div>
+				</div>
+
+				<div class="col-md-6 col-sm-10">
+					<div class="form-group">
+						<h:outputLabel value="Observações:" />
+						<h:inputText styleClass="form-control input-sm" />
+					</div>
+				</div>
+				<div class="col-md-1 col-sm-2">
+				</div>
+			</div>
+
+			<div class="row" id="botoes">
+				<div class="col-md-12">
+					<div class="pull-right">
+						<h:commandButton value="Cancelar" immediate="true" />
+						<p:commandButton value="Salvar" action="#{cadastrarMembroController.salvarMembro()}">
+							<p:confirm header="Salvar" message="Deseja realmente salvar o Membro?"></p:confirm>
+						</p:commandButton>
+					</div>
+				</div>
+			</div>
+		</p:panel>
+	</ui:define>
+</ui:composition>

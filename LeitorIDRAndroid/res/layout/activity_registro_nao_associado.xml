@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="br.com.ibracon.idr.activity.RegistroNaoAssociadoActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nome/Razão Social" />
+
+        <EditText
+            android:id="@+id/cliente"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text" >
+        </EditText>
+
+        <TextView
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:text="Senha" />
+
+        <EditText
+            android:id="@+id/senha"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:inputType="textPassword" />
+
+        <Spinner
+            android:id="@+id/spinnerDocumento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/tipo_documento_lista" />
+
+        <EditText
+            android:id="@+id/cnpjEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10" />
+
+        <EditText
+            android:id="@+id/cpfEditText"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10" />
+
+        <TextView
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Telefone" />
+
+        <EditText
+            android:id="@+id/telefone"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+        <TextView
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Endereco" />
+
+        <EditText
+            android:id="@+id/endereco"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+        <TextView
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Numero" />
+
+        <EditText
+            android:id="@+id/numero"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+        <TextView
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Complemento" />
+
+        <EditText
+            android:id="@+id/complemento"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+        <TextView
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bairro" />
+
+        <EditText
+            android:id="@+id/bairro"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+        <TextView
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cidade" />
+
+        <EditText
+            android:id="@+id/cidade"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+        <TextView
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="UF" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/uf"
+                style="@drawable/background"
+                android:layout_width="92dp"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="text" />
+
+            <ImageButton
+                android:id="@+id/btn_escolherUf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="adicionarUF"
+                android:src="@drawable/ic_adicionar" />
+        </LinearLayout>
+
+        <TextView
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CEP" />
+
+        <EditText
+            android:id="@+id/cep"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+        <TextView
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email" />
+
+        <EditText
+            android:id="@+id/email"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+        <!-- INFORMAÇÕES CAPTURADAS DO DISPOSITIVO -->
+
+        <TextView
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dispositivo" />
+
+        <EditText
+            android:id="@+id/dispositivo"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:inputType="text" />
+
+        <TextView
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Serial" />
+
+        <EditText
+            android:id="@+id/serial"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:inputType="text" />
+
+        <TextView
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mac Adress" />
+
+        <EditText
+            android:id="@+id/macAdress"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:inputType="text" />
+
+        <TextView
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="IP" />
+
+        <EditText
+            android:id="@+id/ip"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/registrarNaoAssociado"
+            style="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:onClick="registrarNaoAssociado"
+            android:text="Registrar" />
+    </LinearLayout>
+
+</ScrollView>

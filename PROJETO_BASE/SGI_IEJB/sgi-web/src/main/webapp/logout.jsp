@@ -1,0 +1,1 @@
+<jsp:scriptlet>response.sendRedirect(request.getContextPath());</jsp:scriptlet>
