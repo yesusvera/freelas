@@ -2,11 +2,23 @@
 
 package org.faceless.pdf2.viewer3.util;
 
+import java.awt.Component;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.net.Authenticator;
+import java.net.PasswordAuthentication;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
 import org.faceless.pdf2.viewer3.Util;
-import javax.swing.*;
-import java.awt.*;
-import java.net.*;
-import java.util.*;
 
 /**
  * A simple {@link Authenticator} which will prompt the user to enter

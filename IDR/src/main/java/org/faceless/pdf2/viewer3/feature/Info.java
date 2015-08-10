@@ -2,17 +2,54 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.util.DialogPanel;
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.table.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.*;
-import java.text.*;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
+import org.faceless.pdf2.OutputProfile;
+import org.faceless.pdf2.OutputProfiler;
+import org.faceless.pdf2.PDF;
+import org.faceless.pdf2.PDFPage;
+import org.faceless.pdf2.PDFParser;
+import org.faceless.pdf2.PublicKeyEncryptionHandler;
+import org.faceless.pdf2.StandardEncryptionHandler;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.ViewerEvent;
+import org.faceless.pdf2.viewer3.ViewerWidget;
+import org.faceless.pdf2.viewer3.util.DialogPanel;
 
 /**
  * Create a button and menu item to display information about the PDF.

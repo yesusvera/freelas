@@ -1,23 +1,36 @@
 
 package br.com.ibracon.idr.form;
 
-import com.sun.pdfview.PDFFile;
-import com.sun.pdfview.PDFPage;
-import com.sun.pdfview.PDFRenderer;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.print.Book;
+import java.awt.print.PageFormat;
+import java.awt.print.Paper;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.print.*;
-
-import javax.swing.*;
+import javax.swing.AbstractAction;
+import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 
 import org.apache.log4j.Logger;
 
-import java.nio.channels.FileChannel;
-import java.io.IOException;
-import java.io.FileInputStream;
-import java.nio.ByteBuffer;
-import java.io.File;
+import com.sun.pdfview.PDFFile;
+import com.sun.pdfview.PDFPage;
+import com.sun.pdfview.PDFRenderer;
 
 public class PDFPrintPage implements Printable {
 	static Logger logger = Logger.getLogger(PDFPrintPage.class);

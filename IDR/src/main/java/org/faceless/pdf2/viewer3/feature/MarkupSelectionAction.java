@@ -2,15 +2,26 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.viewer3.util.PropertyParser;
-import org.faceless.pdf2.*;
 import java.awt.Color;
-import java.awt.geom.*;
+import java.awt.geom.Rectangle2D;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import javax.swing.UIManager;
-import java.util.*;
-import javax.swing.undo.*;
-import javax.swing.event.*;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.undo.AbstractUndoableEdit;
+
+import org.faceless.pdf2.AnnotationMarkup;
+import org.faceless.pdf2.PDFAnnotation;
+import org.faceless.pdf2.PDFPage;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.DocumentPanelEvent;
+import org.faceless.pdf2.viewer3.DocumentPanelListener;
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.PagePanel;
+import org.faceless.pdf2.viewer3.ViewerFeature;
+import org.faceless.pdf2.viewer3.util.PropertyParser;
 
 /**
  * A {@link TextSelectionAction} that will create an

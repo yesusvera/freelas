@@ -2,15 +2,37 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.table.*;
-import java.awt.event.*;
-import javax.swing.border.*;
-import java.awt.*;
-import java.util.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+
+import org.faceless.pdf2.PDF;
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.Util;
+import org.faceless.pdf2.viewer3.ViewerEvent;
+import org.faceless.pdf2.viewer3.ViewerFeature;
+import org.faceless.pdf2.viewer3.ViewerWidget;
 
 /**
  * Create a simple "About" dialog displaying information about the PDFViewer and the runtime environment.
@@ -51,36 +73,38 @@ public class About extends ViewerWidget {
     }
 
     public void action(final ViewerEvent event) {
-        showAboutDialog(event.getViewer(), true, 0);
+//        showAboutDialog(event.getViewer(), true, 0);
     }
 
     private static synchronized void initializeStatic() {
         statickeys = new LinkedHashMap<String,Object>();
-        statickeys.put("Icon", PDFViewer.class.getResource("resources/BFOLogo.png"));
-        statickeys.put("Title", "Java PDF Viewer");
+        statickeys.put("Icon", PDFViewer.class.getResource("gfx/splash.png"));
+        statickeys.put("Title", "Leitor Ibracon");
         String year = new java.text.SimpleDateFormat("yyyy").format(new Date());
-        statickeys.put("Main", "Big Faceless Organization \u00A9 2001-"+year);
+        statickeys.put("Main", "Ibracon -"+year);
         statickeys.put("PDF Library", PDF.VERSION);
         java.io.InputStream bin = null;
         try {
-            bin = Class.forName("org.faceless.license.LicensePDF", true, Thread.currentThread().getContextClassLoader()).getResourceAsStream("PDF.license");
-            java.io.ObjectInputStream in = new java.io.ObjectInputStream(bin);
-            java.security.SignedObject so = (java.security.SignedObject)in.readObject();
-            in.close();
-            Map licensemap = (Map)so.getObject();
-            Object licensee = licensemap.get("name");
-            Object licensenumber = licensemap.get("licensenumber");
-            Date expiry = (Date)licensemap.get("expiry");
-            boolean core = "true".equals(licensemap.get("core"));
-            if (licensee!=null) {
-                String val = licensee+" ("+licensenumber+(core?"":": viewer")+")";
-                statickeys.put("Licensed To", val);
-                if (expiry.getTime()<4102405200000l) {
-                    statickeys.put("Expiry", new java.text.SimpleDateFormat("dd MMM yyyy").format(expiry));
-                }
-            }
+//            bin = Class.forName("org.faceless.license.LicensePDF", true, Thread.currentThread().getContextClassLoader()).getResourceAsStream("PDF.license");
+//            java.io.ObjectInputStream in = new java.io.ObjectInputStream(bin);
+//            java.security.SignedObject so = (java.security.SignedObject)in.readObject();
+//            in.close();
+//            Map licensemap = (Map)so.getObject();
+//            Object licensee = licensemap.get("name");
+//            Object licensenumber = licensemap.get("licensenumber");
+//            Date expiry = (Date)licensemap.get("expiry");
+//            boolean core = "true".equals(licensemap.get("core"));
+//            if (licensee!=null) {
+//                String val = licensee+" ("+licensenumber+(core?"":": viewer")+")";
+//            statickeys.put("Licensed To", val);
+            statickeys.put("Licensed To", "IBRACON");
+//                if (expiry.getTime()<4102405200000l) {
+//          statickeys.put("Expiry", new java.text.SimpleDateFormat("dd MMM yyyy").format(expiry));
+            	statickeys.put("Expiry", "01 01 2099");
+//                }
+//            }
         } catch (Throwable e) {
-            statickeys.put("Licensed To", "Unlicensed - Demo Version");
+            statickeys.put("Licensed To", "Licenciado para Ibracon");
         } finally {
             try { if (bin!=null) bin.close(); } catch (Exception e) {}
         }

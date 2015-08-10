@@ -2,7 +2,6 @@
 
 package org.faceless.pdf2.viewer3;
 
-import org.faceless.pdf2.PDF;
 import javax.swing.Icon;
 
 /**

@@ -2,11 +2,24 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import javax.swing.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.swing.SwingUtilities;
+
+import org.faceless.pdf2.FormElement;
+import org.faceless.pdf2.FormSignature;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.DocumentPanelEvent;
+import org.faceless.pdf2.viewer3.DocumentPanelListener;
+import org.faceless.pdf2.viewer3.PDFBackgroundTask;
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.SignatureProvider;
+import org.faceless.pdf2.viewer3.ViewerFeature;
 
 /**
  * This feature will cause signatures in the PDF to be verified automatically when a PDF is loaded

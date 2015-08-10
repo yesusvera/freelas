@@ -1,9 +1,6 @@
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import org.faceless.pdf2.PageExtractor;
-import org.faceless.pdf2.PageExtractor.Text;
+import org.faceless.pdf2.viewer3.DocumentPanel;
 
 /**
  * A type of feature that works with the {@link TextTool} feature.

@@ -2,11 +2,26 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.Container;
+import java.awt.GraphicsDevice;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
+
+import org.faceless.pdf2.PDF;
+import org.faceless.pdf2.PDFAction;
+import org.faceless.pdf2.PDFPage;
+import org.faceless.pdf2.viewer3.DocumentViewport;
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.ViewerEvent;
+import org.faceless.pdf2.viewer3.ViewerWidget;
 
 /**
  * Create a menu item that will display the Document in "Full Screen" mode.

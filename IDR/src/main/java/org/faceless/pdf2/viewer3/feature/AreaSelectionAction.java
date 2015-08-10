@@ -2,8 +2,9 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.PagePanel;
 import java.awt.geom.Rectangle2D;
+
+import org.faceless.pdf2.viewer3.PagePanel;
 
 /**
  * A type of feature that will perform an action on an area selected

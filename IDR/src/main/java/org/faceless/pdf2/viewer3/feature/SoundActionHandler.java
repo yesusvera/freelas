@@ -2,12 +2,18 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import java.util.*;
-import java.io.*;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.SourceDataLine;
 import javax.swing.JComponent;
-import javax.sound.sampled.*;
+
+import org.faceless.pdf2.PDFAction;
+import org.faceless.pdf2.PDFSound;
+import org.faceless.pdf2.viewer3.ActionHandler;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.Util;
 
 /**
  * Create a handler to handler "Sound" actions.

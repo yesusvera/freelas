@@ -2,10 +2,10 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import javax.swing.*;
-import java.awt.event.*;
+import org.faceless.pdf2.PDFAction;
+import org.faceless.pdf2.WidgetAnnotation;
+import org.faceless.pdf2.viewer3.ActionHandler;
+import org.faceless.pdf2.viewer3.DocumentPanel;
 
 /**
  * Handles the "ShowWidget" and "HideWidget" types of {@link PDFAction}.

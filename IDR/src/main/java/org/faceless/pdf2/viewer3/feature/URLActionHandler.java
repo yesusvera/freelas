@@ -2,10 +2,13 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import java.net.URL;
 import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.faceless.pdf2.PDFAction;
+import org.faceless.pdf2.viewer3.ActionHandler;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.Util;
 
 /**
  * Create an action handler for "URL" actions, which will attempt to open a URL in the system web

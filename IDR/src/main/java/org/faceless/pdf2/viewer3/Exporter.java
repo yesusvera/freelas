@@ -2,15 +2,16 @@
 
 package org.faceless.pdf2.viewer3;
 
-import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+
+import javax.swing.JComponent;
 import javax.swing.filechooser.FileFilter;
-import java.awt.*;
-import java.awt.event.*;
-import org.faceless.pdf2.*;
-import org.faceless.pdf2.viewer3.feature.*;
+
+import org.faceless.pdf2.PDF;
+import org.faceless.pdf2.viewer3.feature.Save;
 import org.faceless.pdf2.viewer3.util.LongRunningTask;
-import java.util.*;
-import java.io.*;
 
 /**
  * A type of {@link ViewerFeature} which allows PDF's to be saved in a variety of formats.

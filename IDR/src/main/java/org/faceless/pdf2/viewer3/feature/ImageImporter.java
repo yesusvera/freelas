@@ -2,13 +2,26 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import javax.swing.filechooser.FileFilter;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.security.AccessController;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
+
 import javax.swing.UIManager;
-import java.util.*;
-import java.security.*;
-import java.io.*;
+import javax.swing.filechooser.FileFilter;
+
+import org.faceless.pdf2.PDF;
+import org.faceless.pdf2.PDFImage;
+import org.faceless.pdf2.PDFImageSet;
+import org.faceless.pdf2.PDFPage;
+import org.faceless.pdf2.viewer3.Importer;
+import org.faceless.pdf2.viewer3.PDFViewer;
 
 /**
  * A subclass of {@link Importer} that allows bitmap images to be converted

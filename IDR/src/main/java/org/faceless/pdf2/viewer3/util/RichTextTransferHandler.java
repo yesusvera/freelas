@@ -2,25 +2,40 @@
 
 package org.faceless.pdf2.viewer3.util;
 
-import java.io.*;
-import java.awt.*;
-import java.awt.datatransfer.*;
-import javax.swing.*;
-import javax.swing.text.*;
-import javax.swing.text.rtf.*;
-import javax.swing.text.html.*;
-import java.awt.font.*;
-import java.util.*;
+import java.awt.Color;
+import java.awt.Paint;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.font.TextAttribute;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.text.AttributedCharacterIterator;
+import java.text.AttributedString;
+import java.util.ArrayList;
 import java.util.List;
-import java.text.*;
-import org.faceless.util.AttributedStringBuilder;
-import org.faceless.pdf2.PageExtractor;
+
+import javax.swing.JComponent;
+import javax.swing.SwingUtilities;
+import javax.swing.TransferHandler;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.JTextComponent;
+import javax.swing.text.StyledDocument;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.rtf.RTFEditorKit;
+
 import org.faceless.pdf2.viewer3.DocumentPanel;
 import org.faceless.pdf2.viewer3.PDFViewer;
-import org.faceless.pdf2.viewer3.feature.TextTool;
 import org.faceless.pdf2.viewer3.feature.TextSelection;
-import org.faceless.pdf2.viewer3.feature.TextSelection.RangeList;
-import org.faceless.pdf2.viewer3.feature.TextSelection.Range;
+import org.faceless.pdf2.viewer3.feature.TextTool;
+import org.faceless.util.AttributedStringBuilder;
 
 /**
  * A TransferHandler that can copy/paste RichText. The default TransferHandler

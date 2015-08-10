@@ -2,10 +2,10 @@ package br.com.ibracon.idr.webservice.estante;
 
 import java.util.ArrayList;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import br.com.ibracon.idr.form.model.Livro;
 import br.com.ibracon.idr.webservice.ResponseWS;
-
-import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias("response")
 public class ResponseEstante extends ResponseWS {

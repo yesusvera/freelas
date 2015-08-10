@@ -2,7 +2,8 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.ViewerFeature;
 
 /**
  * A special feature to enable internal frames inside the viewer. Without this feature,

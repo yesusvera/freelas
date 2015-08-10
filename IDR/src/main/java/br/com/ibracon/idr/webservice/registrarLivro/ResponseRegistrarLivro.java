@@ -1,8 +1,8 @@
 package br.com.ibracon.idr.webservice.registrarLivro;
 
-import br.com.ibracon.idr.webservice.ResponseWS;
-
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+import br.com.ibracon.idr.webservice.ResponseWS;
 
 @XStreamAlias("response")
 public class ResponseRegistrarLivro extends ResponseWS {

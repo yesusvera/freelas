@@ -2,22 +2,55 @@
 
 package org.faceless.pdf2.viewer3;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Composite;
+import java.awt.Cursor;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Stroke;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import org.faceless.pdf2.*;
-import org.faceless.util.AdobeComposite;
-import org.faceless.pdf2.viewer3.util.DialogPanel;
-import java.awt.event.*;
-import javax.swing.plaf.*;
-import javax.swing.event.*;
-import javax.swing.border.*;
-import javax.swing.undo.*;
-import org.faceless.pdf2.viewer3.feature.Undo;
-import java.awt.geom.*;
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.StringTokenizer;
 import java.util.prefs.Preferences;
-import java.text.*;
-import java.util.*;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.undo.AbstractUndoableEdit;
+
+import org.faceless.pdf2.AnnotationMarkup;
+import org.faceless.pdf2.AnnotationStamp;
+import org.faceless.pdf2.PDFAnnotation;
+import org.faceless.pdf2.PDFPage;
+import org.faceless.pdf2.WidgetAnnotation;
+import org.faceless.pdf2.viewer3.feature.Undo;
+import org.faceless.pdf2.viewer3.util.DialogPanel;
+import org.faceless.util.AdobeComposite;
 
 /**
  * A type of ViewerFeature that creates a {@link JComponent} to represent a

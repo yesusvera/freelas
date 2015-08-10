@@ -2,11 +2,15 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import javax.swing.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JComponent;
+
+import org.faceless.pdf2.AnnotationSound;
+import org.faceless.pdf2.PDFAnnotation;
+import org.faceless.pdf2.viewer3.AnnotationComponentFactory;
+import org.faceless.pdf2.viewer3.PagePanel;
 
 /**
  * <p>

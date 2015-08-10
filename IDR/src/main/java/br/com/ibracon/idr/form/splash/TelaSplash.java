@@ -13,8 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JWindow;
 
-import net.java.dev.designgridlayout.DesignGridLayout;
 import br.com.ibracon.idr.form.FormPrincipal;
+import net.java.dev.designgridlayout.DesignGridLayout;
 
 /**
  * 

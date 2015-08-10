@@ -2,11 +2,14 @@
 
 package org.faceless.pdf2.viewer3;
 
-import java.awt.event.*;
-import java.awt.*;
-import java.awt.geom.*;
-import javax.swing.*;
-import org.faceless.pdf2.*;
+import java.awt.Component;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
+
+import javax.swing.SwingUtilities;
+
+import org.faceless.pdf2.PDFPage;
 
 /**
  * Represents an interaction (currently only mouse) event on a {@link PagePanel}.

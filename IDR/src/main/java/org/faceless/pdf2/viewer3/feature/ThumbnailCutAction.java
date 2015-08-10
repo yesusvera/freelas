@@ -2,12 +2,20 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.beans.*;
-import java.util.*;
-import org.faceless.pdf2.*;
-import org.faceless.pdf2.viewer3.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.KeyStroke;
+import javax.swing.UIManager;
+
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.DocumentPanelEvent;
+import org.faceless.pdf2.viewer3.DocumentPanelListener;
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.ViewerFeature;
 
 /**
  * Store the currently selected pages in the thumbnail panel for a

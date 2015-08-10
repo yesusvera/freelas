@@ -2,15 +2,34 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import javax.swing.*;
-import java.awt.geom.*;
-import javax.swing.event.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import java.awt.*;
-import java.util.*;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListCellRenderer;
+import javax.swing.UIManager;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import org.faceless.pdf2.AnnotationStamp;
+import org.faceless.pdf2.PDFAnnotation;
+import org.faceless.pdf2.PDFPage;
+import org.faceless.pdf2.PDFParser;
+import org.faceless.pdf2.PagePainter;
+import org.faceless.pdf2.viewer3.AnnotationComponentFactory;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.PagePanel;
 
 /**
  * Create annotations that handle {@link AnnotationStamp} objects.

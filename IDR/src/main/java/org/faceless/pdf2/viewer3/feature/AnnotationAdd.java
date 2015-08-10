@@ -2,17 +2,42 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.viewer3.util.DialogPanel;
-import org.faceless.pdf2.*;
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.undo.*;
-import java.util.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.Vector;
 import java.util.prefs.Preferences;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JComponent;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+import javax.swing.UIManager;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.undo.AbstractUndoableEdit;
+
+import org.faceless.pdf2.PDFAnnotation;
+import org.faceless.pdf2.PDFPage;
+import org.faceless.pdf2.viewer3.AnnotationComponentFactory;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.DocumentPanelEvent;
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.PagePanel;
+import org.faceless.pdf2.viewer3.ViewerEvent;
+import org.faceless.pdf2.viewer3.ViewerFeature;
+import org.faceless.pdf2.viewer3.util.DialogPanel;
 
 /**
  * An {@link AbstractRegionSelector} that allows new annotations to be added to the

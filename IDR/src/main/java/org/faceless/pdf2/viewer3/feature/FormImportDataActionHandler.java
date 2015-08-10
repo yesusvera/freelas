@@ -2,13 +2,17 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import javax.swing.*;
-import java.applet.Applet;
-import java.io.*;
-import java.security.*;
-import java.net.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+
+import org.faceless.pdf2.FDF;
+import org.faceless.pdf2.PDFAction;
+import org.faceless.pdf2.viewer3.ActionHandler;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.Util;
 
 /**
  * Create an action handler to deal with "FormImportData" {@link PDFAction}.

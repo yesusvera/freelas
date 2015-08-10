@@ -2,13 +2,14 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import javax.swing.*;
-import java.awt.event.*;
-import java.awt.*;
-import java.io.*;
-import java.util.*;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.DocumentPanelEvent;
+import org.faceless.pdf2.viewer3.DocumentPanelListener;
+import org.faceless.pdf2.viewer3.DocumentViewport;
+import org.faceless.pdf2.viewer3.DualPageDocumentViewport;
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.ToggleViewerWidget;
+import org.faceless.pdf2.viewer3.ViewerEvent;
 
 /**
  * This Widget changes the {@link DocumentViewport} of the current {@link DocumentPanel}

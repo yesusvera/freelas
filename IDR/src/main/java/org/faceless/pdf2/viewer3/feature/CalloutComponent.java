@@ -1,14 +1,32 @@
 package org.faceless.pdf2.viewer3.feature;
 
-import java.awt.*;
-import java.beans.*;
-import java.awt.event.*;
-import java.awt.geom.*;
-import java.awt.image.*;
-import java.util.*;
-import javax.swing.*;
-import org.faceless.pdf2.*;
-import org.faceless.pdf2.viewer3.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
+import org.faceless.pdf2.AnnotationText;
+import org.faceless.pdf2.viewer3.AnnotationComponentFactory;
+import org.faceless.pdf2.viewer3.PagePanel;
 
 abstract class CalloutComponent extends JPanel implements MouseListener, MouseMotionListener, PropertyChangeListener {
 

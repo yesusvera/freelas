@@ -1,9 +1,9 @@
 package br.com.ibracon.idr.form.model;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import br.com.ibracon.idr.webservice.registrar.RequestRegistrar;
 import br.com.ibracon.idr.webservice.registrar.ResponseRegistrar;
-
-import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias(value="registroXML")
 public class RegistroXml {

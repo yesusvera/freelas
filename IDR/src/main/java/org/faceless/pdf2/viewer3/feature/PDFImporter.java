@@ -2,14 +2,27 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import javax.swing.filechooser.FileFilter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.security.AccessController;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import javax.swing.UIManager;
-import java.util.*;
-import java.io.*;
-import java.net.*;
-import java.security.*;
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
+import javax.swing.filechooser.FileFilter;
+
+import org.faceless.pdf2.EncryptionHandler;
+import org.faceless.pdf2.PDF;
+import org.faceless.pdf2.PDFReader;
+import org.faceless.pdf2.viewer3.Importer;
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.PasswordPromptEncryptionHandler;
+import org.faceless.pdf2.viewer3.PublicKeyPromptEncryptionHandler;
 
 /**
  * <p>

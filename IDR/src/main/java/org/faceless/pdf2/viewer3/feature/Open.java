@@ -2,9 +2,11 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import javax.swing.*;
 import java.io.File;
+
+import org.faceless.pdf2.viewer3.Util;
+import org.faceless.pdf2.viewer3.ViewerEvent;
+import org.faceless.pdf2.viewer3.ViewerWidget;
 
 /**
  * Create a button and menu item to load a document from the filesystem.

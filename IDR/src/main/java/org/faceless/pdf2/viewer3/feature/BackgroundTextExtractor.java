@@ -2,8 +2,14 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
+import org.faceless.pdf2.PDFParser;
+import org.faceless.pdf2.PageExtractor;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.DocumentPanelEvent;
+import org.faceless.pdf2.viewer3.DocumentPanelListener;
+import org.faceless.pdf2.viewer3.PDFBackgroundTask;
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.ViewerFeature;
 
 /**
  * <p>

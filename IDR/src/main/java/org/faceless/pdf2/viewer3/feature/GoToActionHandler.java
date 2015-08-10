@@ -2,11 +2,17 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import javax.swing.*;
-import java.awt.geom.*;
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.geom.Rectangle2D;
+
+import org.faceless.pdf2.PDF;
+import org.faceless.pdf2.PDFAction;
+import org.faceless.pdf2.PDFPage;
+import org.faceless.pdf2.viewer3.ActionHandler;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.DocumentViewport;
+import org.faceless.pdf2.viewer3.PagePanel;
+import org.faceless.pdf2.viewer3.Util;
 
 /**
  * Create an action handler for "GoTo" actions and the named actions that move between

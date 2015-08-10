@@ -2,9 +2,18 @@
 
 package org.faceless.pdf2.viewer3;
 
-import java.beans.*;
-import java.util.*;
-import org.faceless.pdf2.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import org.faceless.pdf2.Form;
+import org.faceless.pdf2.FormElement;
+import org.faceless.pdf2.PDF;
+import org.faceless.pdf2.PDFAnnotation;
+import org.faceless.pdf2.PDFPage;
 
 /**
  * Listener to mark document panel dirty when any document changes occur.

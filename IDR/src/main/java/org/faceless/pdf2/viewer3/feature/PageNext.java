@@ -2,11 +2,13 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.AbstractAction;
+
 import org.faceless.pdf2.PDFPage;
-import org.faceless.pdf2.PDF;
-import java.awt.event.*;
-import javax.swing.*;
+import org.faceless.pdf2.viewer3.DocumentViewport;
 
 /**
  * Create a button to jump to the next page.

@@ -2,11 +2,14 @@
 
 package org.faceless.pdf2.viewer3;
 
-import javax.swing.*;
-import java.awt.event.*;
-import java.awt.geom.*;
-import java.awt.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JComponent;
 
 /**
  * An subclass of {@link ViewerWidget} which causes the widget to be toggled on

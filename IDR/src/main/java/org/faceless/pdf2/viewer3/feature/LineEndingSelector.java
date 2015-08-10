@@ -2,17 +2,26 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import org.faceless.pdf2.viewer3.util.ColorChoicePanel;
-import javax.swing.*;
-import java.awt.geom.*;
-import javax.swing.event.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import java.awt.*;
-import java.util.*;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 import java.util.prefs.Preferences;
+
+import javax.swing.ComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.ListCellRenderer;
+import javax.swing.event.ListDataListener;
 
 class LineEndingSelector extends JComboBox<String> implements ItemListener, ListCellRenderer<String> {
 

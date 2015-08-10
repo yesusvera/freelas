@@ -2,14 +2,23 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.GeneralSecurityException;
-import java.security.cert.X509Certificate;
-import org.faceless.pdf2.*;
-import org.faceless.pdf2.viewer3.*;
+
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+
+import org.faceless.pdf2.FormSignature;
+import org.faceless.pdf2.OutputProfile;
+import org.faceless.pdf2.RemoteSignatureHandlerFactory;
+import org.faceless.pdf2.RemoteSigningServlet;
+import org.faceless.pdf2.SignatureHandler;
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.SignatureProvider;
 import org.faceless.pdf2.viewer3.util.DialogPanel;
 
 /**

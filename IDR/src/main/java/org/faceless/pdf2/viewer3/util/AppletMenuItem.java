@@ -1,11 +1,9 @@
 package org.faceless.pdf2.viewer3.util;
 
-import javax.swing.*;
-import java.awt.*;
-import java.beans.*;
-import java.applet.*;
-import javax.swing.event.*;
-import java.awt.event.*;
+import javax.swing.Action;
+import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
+
 import org.faceless.pdf2.viewer3.Util;
 
 /**

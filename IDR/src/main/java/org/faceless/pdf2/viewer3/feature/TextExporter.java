@@ -2,14 +2,20 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+
+import javax.swing.JComponent;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
-import java.util.*;
-import java.awt.*;
-import java.awt.image.*;
-import java.io.*;
+
+import org.faceless.pdf2.PDF;
+import org.faceless.pdf2.PDFParser;
+import org.faceless.pdf2.PageExtractor;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.Exporter;
 import org.faceless.util.SoftInterruptibleThread;
 
 /**

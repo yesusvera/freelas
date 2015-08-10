@@ -2,13 +2,37 @@
 
 package org.faceless.pdf2.viewer3;
 
-import java.awt.*;
-import java.beans.*;
-import java.awt.event.*;
+import java.awt.Adjustable;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.Toolkit;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.geom.Rectangle2D;
-import java.util.*;
-import javax.swing.*;
-import org.faceless.pdf2.*;
+import java.beans.PropertyChangeEvent;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.JViewport;
+import javax.swing.SwingUtilities;
+
+import org.faceless.pdf2.PDF;
+import org.faceless.pdf2.PDFPage;
 
 /**
  * A type of {@link DocumentViewport} that displays a single page. The Page can be zoomed

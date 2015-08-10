@@ -2,10 +2,17 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import javax.swing.*;
-import java.util.*;
+import java.util.Iterator;
+
+import org.faceless.pdf2.PDFAction;
+import org.faceless.pdf2.viewer3.ActionHandler;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.SidePanel;
+import org.faceless.pdf2.viewer3.SidePanelFactory;
+import org.faceless.pdf2.viewer3.ViewerEvent;
+import org.faceless.pdf2.viewer3.ViewerFeature;
+import org.faceless.pdf2.viewer3.ViewerWidget;
 
 /**
  * Create an action handler to handle "Named" actions. Unlike most of the ActionHandler

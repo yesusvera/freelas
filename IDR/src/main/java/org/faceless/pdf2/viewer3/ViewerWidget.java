@@ -2,15 +2,32 @@
 
 package org.faceless.pdf2.viewer3;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.Container;
-import java.util.*;
-import java.beans.*;
+import java.awt.Color;
+import java.awt.ComponentOrientation;
+import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.net.URL;
-import org.faceless.pdf2.viewer3.feature.*;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JInternalFrame;
+import javax.swing.JMenuItem;
+import javax.swing.JToolBar;
+import javax.swing.UIManager;
+
 import org.faceless.pdf2.PropertyManager;
+import org.faceless.pdf2.viewer3.feature.Quit;
+import org.faceless.pdf2.viewer3.feature.ToolbarDisabling;
 
 /**
  * <p>

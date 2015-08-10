@@ -2,14 +2,25 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import javax.swing.*;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.image.ColorModel;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+
+import javax.swing.Box;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
-import java.util.*;
-import java.awt.*;
-import java.awt.image.*;
-import java.io.*;
+
+import org.faceless.pdf2.PDF;
+import org.faceless.pdf2.PDFParser;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.Exporter;
 
 /**
  * A subclass of {@link Exporter} that handles saving a PDF as

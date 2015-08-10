@@ -2,11 +2,14 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import javax.swing.*;
-import java.awt.event.*;
 import java.awt.Insets;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.ViewerEvent;
+import org.faceless.pdf2.viewer3.ViewerWidget;
 
 /**
  * Create a button which zooms the document out to the next level.

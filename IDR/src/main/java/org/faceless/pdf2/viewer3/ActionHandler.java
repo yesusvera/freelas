@@ -2,7 +2,7 @@
 
 package org.faceless.pdf2.viewer3;
 
-import org.faceless.pdf2.*;
+import org.faceless.pdf2.PDFAction;
 
 /**
  * A type of {@link ViewerFeature} that will run a {@link PDFAction} on a document,

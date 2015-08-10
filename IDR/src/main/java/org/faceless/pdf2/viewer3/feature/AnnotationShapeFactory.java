@@ -2,17 +2,43 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import org.faceless.pdf2.viewer3.util.ColorChoicePanel;
-import javax.swing.*;
-import java.awt.geom.*;
-import javax.swing.event.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import java.awt.*;
-import java.util.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Paint;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Arc2D;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 import java.util.prefs.Preferences;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.ListCellRenderer;
+import javax.swing.UIManager;
+
+import org.faceless.pdf2.AnnotationShape;
+import org.faceless.pdf2.PDFAnnotation;
+import org.faceless.pdf2.PDFParser;
+import org.faceless.pdf2.PDFStyle;
+import org.faceless.pdf2.viewer3.AnnotationComponentFactory;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.PagePanel;
 
 /**
  * Abstract superclass for factories creating annotations that handle {@link AnnotationShape} objects.

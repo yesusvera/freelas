@@ -25,12 +25,12 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import net.java.dev.designgridlayout.DesignGridLayout;
 import br.com.ibracon.idr.form.FormPrincipal;
 import br.com.ibracon.idr.form.bo.EstantesBO;
 import br.com.ibracon.idr.form.bo.RegistroBO;
 import br.com.ibracon.idr.form.util.IdrUtil;
 import br.com.ibracon.idr.webservice.registrar.RequestRegistrar;
+import net.java.dev.designgridlayout.DesignGridLayout;
 
 public class JanelaRegistro extends JDialog {
 

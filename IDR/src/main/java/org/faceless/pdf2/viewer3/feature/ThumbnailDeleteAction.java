@@ -2,16 +2,28 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import javax.swing.*;
-import javax.swing.event.*;
-import java.awt.*;
-import java.beans.*;
-import java.awt.event.*;
-import javax.swing.undo.*;
-import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.List;
-import org.faceless.pdf2.*;
-import org.faceless.pdf2.viewer3.*;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
+import javax.swing.UIManager;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.undo.AbstractUndoableEdit;
+
+import org.faceless.pdf2.PDF;
+import org.faceless.pdf2.PDFPage;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.DocumentPanelEvent;
+import org.faceless.pdf2.viewer3.DocumentPanelListener;
+import org.faceless.pdf2.viewer3.Util;
+import org.faceless.pdf2.viewer3.ViewerFeature;
 
 /**
  * This feature will allow pages to be deleted via the {@link ThumbnailPanel}.

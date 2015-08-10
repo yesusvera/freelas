@@ -2,10 +2,19 @@
 
 package org.faceless.pdf2.viewer3;
 
-import org.faceless.pdf2.*;
-import javax.swing.*;
-import java.awt.*;
-import java.io.*;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Frame;
+import java.io.IOException;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.UIManager;
+
+import org.faceless.pdf2.PasswordException;
+import org.faceless.pdf2.StandardEncryptionHandler;
 
 /**
  * An extension of the {@link StandardEncryptionHandler} that will pop up a

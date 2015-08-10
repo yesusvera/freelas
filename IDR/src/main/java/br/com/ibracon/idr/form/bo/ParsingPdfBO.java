@@ -12,8 +12,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import br.com.ibracon.idr.form.model.itext.MyTextRenderListener;
-
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.io.RandomAccessSourceFactory;
@@ -30,6 +28,8 @@ import com.itextpdf.text.pdf.parser.ContentByteUtils;
 import com.itextpdf.text.pdf.parser.PdfContentStreamProcessor;
 import com.itextpdf.text.pdf.parser.PdfTextExtractor;
 import com.itextpdf.text.pdf.parser.RenderListener;
+
+import br.com.ibracon.idr.form.model.itext.MyTextRenderListener;
 
 public class ParsingPdfBO {
 

@@ -23,6 +23,9 @@ import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+
 import br.com.ibracon.idr.form.FormPrincipal;
 import br.com.ibracon.idr.form.criptografia.FileCrypt;
 import br.com.ibracon.idr.form.model.RegistroXml;
@@ -32,9 +35,6 @@ import br.com.ibracon.idr.webservice.ResponseWS;
 import br.com.ibracon.idr.webservice.registrar.ConnectionRegistrar;
 import br.com.ibracon.idr.webservice.registrar.RequestRegistrar;
 import br.com.ibracon.idr.webservice.registrar.ResponseRegistrar;
-
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 
 /**
  * The Class RegistroBO.

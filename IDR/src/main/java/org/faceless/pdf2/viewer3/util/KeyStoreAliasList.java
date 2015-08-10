@@ -2,16 +2,27 @@
 
 package org.faceless.pdf2.viewer3.util;
 
-import java.awt.*;
-import javax.swing.*;
-import java.beans.*;
-import java.util.*;
-import java.security.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
-import org.faceless.pdf2.viewer3.Util;
-import org.faceless.pdf2.viewer3.KeyStoreManager;
+import java.util.Comparator;
+import java.util.Enumeration;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.ListCellRenderer;
+import javax.swing.UIManager;
+
 import org.faceless.pdf2.FormSignature;
+import org.faceless.pdf2.viewer3.KeyStoreManager;
 import org.faceless.util.CombinedKeyStore;
 import org.faceless.util.SortedListModel;
 

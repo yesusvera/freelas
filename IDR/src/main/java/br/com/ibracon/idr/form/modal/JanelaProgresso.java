@@ -10,8 +10,6 @@ import javax.swing.JWindow;
 
 import org.apache.log4j.Logger;
 
-import br.com.ibracon.idr.form.criptografia.FileCrypt;
-
 public class JanelaProgresso extends JWindow {
 	
 	static Logger logger = Logger.getLogger(JanelaProgresso.class);

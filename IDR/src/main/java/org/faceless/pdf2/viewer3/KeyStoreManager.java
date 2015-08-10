@@ -2,28 +2,53 @@
 
 package org.faceless.pdf2.viewer3;
 
-import java.beans.*;
-import java.io.*;
-import java.security.cert.*;
-import java.util.*;
-import java.util.regex.Pattern;
-import java.math.BigInteger;
-import java.security.*;
-import javax.crypto.*;
-import java.security.cert.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.security.AccessControlException;
+import java.security.GeneralSecurityException;
+import java.security.Key;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.PrivateKey;
+import java.security.Provider;
+import java.security.SecureRandom;
 import java.security.cert.Certificate;
-import javax.security.auth.x500.*;
-import javax.swing.*;
-import javax.swing.event.*;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
+
+import javax.crypto.SecretKey;
+import javax.swing.JComponent;
+import javax.swing.JFileChooser;
+import javax.swing.JPasswordField;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
+
 import org.faceless.pdf2.FormSignature;
 import org.faceless.pdf2.PropertyManager;
+import org.faceless.pdf2.viewer3.feature.KeyStoreSignatureProvider;
+import org.faceless.pdf2.viewer3.feature.ManageIdentities;
+import org.faceless.pdf2.viewer3.util.DialogPanel;
 import org.faceless.util.Base64;
 import org.faceless.util.CombinedKeyStore;
 import org.faceless.util.WeakPropertyChangeSupport;
-import org.faceless.pdf2.viewer3.util.DialogPanel;
-import org.faceless.pdf2.viewer3.feature.ManageIdentities;
-import org.faceless.pdf2.viewer3.feature.KeyStoreSignatureProvider;
 
 /**
  * <p>

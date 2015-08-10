@@ -2,16 +2,30 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.viewer3.util.PropertyParser;
-import org.faceless.pdf2.*;
-import javax.swing.*;
-import java.awt.geom.*;
-import java.awt.*;
-import java.util.*;
-import java.util.List;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Paint;
+import java.awt.Stroke;
+import java.lang.ref.SoftReference;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
-import java.lang.ref.*;
+
+import org.faceless.pdf2.PageExtractor;
+import org.faceless.pdf2.viewer3.DocumentPanelEvent;
+import org.faceless.pdf2.viewer3.DocumentPanelListener;
+import org.faceless.pdf2.viewer3.DocumentViewport;
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.PagePanel;
+import org.faceless.pdf2.viewer3.PagePanelEvent;
+import org.faceless.pdf2.viewer3.PagePanelListener;
+import org.faceless.pdf2.viewer3.ViewerFeature;
+import org.faceless.pdf2.viewer3.util.PropertyParser;
 
 /**
  * <p>

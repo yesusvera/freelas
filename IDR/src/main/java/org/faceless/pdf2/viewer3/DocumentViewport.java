@@ -2,18 +2,33 @@
 
 package org.faceless.pdf2.viewer3;
 
-import org.faceless.pdf2.*;
-import java.awt.*;
-import java.beans.*;
-import java.awt.event.*;
-import java.util.ArrayList;
+import java.awt.Adjustable;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.LayoutManager;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.Toolkit;
+import java.awt.geom.Rectangle2D;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import javax.swing.*;
-import java.awt.geom.*;
+
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.SwingUtilities;
+
+import org.faceless.pdf2.PDF;
+import org.faceless.pdf2.PDFPage;
+import org.faceless.pdf2.PropertyManager;
 
 /**
  * A <code>DocumentViewport</code> displays a view of a PDF inside a {@link DocumentPanel},

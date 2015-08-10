@@ -2,27 +2,63 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
+import java.awt.Point;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.io.SyncFailedException;
+import java.io.Writer;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.faceless.pdf2.AnnotationFile;
+import org.faceless.pdf2.AnnotationMarkup;
+import org.faceless.pdf2.AnnotationNote;
+import org.faceless.pdf2.AnnotationShape;
+import org.faceless.pdf2.AnnotationSound;
+import org.faceless.pdf2.AnnotationStamp;
+import org.faceless.pdf2.AnnotationText;
+import org.faceless.pdf2.FDF;
+import org.faceless.pdf2.Form;
+import org.faceless.pdf2.FormElement;
+import org.faceless.pdf2.PDF;
+import org.faceless.pdf2.PDFAction;
+import org.faceless.pdf2.PDFAnnotation;
+import org.faceless.pdf2.PDFPage;
+import org.faceless.pdf2.viewer3.ActionHandler;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.Util;
 import org.faceless.pdf2.viewer3.util.LongRunningTask;
 import org.faceless.util.Base64;
-import org.faceless.pdf2.*;
-import javax.xml.transform.stream.*;
-import javax.xml.transform.dom.*;
-import javax.xml.transform.*;
-import org.w3c.dom.*;
-import java.util.*;
-import java.security.*;
-import java.util.List;
-import java.net.*;
-import java.io.*;
-import java.awt.event.*;
-import java.awt.*;
-import javax.swing.*;
-import org.w3c.dom.*;
-import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.*;
-import javax.xml.transform.stream.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * Create a handler to handler "FormSubmit" actions.

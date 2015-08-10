@@ -2,19 +2,62 @@
 
 package org.faceless.pdf2.viewer3;
 
-import javax.swing.*;
-import javax.swing.event.*;
-import java.awt.*;
-import java.io.*;
-import java.net.*;
-import java.util.*;
-import java.security.*;
-import java.util.List;
-import java.util.prefs.Preferences;
-import java.text.SimpleDateFormat;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.geom.Point2D;
-import org.faceless.pdf2.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
+import java.util.prefs.Preferences;
+
+import javax.swing.AbstractAction;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
+import org.faceless.pdf2.AnnotationLink;
+import org.faceless.pdf2.JSCoreMethods;
+import org.faceless.pdf2.JSEngine;
+import org.faceless.pdf2.JSEvent;
+import org.faceless.pdf2.PDF;
+import org.faceless.pdf2.PDFAction;
+import org.faceless.pdf2.PDFAnnotation;
+import org.faceless.pdf2.PDFBookmark;
+import org.faceless.pdf2.PDFPage;
+import org.faceless.pdf2.PropertyManager;
+import org.faceless.pdf2.WidgetAnnotation;
 
 /**
  * <p>

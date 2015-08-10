@@ -2,14 +2,19 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import java.awt.*;
-import java.awt.geom.*;
-import javax.swing.undo.*;
-import javax.swing.*;
-import javax.swing.event.*;
+import java.awt.geom.Rectangle2D;
+
+import javax.swing.UIManager;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.undo.AbstractUndoableEdit;
+
+import org.faceless.pdf2.PDFPage;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.DocumentPanelEvent;
+import org.faceless.pdf2.viewer3.DocumentPanelListener;
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.PagePanel;
+import org.faceless.pdf2.viewer3.ViewerFeature;
 
 public class CropPage extends ViewerFeature implements AreaSelectionAction, DocumentPanelListener {
 

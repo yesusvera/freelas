@@ -2,13 +2,23 @@
 
 package org.faceless.pdf2.viewer3;
 
-import org.faceless.pdf2.viewer3.feature.*;
-import org.faceless.pdf2.PropertyManager;
-import org.faceless.pdf2.PDF;
-import java.util.*;
-import java.io.*;
-import java.net.URL;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.faceless.pdf2.PDF;
+import org.faceless.pdf2.PropertyManager;
+import org.faceless.pdf2.viewer2.PDFViewerApplet;
+import org.faceless.pdf2.viewer3.feature.GenericNamedActionHandler;
+import org.faceless.pdf2.viewer3.feature.KeyStoreSignatureProvider;
 
 /**
  * The ViewerFeature class can be used to control the various features of the

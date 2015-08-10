@@ -2,12 +2,17 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import javax.swing.*;
-import java.awt.event.*;
-import java.awt.geom.*;
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.geom.Point2D;
+
+import javax.swing.JLabel;
+
+import org.faceless.pdf2.viewer3.DocumentPanelEvent;
+import org.faceless.pdf2.viewer3.DocumentPanelListener;
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.PagePanelInteractionEvent;
+import org.faceless.pdf2.viewer3.PagePanelInteractionListener;
+import org.faceless.pdf2.viewer3.ViewerWidget;
 
 /**
  * Creates a {@link JLabel} which displays the total number of pages on the Toolbar.

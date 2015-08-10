@@ -2,13 +2,20 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import javax.swing.*;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import javax.swing.Action;
+import javax.swing.JComponent;
+import javax.swing.JMenuItem;
+import javax.swing.TransferHandler;
 import javax.swing.text.DefaultEditorKit;
-import javax.swing.text.JTextComponent;
-import java.beans.*;
-import java.awt.*;
-import java.awt.event.*;
+
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.ViewerFeature;
 
 /**
  * This features adds an "Edit" menu to the application, which provides a familiar

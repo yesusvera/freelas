@@ -2,15 +2,26 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
-import java.security.*;
-import org.faceless.pdf2.viewer3.*;
-import java.awt.datatransfer.*;
-import javax.swing.TransferHandler;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+import java.util.List;
+import java.util.StringTokenizer;
+
 import javax.swing.JComponent;
+import javax.swing.TransferHandler;
 import javax.swing.UIManager;
+
+import org.faceless.pdf2.viewer3.Importer;
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.Util;
+import org.faceless.pdf2.viewer3.ViewerFeature;
 
 /**
  * A feature which will add the ability to drag and drop files into the PDFViewer in a standard

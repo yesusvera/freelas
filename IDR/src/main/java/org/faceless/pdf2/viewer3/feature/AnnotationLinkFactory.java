@@ -2,13 +2,19 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import java.awt.event.*;
-import java.awt.*;
-import java.util.*;
+import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JComponent;
+import javax.swing.UIManager;
+
+import org.faceless.pdf2.AnnotationLink;
+import org.faceless.pdf2.PDFAction;
+import org.faceless.pdf2.PDFAnnotation;
+import org.faceless.pdf2.viewer3.AnnotationComponentFactory;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.PagePanel;
 
 /**
  * Create annotations that handle {@link AnnotationLink} objects.

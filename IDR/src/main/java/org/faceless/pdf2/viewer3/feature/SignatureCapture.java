@@ -1,19 +1,44 @@
 package org.faceless.pdf2.viewer3.feature;
 
-import java.io.*;
-import java.util.*;
-import java.net.*;
-import java.awt.image.*;
-import java.awt.geom.*;
-import java.awt.*;
-import java.security.*;
-import org.faceless.pdf2.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.GeneralPath;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.URLEncoder;
+
+import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
+import org.faceless.pdf2.BarCode;
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.Util;
+import org.faceless.pdf2.viewer3.ViewerEvent;
+import org.faceless.pdf2.viewer3.ViewerFeature;
+import org.faceless.pdf2.viewer3.util.DialogPanel;
 import org.faceless.util.Base64;
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.viewer3.util.*;
-import javax.swing.*;
-import java.awt.event.*;
-import javax.swing.event.*;
 
 /**
  * <p>

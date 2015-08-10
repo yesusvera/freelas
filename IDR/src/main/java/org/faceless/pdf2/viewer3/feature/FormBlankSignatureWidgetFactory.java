@@ -2,22 +2,25 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
+import javax.swing.JComponent;
+
 import org.faceless.pdf2.Event;
-import javax.swing.*;
-import javax.swing.border.*;
-import java.awt.*;
-import java.beans.*;
-import java.security.*;
-import java.security.cert.*;
-import java.security.cert.Certificate;
-import java.io.*;
-import java.net.URL;
-import javax.swing.filechooser.FileFilter;
-import java.util.*;
-import java.text.*;
-import java.awt.event.*;
+import org.faceless.pdf2.FormSignature;
+import org.faceless.pdf2.PDFAnnotation;
+import org.faceless.pdf2.WidgetAnnotation;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.PagePanel;
+import org.faceless.pdf2.viewer3.SignatureProvider;
+import org.faceless.pdf2.viewer3.Util;
 
 /**
  * Create annotations to handle {@link WidgetAnnotation} objects belonging to

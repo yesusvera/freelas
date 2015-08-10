@@ -2,12 +2,22 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+
+import javax.swing.JComponent;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
-import java.util.*;
-import java.io.*;
+
+import org.faceless.pdf2.PDF;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.Exporter;
+import org.faceless.pdf2.viewer3.PDFBackgroundTask;
 
 /**
  * A subclass of Exporter that handles exporting a PDF as a PDF file.

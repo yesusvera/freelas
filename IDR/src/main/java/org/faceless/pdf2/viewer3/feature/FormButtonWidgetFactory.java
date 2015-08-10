@@ -2,12 +2,19 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import org.faceless.pdf2.Event;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.JComponent;
+
+import org.faceless.pdf2.FormButton;
+import org.faceless.pdf2.PDFAnnotation;
+import org.faceless.pdf2.WidgetAnnotation;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.JSManager;
+import org.faceless.pdf2.viewer3.PagePanel;
 
 /**
  * Create annotations to handle {@link WidgetAnnotation} objects belonging to a {@link FormButton}.

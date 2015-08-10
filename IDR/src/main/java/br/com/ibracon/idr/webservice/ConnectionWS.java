@@ -16,15 +16,15 @@ import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+
 import br.com.ibracon.idr.form.FormPrincipal;
 import br.com.ibracon.idr.form.bo.PropertiesBO;
 import br.com.ibracon.idr.form.modal.JanelaProgresso;
 import br.com.ibracon.idr.webservice.estante.ResponseEstante;
 import br.com.ibracon.idr.webservice.registrar.ResponseRegistrar;
 import br.com.ibracon.idr.webservice.registrarLivro.ResponseRegistrarLivro;
-
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public abstract class ConnectionWS {
 
@@ -53,7 +53,7 @@ public abstract class ConnectionWS {
 			jp.aparecer();
 			jp.aumentaPercentual(5);
 			
-			jp.setTexto("Conectando-se ao serviço do Ibracon." );
+			jp.setTexto("   Conectando-se ao serviço do Ibracon.   " );
 			
 			if (!ws_servico.equals(WS_REGISTRAR)
 					&& !ws_servico.equals(WS_ESTANTES)
@@ -83,9 +83,9 @@ public abstract class ConnectionWS {
 			}
 
 			jp.aumentaPercentual(5);
-			jp.setTexto("Parametros de requisição montados. Enviando ao Ibracon.");
+			jp.setTexto("   Parametros de requisição montados. Enviando ao Ibracon.   ");
 			
-			logger.info("Parametros de requisição montados");
+			logger.info("   Parametros de requisição montados   ");
 			// REALIZA CONEXAO
 			logger.debug(urlString);
 
@@ -105,14 +105,14 @@ public abstract class ConnectionWS {
 			// IMPRIME RESPOSTA NO CONSOLE
 			try {
 				jp.aumentaPercentual(5);
-				jp.setTexto("Recebendo resposta do Ibracon. Aguarde um momento...");
+				jp.setTexto("   Recebendo resposta do Ibracon. Aguarde um momento...   ");
 				InputStream arquivoXML = connection.getInputStream();
 				// IMPRIME O CODIGO DE RESPOSTA HTTP E MENSAGEM
 				logger.debug("CODIGO DE RESPOSTA HTTP E MENSAGEM: "
 						+ connection.getResponseCode() + "/"
 						+ connection.getResponseMessage());
 
-				jp.setTexto("Processando resposta do Ibracon");
+				jp.setTexto("   Processando resposta do Ibracon.   ");
 				// MONTA OBJETO DE RESPOSTA
 				try {
 					jp.aumentaPercentual(5);

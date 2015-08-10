@@ -2,9 +2,11 @@
 
 package org.faceless.pdf2.viewer3.util;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.viewer3.feature.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Paint;
+import java.awt.Stroke;
+
+import org.faceless.pdf2.viewer3.feature.TextSelection;
 
 public class PropertyParser {
 

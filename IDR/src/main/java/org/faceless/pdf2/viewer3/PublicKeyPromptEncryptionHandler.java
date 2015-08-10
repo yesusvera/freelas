@@ -2,17 +2,22 @@
 
 package org.faceless.pdf2.viewer3;
 
-import org.faceless.pdf2.*;
-import javax.swing.*;
-import javax.security.auth.x500.X500Principal;
+import java.awt.event.ActionEvent;
 import java.math.BigInteger;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import java.security.*;
+import java.security.KeyStore;
+import java.security.UnrecoverableKeyException;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
-import java.io.*;
+
+import javax.security.auth.x500.X500Principal;
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
+import javax.swing.JPasswordField;
+import javax.swing.JViewport;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
+import org.faceless.pdf2.PublicKeyEncryptionHandler;
 import org.faceless.pdf2.viewer3.util.DialogPanel;
 import org.faceless.pdf2.viewer3.util.KeyStoreAliasList;
 

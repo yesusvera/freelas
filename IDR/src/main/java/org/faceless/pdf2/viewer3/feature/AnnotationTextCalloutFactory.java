@@ -2,15 +2,19 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import javax.swing.*;
-import javax.swing.undo.*;
-import javax.swing.event.*;
-import java.awt.geom.*;
-import java.awt.*;
-import java.util.*;
+import java.awt.Point;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.prefs.Preferences;
+
+import javax.swing.JComponent;
+import javax.swing.UIManager;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.undo.AbstractUndoableEdit;
+
+import org.faceless.pdf2.AnnotationText;
+import org.faceless.pdf2.PDFAnnotation;
+import org.faceless.pdf2.viewer3.PagePanel;
 
 /**
  * <p>

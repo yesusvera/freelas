@@ -2,7 +2,7 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
+import org.faceless.pdf2.viewer3.ViewerFeature;
 
 /**
  * A special feature that creates a menu option allowing the user to enable or disable toolbars.

@@ -2,12 +2,28 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import javax.swing.*;
-import java.awt.event.*;
-import java.awt.geom.*;
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.geom.Point2D;
+
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+
+import org.faceless.pdf2.PDF;
+import org.faceless.pdf2.PropertyManager;
+import org.faceless.pdf2.viewer3.DocumentPanelEvent;
+import org.faceless.pdf2.viewer3.DocumentPanelListener;
+import org.faceless.pdf2.viewer3.DocumentViewport;
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.PagePanel;
+import org.faceless.pdf2.viewer3.PagePanelInteractionEvent;
+import org.faceless.pdf2.viewer3.PagePanelInteractionListener;
+import org.faceless.pdf2.viewer3.ToggleViewerWidget;
+import org.faceless.pdf2.viewer3.ViewerEvent;
 
 /**
  * An abstract superclass for any widgets that require a region to be selected. Subclasses

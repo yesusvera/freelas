@@ -6,8 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -80,19 +78,20 @@ public class ProxyBO {
 	}
 
 	public boolean internetAtiva() {
-		logger.info("Verificando se a internet está ativa. Fazendo ping http://www.ibracon.com.br");
 		try {
-			InetAddress inet = InetAddress.getByName("www.ibracon.com.br");
-			int timeout = 3000;
+			java.net.URL mandarMail = new java.net.URL("http://www.google.com.br");
+			java.net.URLConnection conn = mandarMail.openConnection();
 
-			return inet.isReachable(timeout);
-		} catch (UnknownHostException e) {
-			logger.error(e);
-			e.printStackTrace();
-		} catch (IOException e) {
-			logger.error(e);
-			e.printStackTrace();
-		}
+			java.net.HttpURLConnection httpConn = (java.net.HttpURLConnection) conn;
+			httpConn.connect();
+			int x = httpConn.getResponseCode();
+			if (x == 200) {
+				return true;
+			}
+		} catch (java.net.MalformedURLException urlmal) {
+		} catch (java.io.IOException ioexcp) {
+		} 
+		
 		return false;
 	}
 

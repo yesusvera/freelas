@@ -2,15 +2,34 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import java.awt.*;
-import java.awt.geom.*;
-import javax.swing.*;
-import org.faceless.pdf2.*;
-import org.faceless.pdf2.viewer3.PagePanel;
-import java.util.*;
+import java.awt.BasicStroke;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Paint;
+import java.awt.Shape;
+import java.awt.Stroke;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Line2D;
+import java.awt.geom.PathIterator;
+import java.awt.geom.Point2D;
 import java.lang.ref.WeakReference;
-import java.util.List;
 import java.text.AttributedString;
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.swing.JPanel;
+
+import org.faceless.pdf2.PDFPage;
+import org.faceless.pdf2.PageExtractor;
+import org.faceless.pdf2.viewer3.PagePanel;
 import org.faceless.util.AttributedStringBuilder;
 
 /**

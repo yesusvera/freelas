@@ -14,39 +14,19 @@ import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.print.Book;
 import java.awt.print.PageFormat;
-import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyVetoException;
-import java.beans.VetoableChangeListener;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.Authenticator;
 import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
 import java.net.URL;
-import java.net.URLConnection;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -60,20 +40,12 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
-import javax.print.attribute.standard.Copies;
-import javax.print.attribute.standard.MultipleDocumentHandling;
-import javax.print.attribute.standard.PageRanges;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.DebugGraphics;
-import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -88,10 +60,7 @@ import javax.swing.JSlider;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.JToggleButton;
-import javax.swing.JToolBar;
-import javax.swing.JTree;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -101,18 +70,25 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.filechooser.FileFilter;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeSelectionModel;
+import javax.swing.plaf.metal.DefaultMetalTheme;
+import javax.swing.plaf.metal.MetalLookAndFeel;
+import javax.swing.plaf.metal.OceanTheme;
 
-import net.java.dev.designgridlayout.DesignGridLayout;
-
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.faceless.pdf2.viewer3.PDFViewer;
 import org.faceless.pdf2.viewer3.ViewerFeature;
 
+import com.sun.pdfview.OutlineNode;
+import com.sun.pdfview.PDFDestination;
+import com.sun.pdfview.PDFFile;
+import com.sun.pdfview.PDFObject;
+import com.sun.pdfview.PageChangeListener;
+import com.sun.pdfview.PagePanel;
+import com.sun.pdfview.ThumbPanel;
+import com.sun.pdfview.action.GoToAction;
+import com.sun.pdfview.action.PDFAction;
+
 import br.com.ibracon.idr.form.bo.EstantesBO;
-import br.com.ibracon.idr.form.bo.IndiceBO;
 import br.com.ibracon.idr.form.bo.InstalacaoBO;
 import br.com.ibracon.idr.form.bo.LivroIdrBO;
 import br.com.ibracon.idr.form.bo.NotaBO;
@@ -120,7 +96,6 @@ import br.com.ibracon.idr.form.bo.ProxyBO;
 import br.com.ibracon.idr.form.bo.RegistrarLivroBO;
 import br.com.ibracon.idr.form.bo.RegistroBO;
 import br.com.ibracon.idr.form.criptografia.CriptografiaUtil;
-import br.com.ibracon.idr.form.indexador.Buscador;
 import br.com.ibracon.idr.form.modal.JanelaBoasVindas;
 import br.com.ibracon.idr.form.modal.JanelaConfProxy;
 import br.com.ibracon.idr.form.modal.JanelaNota;
@@ -133,20 +108,9 @@ import br.com.ibracon.idr.form.model.Livro;
 import br.com.ibracon.idr.form.model.LivroIDR;
 import br.com.ibracon.idr.form.model.Nota;
 import br.com.ibracon.idr.form.model.RegistroXml;
-import br.com.ibracon.idr.form.model.indice.Item;
 import br.com.ibracon.idr.form.util.IdrUtil;
 import br.com.ibracon.idr.webservice.estante.ResponseEstante;
-
-import com.sun.pdfview.OutlineNode;
-import com.sun.pdfview.PDFDestination;
-import com.sun.pdfview.PDFFile;
-import com.sun.pdfview.PDFObject;
-import com.sun.pdfview.PDFPage;
-import com.sun.pdfview.PageChangeListener;
-import com.sun.pdfview.PagePanel;
-import com.sun.pdfview.ThumbPanel;
-import com.sun.pdfview.action.GoToAction;
-import com.sun.pdfview.action.PDFAction;
+import net.java.dev.designgridlayout.DesignGridLayout;
 
 /**
  * The Class FormPrincipal.
@@ -180,7 +144,7 @@ public class FormPrincipal extends JFrame implements KeyListener,
 	ThumbPanel thumbs;
 
 	/** The page. */
-	PagePanel page;
+	JPanel page;
 
 	/** The fspp. */
 	PagePanel fspp;
@@ -190,26 +154,6 @@ public class FormPrincipal extends JFrame implements KeyListener,
 
 	/** The full screen button. */
 	JToggleButton fullScreenButton;
-
-	/** The page field. */
-	JTextField pageField;
-
-	/** The num pages label. */
-	JLabel numPagesLabel;
-
-	/** The qtde zoom field. */
-	JTextField qtdeZoomField;
-
-	JSlider sliderZoom;
-
-	/** The qtde zoom label. */
-	JLabel qtdeZoomLabel;
-
-	/** The qtde zoom percentual label. */
-	JLabel qtdeZoomPercentualLabel;
-
-	/** The full screen. */
-	JanelaTelaCheia fullScreen;
 
 	/** The indice. */
 	OutlineNode indice = null;
@@ -257,9 +201,6 @@ public class FormPrincipal extends JFrame implements KeyListener,
 
 	DesignGridLayout designPainelCentral;
 
-	JTextField pesquisaField;
-
-	JLabel pesquisaLabel;
 
 	JButton notaBtn;
 
@@ -284,6 +225,17 @@ public class FormPrincipal extends JFrame implements KeyListener,
 	
 	private ArrayList<ItemResultado> listaResultadoPesquisa;
 
+	
+	 // Specify the look and feel to use by defining the LOOKANDFEEL constant
+    // Valid values are: null (use the default), "Metal", "System", "Motif",
+    // and "GTK"
+    final static String LOOKANDFEEL = "Metal";
+    
+    // If you choose the Metal L&F, you can also choose a theme.
+    // Specify the theme to use by defining the THEME constant
+    // Valid values are: "DefaultMetal", "Ocean",  and "Test"
+    final static String THEME = "DefaultMetal";
+    
 	/**
 	 * Gets the icon.
 	 * 
@@ -319,7 +271,7 @@ public class FormPrincipal extends JFrame implements KeyListener,
 	/** The open action. */
 	Action openAction = new AbstractAction("Abrir...") {
 		public void actionPerformed(ActionEvent evt) {
-			abrir();
+//			abrir();
 		}
 	};
 
@@ -334,30 +286,6 @@ public class FormPrincipal extends JFrame implements KeyListener,
 		}
 	};
 
-	/** The page setup action. */
-	Action pageSetupAction = new AbstractAction("Configurar página...") {
-		public void actionPerformed(ActionEvent evt) {
-			doPageSetup();
-		}
-	};
-
-	/** The print action. */
-	Action printAction = new AbstractAction("Imprimir...",
-			getIcon("gfx/print.gif")) {
-		public void actionPerformed(ActionEvent evt) {
-			imprimirPaginaAtual();
-		}
-	};
-
-	/** The close action. */
-	Action closeAction = new AbstractAction("Fechar livro") {
-		public void actionPerformed(ActionEvent evt) {
-			doClose();
-			getInstance().abrir("configuracoes/ibracon.pdf");
-			recarregaPagina();
-		}
-	};
-
 	/** The quit action. */
 	Action quitAction = new AbstractAction("Sair do leitor") {
 		public void actionPerformed(ActionEvent evt) {
@@ -365,179 +293,84 @@ public class FormPrincipal extends JFrame implements KeyListener,
 		}
 	};
 
-	/**
-	 * The Class ZoomAction.
-	 */
-	class ZoomAction extends AbstractAction {
+	
+	private static void initLookAndFeel() {
+        String lookAndFeel = null;
+       
+        if (LOOKANDFEEL != null) {
+            if (LOOKANDFEEL.equals("Metal")) {
+                lookAndFeel = UIManager.getCrossPlatformLookAndFeelClassName();
+              //  an alternative way to set the Metal L&F is to replace the 
+              // previous line with:
+              // lookAndFeel = "javax.swing.plaf.metal.MetalLookAndFeel";
+                
+            }
+            
+            else if (LOOKANDFEEL.equals("System")) {
+                lookAndFeel = UIManager.getSystemLookAndFeelClassName();
+            } 
+            
+            else if (LOOKANDFEEL.equals("Motif")) {
+                lookAndFeel = "com.sun.java.swing.plaf.motif.MotifLookAndFeel";
+            } 
+            
+            else if (LOOKANDFEEL.equals("GTK")) { 
+                lookAndFeel = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel";
+            } 
+            
+            else {
+                System.err.println("Unexpected value of LOOKANDFEEL specified: "
+                                   + LOOKANDFEEL);
+                lookAndFeel = UIManager.getCrossPlatformLookAndFeelClassName();
+            }
 
-		/** The zoomfactor. */
-		double zoomfactor = 1.0;
-
-		/**
-		 * Instantiates a new zoom action.
-		 * 
-		 * @param name
-		 *            the name
-		 * @param factor
-		 *            the factor
-		 */
-		public ZoomAction(String name, double factor) {
-			super(name);
-			zoomfactor = factor;
-		}
-
-		/**
-		 * Instantiates a new zoom action.
-		 * 
-		 * @param name
-		 *            the name
-		 * @param icon
-		 *            the icon
-		 * @param factor
-		 *            the factor
-		 */
-		public ZoomAction(String name, Icon icon, double factor) {
-			super(name, icon);
-			zoomfactor = factor;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent
-		 * )
-		 */
-		public void actionPerformed(ActionEvent evt) {
-			doZoom(zoomfactor);
-		}
-	}
-
-	/** The zoom in action. */
-	ZoomAction zoomInAction = new ZoomAction("Zoom in",
-			getIcon("gfx/zoomin.gif"), 1.3);
-
-	/** The zoom out action. */
-	ZoomAction zoomOutAction = new ZoomAction("Zoom out",
-			getIcon("gfx/zoomout.gif"), 0.5);
-
-	/** The zoom tool action. */
-	Action zoomToolAction = new AbstractAction("", getIcon("gfx/zoom.gif")) {
-		public void actionPerformed(ActionEvent evt) {
-			doZoomTool();
-		}
-	};
-
-	/** The fit in window action. */
-	Action fitInWindowAction = new AbstractAction("",
-			getIcon("gfx/controleremoto.png")) {
-		public void actionPerformed(ActionEvent evt) {
-			sliderZoom.setValue(90);
-		}
-	};
-
-	/**
-	 * The Class ThumbAction.
-	 */
-	class ThumbAction extends AbstractAction implements PropertyChangeListener {
-
-		/** The is open. */
-		boolean isOpen = true;
-
-		/**
-		 * Instantiates a new thumb action.
-		 */
-		public ThumbAction() {
-			super("Esconder miniaturas");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.beans.PropertyChangeListener#propertyChange(java.beans.
-		 * PropertyChangeEvent)
-		 */
-		public void propertyChange(PropertyChangeEvent evt) {
-			int v = ((Integer) evt.getNewValue()).intValue();
-			if (v <= 1) {
-				isOpen = false;
-				putValue(ACTION_COMMAND_KEY, "Mostrar miniaturas");
-				putValue(NAME, "Mostrar miniaturas");
-			} else {
-				isOpen = true;
-				putValue(ACTION_COMMAND_KEY, "Esconder miniaturas");
-				putValue(NAME, "Esconder miniaturas");
-			}
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent
-		 * )
-		 */
-		public void actionPerformed(ActionEvent evt) {
-			doThumbs(!isOpen);
-		}
-	}
-
-	/** The thumb action. */
-	ThumbAction thumbAction = new ThumbAction();
-
-	/** The next action. */
-	Action nextAction = new AbstractAction("Next", getIcon("gfx/next.gif")) {
-		public void actionPerformed(ActionEvent evt) {
-			doNext();
-		}
-	};
-
-	/** The first action. */
-	Action firstAction = new AbstractAction("First", getIcon("gfx/first.gif")) {
-		public void actionPerformed(ActionEvent evt) {
-			doFirst();
-		}
-	};
-
-	/** The last action. */
-	Action lastAction = new AbstractAction("Próximo", getIcon("gfx/last.gif")) {
-		public void actionPerformed(ActionEvent evt) {
-			doLast();
-		}
-	};
-
-	/** The prev action. */
-	Action prevAction = new AbstractAction("Anterior", getIcon("gfx/prev.gif")) {
-		public void actionPerformed(ActionEvent evt) {
-			doPrev();
-		}
-	};
-
-	Action deslocaAcimaAction = new AbstractAction("", getIcon("gfx/acima.png")) {
-		public void actionPerformed(ActionEvent evt) {
-			deslocamentoY(20);
-		}
-	};
-
-	Action deslocaAbaixoAction = new AbstractAction("",
-			getIcon("gfx/abaixo.png")) {
-		public void actionPerformed(ActionEvent evt) {
-			deslocamentoY(-20);
-		}
-	};
-	Action deslocaDireitoAction = new AbstractAction("",
-			getIcon("gfx/next.gif")) {
-		public void actionPerformed(ActionEvent evt) {
-			deslocamentoX(20);
-		}
-	};
-	Action deslocaEsquerdoAction = new AbstractAction("",
-			getIcon("gfx/prev.gif")) {
-		public void actionPerformed(ActionEvent evt) {
-			deslocamentoX(-20);
-		}
-	};
-
+            try {
+            	
+            	
+                UIManager.setLookAndFeel(lookAndFeel);
+                
+                // If L&F = "Metal", set the theme
+                
+                if (LOOKANDFEEL.equals("Metal")) {
+                  if (THEME.equals("DefaultMetal"))
+                     MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
+                  else if (THEME.equals("Ocean"))
+                     MetalLookAndFeel.setCurrentTheme(new OceanTheme());
+//                  else
+//                     MetalLookAndFeel.setCurrentTheme(new TestTheme());
+                     
+                  UIManager.setLookAndFeel(new MetalLookAndFeel()); 
+                }	
+                	
+                	
+                  
+                
+            } 
+            
+            catch (ClassNotFoundException e) {
+                System.err.println("Couldn't find class for specified look and feel:"
+                                   + lookAndFeel);
+                System.err.println("Did you include the L&F library in the class path?");
+                System.err.println("Using the default look and feel.");
+            } 
+            
+            catch (UnsupportedLookAndFeelException e) {
+                System.err.println("Can't use the specified look and feel ("
+                                   + lookAndFeel
+                                   + ") on this platform.");
+                System.err.println("Using the default look and feel.");
+            } 
+            
+            catch (Exception e) {
+                System.err.println("Couldn't get specified look and feel ("
+                                   + lookAndFeel
+                                   + "), for some reason.");
+                System.err.println("Using the default look and feel.");
+                e.printStackTrace();
+            }
+        }
+    }
+	
 	/**
 	 * Create a new PDFViewer based on a user, with or without a thumbnail
 	 * panel.
@@ -547,7 +380,9 @@ public class FormPrincipal extends JFrame implements KeyListener,
 	 */
 	public FormPrincipal(boolean usarMiniaturas) {
 		super(TITLE);
-
+		
+		initLookAndFeel();
+		
 		fazerMiniatura = usarMiniaturas;
 		setEnabled(false);
 
@@ -687,7 +522,7 @@ public class FormPrincipal extends JFrame implements KeyListener,
 		JLabel lblLivro = new JLabel("");
 
 		try {
-			Image image = ImageIO.read(new File(instalacaoBO
+			Image image = ImageIO.read(new File(InstalacaoBO
 					.getDiretorioBaixados().getAbsolutePath()
 					+ File.separator
 					+ arquivoFotoLocal));
@@ -727,74 +562,9 @@ public class FormPrincipal extends JFrame implements KeyListener,
 				if (JOptionPane.showConfirmDialog(getInstance(),
 						"Deseja abrir o livro?", "Abrir livro",
 						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					InstalacaoBO instalacaoBO = new InstalacaoBO();
 					logger.debug(livro);
-					
-					
-					
-					//Uso da API BFO para abrir o PDF
-				
-					
-			        File arquivoIdr = new File(instalacaoBO
-							.getDiretorioBaixados().getAbsolutePath()
-							+ File.separator + livro.getNomeArquivoBaixado());
-			        
-			        if (arquivoIdr.getName().endsWith(".idr")) {
-					
-							try {
-								livroIDR = new LivroIdrBO()
-										.getLivroIDRArrayBytes(arquivoIdr);
-							} catch (InvalidKeyException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							} catch (NoSuchAlgorithmException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							} catch (NoSuchPaddingException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							} catch (InvalidAlgorithmParameterException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							} catch (IOException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-					
-							arquivoIdr = livroIDR.getPdfFile();
-					} else {
-						return;
-					}
-			        
-			        
-//			        PDFViewerIBRACON viewerIbracon = new PDFViewerIBRACON();
-//			        viewerIbracon.carregar(new ByteArrayInputStream(livroIDR.getPdfByteArray()), livroIDR.getTitulo());			        
-			        
-//			        
-			    		List<ViewerFeature> featuresx = new ArrayList<>(ViewerFeature.getAllEnabledFeatures());  
-			    		
-			    		System.out.println(featuresx);
-			    		
-			    		List<ViewerFeature> features = new ArrayList<>();
-			    		
-			    		for(ViewerFeature vf: featuresx){
-			    			if(!vf.toString().equalsIgnoreCase("Menus") && !vf.toString().equalsIgnoreCase("Widget:Open") && !vf.toString().equalsIgnoreCase("Widget:Save")
-			    					 && !vf.toString().equalsIgnoreCase("Widget:ManageIdentities")){
-			    					features.add(vf);
-							}
-			    		}
-			    		
-			    		PDFViewer viewerLeitorIbracon = new PDFViewer(features);
-			    		
-			    		JFrame frame = new JFrame("Ibracon - Leitura de PDF");
-			    		frame.setExtendedState(6);
-			    		
-			    		frame.getContentPane().add(viewerLeitorIbracon, BorderLayout.CENTER);
-			    		frame.pack();
-			    		frame.setVisible(true);
-			    		
-						viewerLeitorIbracon.loadPDF(new ByteArrayInputStream(livroIDR.getPdfByteArray()), null, "titulo teste", null);
-						
+
+					abrirLivroAPINova(livro);
 				}
 			}
 		});
@@ -988,33 +758,6 @@ public class FormPrincipal extends JFrame implements KeyListener,
 
 	}
 
-	MouseListener mouseListener = new MouseListener() {
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			recarregaPagina();
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			recarregaPagina();
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			recarregaPagina();
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			recarregaPagina();
-		}
-
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			recarregaPagina();
-
-		}
-	};
 
 	/**
 	 * Montar abas.
@@ -1026,6 +769,7 @@ public class FormPrincipal extends JFrame implements KeyListener,
 //		abas.addTab("Índice", scrollIndice);
 //		abas.addTab("Miniaturas", thumbscroll);
 //		abas.addTab("Notas", new JScrollPane(notas));
+		
 		abas.addTab("Estantes", estante);
 		if(resultadoJList!=null && listaResultadoPesquisa != null){
 			abas.addTab("Resultado da pesquisa ("+listaResultadoPesquisa.size()+") ocorrências", new JScrollPane(resultadoJList));
@@ -1037,261 +781,8 @@ public class FormPrincipal extends JFrame implements KeyListener,
 				split.setRightComponent(painelCentral);
 			}
 		});
-		abas.addVetoableChangeListener(new VetoableChangeListener() {
-
-			@Override
-			public void vetoableChange(PropertyChangeEvent evt)
-					throws PropertyVetoException {
-				recarregaPagina();
-
-			}
-		});
-
-		if (scrollIndice != null) {
-			scrollIndice.addMouseListener(mouseListener);
-		}
-		if (scrollIndice != null) {
-			thumbscroll.addMouseListener(mouseListener);
-		}
-
-		if (scrollIndice != null) {
-			notas.addMouseListener(mouseListener);
-		}
 
 		split.setLeftComponent(abas);
-
-	}
-
-	/**
-	 * Montar tool bars.
-	 * 
-	 * @param painelCentral
-	 *            the painel central
-	 */
-	public void montarToolBars() {
-		logger.info("Montando toolbars");
-		JToolBar toolBarSlider = new JToolBar();
-
-		sliderNavegacao = new JSlider(JSlider.HORIZONTAL, 1, 1, 1);
-		sliderNavegacao.addChangeListener(new ChangeListener() {
-			public void stateChanged(final ChangeEvent e) {
-				JSlider sl = (JSlider) e.getSource();
-				gotoPage(sl.getValue());
-			}
-		});
-
-		JButton jb;
-		//
-		// jb = new JButton(firstAction);
-		// jb.setText("");
-		// toolbar.add(jb);
-		jb = new JButton(prevAction);
-		jb.setText("");
-		toolBarSlider.add(jb);
-		toolBarSlider.setFloatable(false);
-
-		toolBarSlider.add(sliderNavegacao);
-
-		// toolBarSlider.add(getBotaoDebug());
-
-		jb = new JButton(nextAction);
-		jb.setText("");
-		toolBarSlider.add(jb);
-		// jb = new JButton(lastAction);
-		// jb.setText("");
-		// toolbar.add(jb);
-		// toolbar.add(Box.createHorizontalGlue());
-
-		// fullScreenButton = new JToggleButton(fullScreenAction);
-		// fullScreenButton.setText("");
-		// toolbar.add(fullScreenButton);
-		// fullScreenButton.setEnabled(true);
-
-		// toolbar.add(Box.createHorizontalGlue());
-		//
-		// JToggleButton jtb;
-		// ButtonGroup bg = new ButtonGroup();
-		//
-		// jtb = new JToggleButton(zoomToolAction);
-		// jtb.setText("");
-		// bg.add(jtb);
-		// toolbar.add(jtb);
-		// jtb = new JToggleButton(fitInWindowAction);
-		// jtb.setText("");
-		// bg.add(jtb);
-		// jtb.setSelected(true);
-		// toolbar.add(jtb);
-		//
-		// toolbar.add(Box.createHorizontalGlue());
-
-		// jb = new JButton(printAction);
-		// jb.setText("");
-		// toolbar.add(jb);
-
-		JPanel pnl = new JPanel();
-		DesignGridLayout dgl = new DesignGridLayout(pnl);
-
-		pageField = new JTextField("", 6);
-		pageField.setMaximumSize(new Dimension(45, 32));
-		pageField.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				doPageTyped();
-				int pag = sliderNavegacao.getValue();
-				
-				try {
-					pag = Integer.parseInt(pageField.getText());
-				} catch (NumberFormatException e) {
-				}
-				
-				sliderNavegacao.setValue(pag);
-			}
-		});
-
-		numPagesLabel = new JLabel();
-
-		JPanel pnlIrPara = new JPanel();
-		DesignGridLayout dsIrPara = new DesignGridLayout(pnlIrPara);
-		dsIrPara.row().center().add(pageField).add(numPagesLabel);
-
-		JToolBar toolbarTop = new JToolBar();
-		toolbarTop.setLayout(new BorderLayout());
-		toolbarTop.setFloatable(false);
-		JPanel pnlCenterToolbarTop = new JPanel();
-
-		qtdeZoomField = new JTextField("", 6);
-		qtdeZoomField.setMaximumSize(new Dimension(45, 32));
-		qtdeZoomField.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				String strVl = ((JTextField) (evt.getSource())).getText();
-				try {
-					int valor = new Integer(strVl);
-					sliderZoom.setValue(valor);
-				} catch (NumberFormatException nfe) {
-					nfe.printStackTrace();
-					sliderZoom.setValue(100);
-				}
-			}
-		});
-
-		qtdeZoomLabel = new JLabel("Zoom");
-		qtdeZoomPercentualLabel = new JLabel("%");
-		sliderZoom = new JSlider(JSlider.HORIZONTAL);
-		sliderZoom.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				JSlider sl = (JSlider) e.getSource();
-				qtdeZoomField.setText(String.valueOf(sl.getValue()));
-				mudaZoom(new Double(sl.getValue()));
-
-				if (barraRolagemVertical != null) {
-					barraRolagemVertical.setMinimum(0);
-					barraRolagemVertical.setUnitIncrement(30);
-					barraRolagemVertical.setMaximum(page.getHeight()
-							- (int) page.getHeight() / 3);
-					barraRolagemVertical.setValue(0 - (int) page.getLocation()
-							.getY());
-				}
-				// if (barraRolagemHorizontal != null) {
-				// barraRolagemHorizontal.setMinimum(0);
-				// barraRolagemHorizontal.setMaximum(pnlPage.getWidth() * 2);
-				// barraRolagemHorizontal
-				// .setValue((int) barraRolagemHorizontal.getMaximum() / 2);
-				// }
-			}
-		});
-		sliderZoom.setMinimum(50);
-		sliderZoom.setMaximum(200);
-
-		notaBtn = new JButton(getIcon("gfx/marcador.png"));
-		notaBtn.setSize(40, 20);
-		notaBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				new JanelaNota(getInstance(), serialPDF, Integer
-						.valueOf(pageField.getText()));
-
-			}
-		});
-
-		pnlCenterToolbarTop.add(qtdeZoomLabel);
-		pnlCenterToolbarTop.add(qtdeZoomField);
-		pnlCenterToolbarTop.add(qtdeZoomPercentualLabel);
-		pnlCenterToolbarTop.add(sliderZoom);
-		pnlCenterToolbarTop.add(notaBtn);
-
-		JPanel pnlWestToolBarTop = new JPanel();
-
-		pesquisaField = new JTextField("", 20);
-		pesquisaField.setMaximumSize(new Dimension(45, 32));
-		pesquisaField.addActionListener(new ActionListener() {
-			public void actionPerformed(final ActionEvent evt) {
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
-						String textoPesquisa = ((JTextField) evt.getSource()).getText();
-							Buscador b = new Buscador();
-							String pathIndex = InstalacaoBO.getPathInstalacao() + File.separator + serialPDF + File.separator + "indexacao";
-							listaResultadoPesquisa = b.buscaComParser(pathIndex, textoPesquisa);
-							
-							DefaultListModel<ItemResultado> dataModel = new DefaultListModel<>();
-							resultadoJList = new JList<>(dataModel);
-								
-							for(ItemResultado item: listaResultadoPesquisa){
-								dataModel.addElement(item);
-							}
-							
-
-						    MouseListener mouseListener = new MouseAdapter() {
-						      public void mouseClicked(MouseEvent mouseEvent) {
-						          int index = resultadoJList.locationToIndex(mouseEvent.getPoint());
-						          if (index >= 0) {
-						            ItemResultado item = resultadoJList.getModel().getElementAt(index);
-						            sliderNavegacao.setValue(item.getPagina()-1);
-						          }
-						      }
-						    };
-						    
-						    resultadoJList.addMouseListener(mouseListener);
-							
-							montarAbas();
-							setAbaIndex(4);
-					}
-				}).start();
-			}
-		});
-
-		pesquisaLabel = new JLabel("Pesquisar:");
-
-		pnlWestToolBarTop.add(pesquisaLabel);
-		pnlWestToolBarTop.add(pesquisaField);
-
-		toolbarTop.add(pnlWestToolBarTop, BorderLayout.WEST);
-		toolbarTop.add(pnlCenterToolbarTop, BorderLayout.CENTER);
-		dgl.row().center().add(pnlIrPara);
-		dgl.row().grid().add(toolBarSlider);
-
-		JPanel sul = new JPanel(new BorderLayout());
-		// sul.add(criaBarraRolagemHorizontal(), BorderLayout.NORTH);
-		sul.add(pnl, BorderLayout.SOUTH);
-		// sul.add(getControlePaginas(), BorderLayout.EAST);
-
-		// toolbarTop.setBackground(Color.WHITE);
-		// pnl.setBackground(Color.WHITE);
-
-		painelCentral.add(toolbarTop, BorderLayout.NORTH);
-		painelCentral.add(sul, BorderLayout.SOUTH);
-		painelCentral.add(criaBarraRolagemVertical(), BorderLayout.EAST);
-	}
-
-	private JButton getBotaoDebug() {
-		JButton btn = new JButton("Debug");
-		btn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				JOptionPane.showMessageDialog(null, page.getSize());
-
-			}
-		});
-
-		return btn;
 	}
 
 	public JScrollBar criaBarraRolagemVertical() {
@@ -1311,13 +802,11 @@ public class FormPrincipal extends JFrame implements KeyListener,
 						.getMaximum() - 10) {
 					barraRolagemVertical.setValue(1);
 					sliderNavegacao.setValue(sliderNavegacao.getValue() + 1);
-					recarregaPagina();
 				} else if (barraRolagemVertical.getValue() == 0) {
 					if (sliderNavegacao.getValue() > 0) {
 						barraRolagemVertical.setValue(barraRolagemVertical
 								.getMaximum() - 15);
 						sliderNavegacao.setValue(sliderNavegacao.getValue() - 1);
-						recarregaPagina();
 					}
 				}
 			}
@@ -1347,44 +836,27 @@ public class FormPrincipal extends JFrame implements KeyListener,
 	 */
 	protected void init() {
 		logger.info("Swing: inicializando componentes visuais");
-		page = new PagePanel();
-		page.useZoomTool(false);
-		page.setDoubleBuffered(true);
-		page.setDebugGraphicsOptions(DebugGraphics.NONE_OPTION);
+		page = new JPanel();
 
 		this.setResizable(true);
 		this.setExtendedState(MAXIMIZED_BOTH);
 		painelCentral = new JPanel(new BorderLayout());
 
 		montarEstante();
-
-		if (fazerMiniatura) {
-			split = new JSplitPane(split.HORIZONTAL_SPLIT);
-			split.setOpaque(true);
-			split.setResizeWeight(0.5);
-			split.setOneTouchExpandable(true);
-			thumbscroll = new JScrollPane(thumbs,
-					thumbscroll.VERTICAL_SCROLLBAR_ALWAYS,
-					thumbscroll.HORIZONTAL_SCROLLBAR_NEVER);
-
-			montarPagina();
-
-			getContentPane().add(split, BorderLayout.CENTER);
-		} else {
-			getContentPane().add(painelCentral, BorderLayout.CENTER);
-		}
-
-		montarToolBars();
+		split = new JSplitPane(split.HORIZONTAL_SPLIT);
+		montarPagina();
+		getContentPane().add(split, BorderLayout.CENTER);
+		montarAbas();
+		
 
 		logger.info("Swing: Configurando Menubar");
 		JMenuBar mb = new JMenuBar();
 		JMenu file = new JMenu("Arquivo");
 //		file.add(openAction);
 //		file.addSeparator();
-		file.add(closeAction);
 		file.addSeparator();
 //		file.add(pageSetupAction);
-		file.add(printAction);
+//		file.add(printAction);
 		file.addSeparator();
 		file.add(quitAction);
 		mb.add(file);
@@ -1399,7 +871,6 @@ public class FormPrincipal extends JFrame implements KeyListener,
 		mb.add(ajuda);
 
 		setJMenuBar(mb);
-		setEnabling();
 		// pack();
 		
 		logger.info("Centralizando janela Toolkit.getDefaultToolkit().getScreenSize()");
@@ -1420,30 +891,8 @@ public class FormPrincipal extends JFrame implements KeyListener,
 			} catch (InterruptedException ie) {
 			}
 		}
-		pnlPage.addMouseListener(mouseListener);
 	}
 
-	public JPanel getControlePaginas() {
-		logger.info("Criando o componente de controle de páginas");
-		
-		JPanel jpanel = new JPanel();
-		jpanel.setBackground(Color.WHITE);
-
-		DesignGridLayout ds = new DesignGridLayout(jpanel);
-
-		JButton btnAcima = new JButton(deslocaAcimaAction);
-		JButton btnAbaixo = new JButton(deslocaAbaixoAction);
-		JButton btnDireito = new JButton(deslocaDireitoAction);
-		JButton btnEsquerdo = new JButton(deslocaEsquerdoAction);
-
-		JButton fitInWindow = new JButton(fitInWindowAction);
-
-		ds.row().center().add(btnAcima);
-		ds.row().left().add(btnEsquerdo).add(fitInWindow).add(btnDireito);
-		ds.row().center().add(btnAbaixo);
-
-		return jpanel;
-	}
 
 	/**
 	 * Montar pagina.
@@ -1458,20 +907,6 @@ public class FormPrincipal extends JFrame implements KeyListener,
 		split.setResizeWeight(0.4);
 
 		pnlPagina = new JPanel(new BorderLayout());
-
-		pnlPagina.addMouseWheelListener(new MouseWheelListener() {
-			public void mouseWheelMoved(MouseWheelEvent e) {
-				int acrescentaRolagem = 0;
-				if (e.getWheelRotation() < 0) {
-					acrescentaRolagem = -20;
-				} else if (e.getWheelRotation() > 0) {
-					acrescentaRolagem = 20;
-				}
-				barraRolagemVertical.setValue(barraRolagemVertical.getValue()
-						+ e.getWheelRotation() + acrescentaRolagem);
-
-			}
-		});
 
 		pnlPagina.setBackground(Color.WHITE);
 		pnlPagina.add(page, BorderLayout.CENTER);
@@ -1502,64 +937,8 @@ public class FormPrincipal extends JFrame implements KeyListener,
 			pagenum = curFile.getNumPages() - 1;
 		}
 		
-		forceGotoPage(pagenum);
-
-		recarregaPagina();
 	}
 
-	/**
-	 * Changes the displayed page.
-	 * 
-	 * @param pagenum
-	 *            the page to display
-	 */
-	public void forceGotoPage(int pagenum) {
-		logger.info("Forçando ir para página: " + pagenum);
-		try {
-			if (pagenum <= 0) {
-				pagenum = 0;
-			} else if (pagenum >= curFile.getNumPages()) {
-				pagenum = curFile.getNumPages() - 1;
-			}
-			// logger.debug("Going to page " + pagenum);
-			curpage = pagenum;
-
-			// update the page text field
-			pageField.setText(String.valueOf(curpage + 1));
-			numPagesLabel.setText("/" + curFile.getNumPages());
-
-			// fetch the page and show it in the appropriate place
-			PDFPage pg = curFile.getPage(pagenum + 1);
-			// if (fspp != null) {
-			// fspp.showPage(pg);
-			// fspp.requestFocus();
-			// } else {
-			try {
-				page.showPage(pg);
-			} catch (IllegalArgumentException iae) {
-				try {
-					page.showPage(pg);
-				} catch (IllegalArgumentException d) {
-					return;
-				}
-			}
-			// page.requestFocus();
-			// }
-
-			// update the thumb panel
-			if (fazerMiniatura) {
-				thumbs.pageShown(pagenum);
-			}
-
-			setEnabling();
-
-			recarregaPagina();
-
-		} catch (NullPointerException e) {
-			logger.debug("Ops, deu nullpointer, mas agora te peguei!");
-			forceGotoPage(pagenum);
-		}
-	}
 
 	public void centralizarPageNoPainelCentral() {
 		logger.info("Centralizando o pdf no painel central");
@@ -1569,261 +948,6 @@ public class FormPrincipal extends JFrame implements KeyListener,
 		page.setLocation(x, y);
 	}
 
-	/**
-	 * Enable or disable all of the actions based on the current state.
-	 */
-	public void setEnabling() {
-		boolean fileavailable = curFile != null;
-		boolean pageshown = ((fspp != null) ? fspp.getPage() != null : page
-				.getPage() != null);
-		boolean printable = fileavailable && curFile.isPrintable();
-
-		pesquisaLabel.setEnabled(fileavailable);
-		pesquisaField.setEnabled(fileavailable);
-
-		notaBtn.setEnabled(fileavailable);
-
-		qtdeZoomField.setEnabled(fileavailable);
-		qtdeZoomLabel.setEnabled(fileavailable);
-
-		qtdeZoomPercentualLabel.setEnabled(fileavailable);
-
-		pageField.setEnabled(fileavailable);
-		numPagesLabel.setEnabled(fileavailable);
-		sliderNavegacao.setEnabled(pageshown);
-		printAction.setEnabled(printable);
-		closeAction.setEnabled(fileavailable);
-		prevAction.setEnabled(pageshown);
-		nextAction.setEnabled(pageshown);
-		firstAction.setEnabled(fileavailable);
-		lastAction.setEnabled(fileavailable);
-		zoomToolAction.setEnabled(pageshown);
-		fitInWindowAction.setEnabled(pageshown);
-		zoomInAction.setEnabled(pageshown);
-		zoomOutAction.setEnabled(pageshown);
-	}
-
-	/**
-	 * open a URL to a PDF file. The file is read in and processed with an
-	 * in-memory buffer.
-	 * 
-	 * @param url
-	 *            the url
-	 * @throws IOException
-	 *             Signals that an I/O exception has occurred.
-	 */
-	public void openFile(URL url) throws IOException {
-		logger.info("Abrir arquivo : " + url);
-		URLConnection urlConnection = url.openConnection();
-		int contentLength = urlConnection.getContentLength();
-		InputStream istr = urlConnection.getInputStream();
-		byte[] byteBuf = new byte[contentLength];
-		int offset = 0;
-		int read = 0;
-		while (read >= 0) {
-			read = istr.read(byteBuf, offset, contentLength - offset);
-			if (read > 0) {
-				offset += read;
-			}
-		}
-		if (offset != contentLength) {
-			throw new IOException("Could not read all of URL file.");
-		}
-		ByteBuffer buf = ByteBuffer.allocate(contentLength);
-		buf.put(byteBuf);
-		openPDFByteBuffer(buf, url.toString(), url.getFile());
-
-	}
-
-	/**
-	 * <p>
-	 * Open a specific pdf file. Creates a DocumentInfo from the file, and opens
-	 * that.
-	 * </p>
-	 * 
-	 * <p>
-	 * <b>Note:</b> Mapping the file locks the file until the PDFFile is closed.
-	 * </p>
-	 * 
-	 * @param file
-	 *            the file to open
-	 * @throws IOException
-	 *             Signals that an I/O exception has occurred.
-	 */
-	public void openFile(File file) throws IOException {
-		logger.info("Abrindo arquivo : " + file);
-		
-		// first open the file for random access
-		RandomAccessFile raf = new RandomAccessFile(file, "r");
-
-		jp.aumentaPercentual(10);
-
-		// extract a file channel
-		FileChannel channel = raf.getChannel();
-
-		// now memory-map a byte-buffer
-		ByteBuffer buf = channel.map(FileChannel.MapMode.READ_ONLY, 0,
-				channel.size());
-
-		raf.close();
-
-		jp.aumentaPercentual(10);
-
-		String path = file.getPath();
-
-		file.delete();
-
-		openPDFByteBuffer(buf, path, file.getName());
-	}
-
-	public void openFile(InputStream in, String nome) throws IOException {
-		logger.info("Abrindo arquivo : " + nome);
-		ByteArrayOutputStream byteArrayStream = new ByteArrayOutputStream();
-
-		int bytesread = 0;
-		byte[] tbuff = new byte[1024];
-		while ((bytesread = in.read(tbuff)) != -1) {
-			byteArrayStream.write(tbuff, 0, bytesread);
-		}
-
-		byte[] byteBuff = byteArrayStream.toByteArray();
-
-		ByteBuffer buf = ByteBuffer.allocate(byteBuff.length);
-		buf.put(byteBuff);
-		openPDFByteBuffer(buf, "", nome);
-	}
-
-	public void openFile(byte[] byteBuff, String nome) throws IOException {
-		logger.info("Abrindo arquivo : " + nome);
-		ByteBuffer buf = ByteBuffer.allocate(byteBuff.length);
-		buf.put(byteBuff);
-		openPDFByteBuffer(buf, "", nome);
-	}
-
-	/**
-	 * <p>
-	 * Open a specific pdf file. Creates a DocumentInfo from the file, and opens
-	 * that.
-	 * </p>
-	 * 
-	 * <p>
-	 * <b>Note:</b> By not memory mapping the file its contents are not locked
-	 * down while PDFFile is open.
-	 * </p>
-	 * 
-	 * @param file
-	 *            the file to open
-	 * @throws IOException
-	 *             Signals that an I/O exception has occurred.
-	 */
-	public void openFileUnMapped(File file) throws IOException {
-		logger.info("Abrindo arquivo : " + file);
-		DataInputStream istr = null;
-		try {
-			// load a pdf from a byte buffer
-			// avoid using a RandomAccessFile but fill a ByteBuffer directly
-			istr = new DataInputStream(new FileInputStream(file));
-			long len = file.length();
-			if (len > Integer.MAX_VALUE) {
-				throw new IOException("File too long to decode: "
-						+ file.getName());
-			}
-			int contentLength = (int) len;
-			byte[] byteBuf = new byte[contentLength];
-			int offset = 0;
-			int read = 0;
-			while (read >= 0) {
-				read = istr.read(byteBuf, offset, contentLength - offset);
-				if (read > 0) {
-					offset += read;
-				}
-			}
-			ByteBuffer buf = ByteBuffer.allocate(contentLength);
-			buf.put(byteBuf);
-			openPDFByteBuffer(buf, file.getPath(), file.getName());
-		} catch (FileNotFoundException fnfe) {
-			fnfe.printStackTrace();
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		} finally {
-			if (istr != null) {
-				try {
-					istr.close();
-				} catch (Exception e) {
-					// ignore error on close
-				}
-			}
-		}
-	}
-
-	/**
-	 * Open pdf byte buffer.
-	 * 
-	 * @param buf
-	 *            the buf
-	 * @param path
-	 *            the path
-	 * @param name
-	 *            the name
-	 */
-	private void openPDFByteBuffer(ByteBuffer buf, String path, String name) {
-		logger.info("openPDFByteBuffer : " + path);
-		PDFFile newfile = null;
-		try {
-			newfile = new PDFFile(buf);
-
-		} catch (IOException ioe) {
-			erroAoAbrir(path + " doesn't appear to be a PDF file." + "\n: "
-					+ ioe.getMessage());
-			return;
-		}
-		jp.aumentaPercentual(5);
-
-		doClose();
-
-		this.curFile = newfile;
-		docName = name;
-		setTitle(TITLE + ": " + docName);
-
-		if (fazerMiniatura) {
-			thumbs = new ThumbPanel(curFile);
-			thumbs.addPageChangeListener(this);
-			thumbscroll.getViewport().setView(thumbs);
-			thumbscroll.getViewport().setBackground(Color.gray);
-		}
-
-		jp.aumentaPercentual(10);
-
-		setEnabling();
-
-		// display page 1.
-		// forceGotoPage(-1);
-
-		// if the PDF has an outline, display it.
-		try {
-			indice = curFile.getOutline();
-		} catch (IOException ioe) {
-		}
-		if (indice != null) {
-			if (indice.getChildCount() > 0) {
-				// olf = new JDialog(this, "Índice");
-				// olf.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-				// olf.setLocation(this.getLocation());
-				JTree jt = new JTree(indice);
-				jt.setRootVisible(false);
-				jt.addTreeSelectionListener(this);
-
-				scrollIndice = new JScrollPane(jt);
-				scrollIndice.setSize(100, 400);
-
-			} else {
-				if (olf != null) {
-					olf.setVisible(false);
-					olf = null;
-				}
-			}
-		}
-	}
 
 	/**
 	 * Erro ao abrir.
@@ -1836,160 +960,9 @@ public class FormPrincipal extends JFrame implements KeyListener,
 				"Erro ao abrir o arquivo.", JOptionPane.ERROR_MESSAGE);
 	}
 
-	/** The pdf filter. */
-	FileFilter pdfIdrFilter = new FileFilter() {
-		public boolean accept(File f) {
-			return f.isDirectory() || f.getName().endsWith(".pdf")
-					|| f.getName().endsWith(".idr");
-		}
-
-		public String getDescription() {
-			return "Escolha um arquivo PDF";
-		}
-	};
-
 	/** The prev dir choice. */
 	private File prevDirChoice;
 
-	/**
-	 * Abrir.
-	 */
-	public void abrir() {
-
-		logger.info("Abrindo livro");
-		try {
-			new Thread(new Runnable() {
-				public void run() {
-					JFileChooser fc = new JFileChooser();
-					fc.setCurrentDirectory(prevDirChoice);
-					fc.setFileFilter(pdfIdrFilter);
-					fc.setMultiSelectionEnabled(false);
-					int returnVal = fc.showOpenDialog(null);
-					if (returnVal == JFileChooser.APPROVE_OPTION) {
-						selectedFile = fc.getSelectedFile();
-						if (selectedFile != null) {
-							try {
-								jp = new JanelaProgresso(getInstance());
-								jp.aparecer();
-								jp.aumentaPercentual(10);
-								jp.setTexto("Abrindo o livro");
-								scrollIndice = null;
-
-								File arquivoPDF = null;
-								LivroIDR livroIDR = null;
-
-								jp.aumentaPercentual(5);
-								// VERIFICA SE É UM ARQUIVO IDR
-								if (selectedFile.getName().endsWith(".idr")) {
-									try {
-										livroIDR = new LivroIdrBO()
-												.getLivroIDRArrayBytes(selectedFile);
-										
-									} catch (InvalidKeyException e) {
-										e.printStackTrace();
-									} catch (NoSuchAlgorithmException e) {
-										e.printStackTrace();
-									} catch (NoSuchPaddingException e) {
-										e.printStackTrace();
-									} catch (InvalidAlgorithmParameterException e) {
-										e.printStackTrace();
-									}
-									arquivoPDF = livroIDR.getPdfFile();
-								} else {
-									arquivoPDF = selectedFile;
-								}
-
-								
-								jp.aumentaPercentual(5);
-								serialPDF = selectedFile.getName();
-
-								prevDirChoice = selectedFile;
-								recarregaPagina();
-								
-								openFile(livroIDR.getPdfByteArray(), serialPDF);
-								
-								if (selectedFile.getName().endsWith(".idr")
-										&& livroIDR != null) {
-									try {
-										DefaultMutableTreeNode dmtIndice = new IndiceBO(
-												getInstance())
-												.montarArvoreIndice(livroIDR
-														.getIndiceByteArray());
-										JTree arvoreIndice = new JTree(
-												dmtIndice);
-										arvoreIndice
-												.getSelectionModel()
-												.setSelectionMode(
-														TreeSelectionModel.SINGLE_TREE_SELECTION);
-										arvoreIndice
-												.addTreeSelectionListener(new TreeSelectionListener() {
-													public void valueChanged(
-															TreeSelectionEvent arg0) {
-														try {
-															Item item = (Item) ((DefaultMutableTreeNode) (arg0
-																	.getPath()
-																	.getLastPathComponent()))
-																	.getUserObject();
-															page.setBounds(
-																	page.getX(),
-																	-10,
-																	page.getWidth(),
-																	page.getHeight());
-															if (sliderZoom
-																	.getValue() < 100) {
-																sliderZoom
-																		.setValue(100);
-															}
-
-															sliderNavegacao
-																	.setValue(new Integer(
-																			item.getPaginareal()) - 1);
-														} catch (Exception e) {
-															e.printStackTrace();
-														}
-													}
-												});
-										scrollIndice = new JScrollPane(
-												arvoreIndice);
-									} catch (Exception exc) {
-										exc.printStackTrace();
-									}
-								}
-								jp.aumentaPercentual(20);
-								montaLivro();
-
-								//Copiando e extraindo o zip de indexação
-								
-								new LivroIdrBO().copiaExtraiZipIndexacao(selectedFile.getName(), livroIDR);
-
-								// EXCLUI A PASTA TEMP
-								InstalacaoBO.excluirPastaTemp();
-
-								sliderZoom.setValue(100);
-								jp.aumentaPercentual(20);
-								jp.encerrar();
-
-								recarregaPagina();
-
-							} catch (IOException ioe) {
-								ioe.printStackTrace();
-							}
-						}
-					}
-				}
-			}).start();
-			
-			logger.info("Thread de abertura de livro inciada");
-			
-			recarregaPagina();
-		} catch (Exception e) {
-			JOptionPane
-					.showMessageDialog(split,
-							"Erro ao abrir o arquivo. Por favor, faça contato com o suporte técnico.");
-			logger.error(e);
-			e.printStackTrace();
-		}
-	}
 
 	public void montaLivro() {
 		logger.info("Montando o livro na tela");
@@ -2028,284 +1001,6 @@ public class FormPrincipal extends JFrame implements KeyListener,
 //		abas.setSelectedIndex(index);
 	}
 
-	/**
-	 * Open a local file, given a string filename.
-	 * 
-	 * @param name
-	 *            the name of the file to open
-	 */
-	public void abrir(String resource) {
-		logger.info("Abrindo " + resource);
-		try {
-			jp = new JanelaProgresso(this);
-			jp.aparecer();
-			InstalacaoBO instalacaoBo = new InstalacaoBO();
-			File ibraconPDFFile = new File(instalacaoBo.getPathInstalacao()
-					+ File.separator + "ibracon.pdf");
-			jp.aumentaPercentual(10);
-			openFile(ibraconPDFFile);
-			jp.aumentaPercentual(10);
-			scrollIndice = null;
-			serialPDF = "ABERTURA";
-			montaLivro();
-			jp.aumentaPercentual(100);
-			jp.encerrar();
-			sliderZoom.setValue(60);
-			recarregaPagina();
-
-		} catch (IOException ioe) {
-			try {
-				openFile(new File(resource));
-			} catch (IOException ex) {
-				Logger.getLogger(FormPrincipal.class.getName()).log(
-						Level.FATAL, null, ex);
-			}
-		}
-	}
-
-	/**
-	 * Método utilizado pela estante de livros
-	 */
-	public void abrirIDR(final File arquivoPDF, final String titulo) {
-		new Thread(new Runnable() {
-			public void run() {
-				try {
-					jp.aumentaPercentual(5);
-					if (arquivoPDF.getName().endsWith(".idr")) {
-						try {
-							livroIDR = new LivroIdrBO()
-									.getLivroIDRArrayBytes(arquivoPDF);
-						} catch (InvalidKeyException e) {
-							e.printStackTrace();
-						} catch (NoSuchAlgorithmException e) {
-							e.printStackTrace();
-						} catch (NoSuchPaddingException e) {
-							e.printStackTrace();
-						} catch (InvalidAlgorithmParameterException e) {
-							e.printStackTrace();
-						}
-						// arquivoPDF = livroIDR.getPdfFile();
-					} else {
-						return;
-					}
-					jp = new JanelaProgresso(getInstance());
-					jp.aparecer();
-					jp.aumentaPercentual(10);
-					jp.setTexto("Abrindo o livro");
-					scrollIndice = null;
-
-					jp.aumentaPercentual(5);
-					serialPDF = titulo;
-
-					recarregaPagina();
-					// openFile(livroIDR.getPdfFile());
-					
-					openFile(livroIDR.getPdfByteArray(), titulo);
-
-					try {
-						DefaultMutableTreeNode dmtIndice = new IndiceBO(
-								getInstance()).montarArvoreIndice(livroIDR
-								.getIndiceByteArray());
-						JTree arvoreIndice = new JTree(dmtIndice);
-						arvoreIndice.getSelectionModel().setSelectionMode(
-								TreeSelectionModel.SINGLE_TREE_SELECTION);
-						arvoreIndice
-								.addTreeSelectionListener(new TreeSelectionListener() {
-									public void valueChanged(
-											TreeSelectionEvent arg0) {
-										try {
-											Item item = (Item) ((DefaultMutableTreeNode) (arg0
-													.getPath()
-													.getLastPathComponent()))
-													.getUserObject();
-											page.setBounds(page.getX(), -10,
-													page.getWidth(),
-													page.getHeight());
-											if (sliderZoom.getValue() < 100) {
-												sliderZoom.setValue(100);
-											}
-
-											sliderNavegacao.setValue(new Integer(
-													item.getPaginareal()) - 1);
-										} catch (Exception e) {
-											e.printStackTrace();
-										}
-									}
-								});
-						scrollIndice = new JScrollPane(arvoreIndice);
-					} catch (Exception exc) {
-						exc.printStackTrace();
-						jp.encerrar();
-					}
-					jp.aumentaPercentual(20);
-					montaLivro();
-
-					//Copiando e extraindo o zip de indexação
-					new LivroIdrBO().copiaExtraiZipIndexacao(serialPDF, livroIDR);
-					
-					// EXCLUI A PASTA TEMP
-					InstalacaoBO.excluirPastaTemp();
-
-					sliderZoom.setValue(100);
-					jp.aumentaPercentual(20);
-					jp.encerrar();
-
-					setTitle(TITLE + ": " + serialPDF);
-
-					recarregaPagina();
-
-				} catch (IOException ioe) {
-					jp.encerrar();
-					ioe.printStackTrace();
-				}
-			}
-		}).start();
-	}
-
-	/**
-	 * Posts the Page Setup dialog.
-	 */
-	public void doPageSetup() {
-		PrinterJob pjob = PrinterJob.getPrinterJob();
-		pformat = pjob.pageDialog(pformat);
-	}
-
-	/**
-	 * A thread for printing in.
-	 */
-	class PrintThread extends Thread {
-
-		/** The pt pages. */
-		PDFPrintPage ptPages;
-
-		/** The pt pjob. */
-		PrinterJob ptPjob;
-
-		/**
-		 * Instantiates a new prints the thread.
-		 * 
-		 * @param pages
-		 *            the pages
-		 * @param pjob
-		 *            the pjob
-		 */
-		public PrintThread(PDFPrintPage pages, PrinterJob pjob) {
-			ptPages = pages;
-			ptPjob = pjob;
-			setName(getClass().getName());
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Thread#run()
-		 */
-		public void run() {
-			try {
-				ptPages.show(ptPjob);
-				ptPjob.print();
-			} catch (PrinterException pe) {
-				JOptionPane.showMessageDialog(FormPrincipal.this,
-						"Printing Error: " + pe.getMessage(), "Print Aborted",
-						JOptionPane.ERROR_MESSAGE);
-			}
-			ptPages.hide();
-		}
-	}
-
-	/**
-	 * Print the current document.
-	 */
-	public void doPrintX() {
-
-		try{
-		PDFPrintPage pages = new PDFPrintPage(curFile);
-
-		PrinterJob pjob = PrinterJob.getPrinterJob();
-		pformat = PrinterJob.getPrinterJob().pageDialog(pformat);
-//		pformat.setOrientation(pformat.PORTRAIT);
-
-		PDFPage pdfPage = curFile.getPage(curpage);
-		curFile.getPage(pdfPage.getPageNumber());
-
-		if (pjob.printDialog()) {
-			pformat = pjob.validatePage(pformat);
-			Book book = new Book();
-
-			book.append(pages, pformat, pdfPage.getPageNumber());
-			pjob.setPageable(book);
-		}
-
-			pjob.print();
-		} catch (PrinterException exc) {
-			logger.debug(exc);
-		} catch (NullPointerException ne){
-			logger.debug(ne);
-		}
-	}
-	
-	/**
-	 * @author yesus
-	 * @since FEV/2014
-	 */
-	public void imprimirPaginaAtual(){
-		
-		if(JOptionPane.showConfirmDialog(this, 
-											"Deseja realmente imprimir esta página? ", 
-											"Imprimir página (".concat(String.valueOf(sliderNavegacao.getValue()+1)).concat(")"),
-											JOptionPane.YES_NO_OPTION) ==
-									JOptionPane.OK_OPTION){	
-				PDFPrintPage pages = new PDFPrintPage(curFile);
-				PrinterJob job = PrinterJob.getPrinterJob();
-				job.setPrintable(pages);
-				
-				PrintRequestAttributeSet atributosImpressao = new HashPrintRequestAttributeSet();
-				atributosImpressao.add(new Copies(1));
-				//atributosImpressao.add(new CopiesSupported(1));
-				atributosImpressao.add(MultipleDocumentHandling.SINGLE_DOCUMENT);
-				atributosImpressao.add(new PageRanges(sliderNavegacao.getValue()+1, sliderNavegacao.getValue()+1));
-				
-				try {
-					job.print(atributosImpressao);
-				} catch (PrinterException e) {
-					e.printStackTrace();
-				}
-		}
-		
-//		
-//		if(job.printDialog(atributosImpressao)){
-//			try {
-//				job.print();
-//			} catch (PrinterException e) {
-//				e.printStackTrace();
-//			}
-//		}
-	}
-
-	/**
-	 * Close the current document.
-	 */
-	public void doClose() {
-		if (thumbs != null) {
-			thumbs.stop();
-		}
-		if (olf != null) {
-			olf.setVisible(false);
-			olf = null;
-		}
-		if (fazerMiniatura) {
-			thumbs = new ThumbPanel(null);
-			thumbscroll.getViewport().setView(thumbs);
-		}
-
-		abas = new JTabbedPane();
-		split.setLeftComponent(abas);
-
-		page.showPage(null);
-		curFile = null;
-		setTitle(TITLE);
-		setEnabling();
-	}
 
 	public static Image getFaviIcon(String fileName) {
 		URL url = null;
@@ -2323,14 +1018,6 @@ public class FormPrincipal extends JFrame implements KeyListener,
 		System.exit(0);
 	}
 
-	/**
-	 * Turns on zooming.
-	 */
-	public void doZoomTool() {
-		if (fspp == null) {
-			page.useZoomTool(true);
-		}
-	}
 
 	/**
 	 * Turns off zooming; makes the page fit in the window.
@@ -2338,7 +1025,6 @@ public class FormPrincipal extends JFrame implements KeyListener,
 	public void doFitInWindow() {
 		if (fspp == null) {
 			// page.useZoomTool(false);
-			page.setClip(null);
 			// montarPagina();
 		}
 	}
@@ -2372,19 +1058,6 @@ public class FormPrincipal extends JFrame implements KeyListener,
 
 	}
 
-	/**
-	 * Do zoom.
-	 * 
-	 * @param factor
-	 *            the factor
-	 */
-	public void doZoom(double factor) {
-		logger.info("Zoom para factor " + factor );
-		int width = (int) Math.round(pnlPage.getWidth() * factor);
-		int heigth = (int) Math.round(pnlPage.getHeight() * factor);
-		page.setSize(width - 30, heigth - 30);
-		centralizarPageNoPainelCentral();
-	}
 
 	/**
 	 * Goes to the next page.
@@ -2414,59 +1087,7 @@ public class FormPrincipal extends JFrame implements KeyListener,
 		gotoPage(curFile.getNumPages() - 1);
 	}
 
-	/**
-	 * Goes to the page that was typed in the page number text field.
-	 */
-	public void doPageTyped() {
-		int pagenum = -1;
-		try {
-			pagenum = Integer.parseInt(pageField.getText()) - 1;
-		} catch (NumberFormatException nfe) {
-		}
-		if (pagenum >= curFile.getNumPages()) {
-			pagenum = curFile.getNumPages() - 1;
-		}
-		if (pagenum >= 0) {
-			if (pagenum != curpage) {
-				gotoPage(pagenum);
-			}
-		} else {
-			pageField.setText(String.valueOf(curpage));
-		}
-	}
 
-	/**
-	 * Runs the FullScreenMode change in another thread.
-	 */
-	class PerformFullScreenMode implements Runnable {
-
-		/** The force. */
-		boolean force;
-
-		/**
-		 * Instantiates a new perform full screen mode.
-		 * 
-		 * @param forcechoice
-		 *            the forcechoice
-		 */
-		public PerformFullScreenMode(boolean forcechoice) {
-			force = forcechoice;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Runnable#run()
-		 */
-		public void run() {
-			fspp = new PagePanel();
-			fspp.setBackground(Color.black);
-			page.showPage(null);
-			fullScreen = new JanelaTelaCheia(fspp, force);
-			fspp.addKeyListener(FormPrincipal.this);
-			gotoPage(curpage);
-		}
-	}
 
 	/**
 	 * The main method.
@@ -2541,10 +1162,6 @@ public class FormPrincipal extends JFrame implements KeyListener,
 				}
 			}
 		});
-
-		if (fileName != null) {
-			formPrincipal.abrir(fileName);
-		}
 
 		new ProxyBO().dialogConfigurarProxy(formPrincipal);
 
@@ -2657,23 +1274,6 @@ public class FormPrincipal extends JFrame implements KeyListener,
 		}
 	}
 
-	public void recarregaPagina() {
-		sliderZoom.setValue(sliderZoom.getValue() + 1);
-		sliderZoom.setValue(sliderZoom.getValue() - 1);
-
-		barraRolagemVertical.setValue(barraRolagemVertical.getValue() + 1);
-		barraRolagemVertical.setValue(barraRolagemVertical.getValue() - 1);
-	}
-
-	public void mudaZoom(double valor) {
-		try {
-			if (valor <= 300) {
-				doZoom((valor * 1.6) / 100);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	public FormPrincipal getInstance() {
 		return this;
@@ -2682,6 +1282,61 @@ public class FormPrincipal extends JFrame implements KeyListener,
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+
+	/**
+	 * Abrindo livros com a API nova AGO/2015
+	 * @param livro
+	 */
+	public void abrirLivroAPINova(final Livro livro) {
+		// Uso da API BFO para abrir o PDF
+		File arquivoIdr = new File(InstalacaoBO.getDiretorioBaixados().getAbsolutePath() + File.separator
+				+ livro.getNomeArquivoBaixado());
+
+		if (arquivoIdr.getName().endsWith(".idr")) {
+			try {
+				livroIDR = new LivroIdrBO().getLivroIDRArrayBytes(arquivoIdr);
+			} catch (InvalidKeyException e1) {
+				e1.printStackTrace();
+			} catch (NoSuchAlgorithmException e1) {
+				e1.printStackTrace();
+			} catch (NoSuchPaddingException e1) {
+				e1.printStackTrace();
+			} catch (InvalidAlgorithmParameterException e1) {
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			arquivoIdr = livroIDR.getPdfFile();
+		} else {
+			return;
+		}
+		List<ViewerFeature> featuresx = new ArrayList<>(ViewerFeature.getAllEnabledFeatures());
+
+		System.out.println(featuresx);
+
+		List<ViewerFeature> features = new ArrayList<>();
+
+		for (ViewerFeature vf : featuresx) {
+			if (!vf.toString().equalsIgnoreCase("Menus") && !vf.toString().equalsIgnoreCase("Widget:Open")
+					&& !vf.toString().equalsIgnoreCase("Widget:Save")
+					&& !vf.toString().equalsIgnoreCase("Widget:ManageIdentities")) {
+				features.add(vf);
+			}
+		}
+
+		PDFViewer viewerLeitorIbracon = new PDFViewer(features);
+
+		JFrame frame = new JFrame();
+		frame.setTitle("Leitor IBRACON");
+		frame.setExtendedState(6);
+
+		frame.getContentPane().add(viewerLeitorIbracon, BorderLayout.CENTER);
+		frame.pack();
+		frame.setVisible(true);
+
+		viewerLeitorIbracon.loadPDF(new ByteArrayInputStream(livroIDR.getPdfByteArray()), null,
+				"Livro Ibracon", null);
 	}
 
 }

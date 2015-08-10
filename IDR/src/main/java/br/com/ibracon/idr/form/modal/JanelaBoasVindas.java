@@ -13,9 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import net.java.dev.designgridlayout.DesignGridLayout;
 import br.com.ibracon.idr.form.FormPrincipal;
 import br.com.ibracon.idr.form.bo.EstantesBO;
+import net.java.dev.designgridlayout.DesignGridLayout;
 
 public class JanelaBoasVindas extends JDialog {
 

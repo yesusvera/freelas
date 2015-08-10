@@ -2,8 +2,10 @@
 
 package org.faceless.pdf2.viewer3.util;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.DefaultDesktopManager;
+import javax.swing.JComponent;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 
 /**
  * DesktopManager which ensures JInternalFrames cannot be dragged out of view.

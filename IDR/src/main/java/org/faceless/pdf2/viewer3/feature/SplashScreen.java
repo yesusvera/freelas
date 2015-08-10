@@ -2,14 +2,10 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.border.*;
-import java.util.*;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.HierarchyListener;
+
+import org.faceless.pdf2.viewer3.PDFViewer;
 
 /**
  * Create a splash screen which displays an "About" dialog when the PDFViewer is first displayed.

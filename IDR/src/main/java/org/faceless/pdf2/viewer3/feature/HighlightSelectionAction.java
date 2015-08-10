@@ -2,9 +2,9 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
 import java.awt.Color;
+
+import org.faceless.pdf2.AnnotationMarkup;
 
 /**
  * A {@link MarkupSelectionAction} that will create an Highlight

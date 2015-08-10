@@ -14,8 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import net.java.dev.designgridlayout.DesignGridLayout;
 import br.com.ibracon.idr.form.bo.ProxyBO;
+import net.java.dev.designgridlayout.DesignGridLayout;
 
 public class JanelaConfProxy extends JDialog {
 

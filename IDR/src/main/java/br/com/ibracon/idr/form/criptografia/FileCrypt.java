@@ -27,8 +27,6 @@ import javax.crypto.spec.PBEParameterSpec;
 
 import org.apache.log4j.Logger;
 
-import br.com.ibracon.idr.form.bo.RegistrarLivroBO;
-
 public class FileCrypt {
 
 	static Logger logger = Logger.getLogger(FileCrypt.class);

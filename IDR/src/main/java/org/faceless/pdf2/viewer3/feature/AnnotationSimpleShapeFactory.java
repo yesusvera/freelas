@@ -2,17 +2,26 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import org.faceless.pdf2.viewer3.util.ColorChoicePanel;
-import javax.swing.*;
-import java.awt.geom.*;
-import javax.swing.event.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import java.awt.*;
-import java.util.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.prefs.Preferences;
+
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.UIManager;
+
+import org.faceless.pdf2.AnnotationShape;
+import org.faceless.pdf2.PDFParser;
+import org.faceless.pdf2.PDFStyle;
+import org.faceless.pdf2.viewer3.Util;
+import org.faceless.pdf2.viewer3.util.ColorChoicePanel;
 
 abstract class AnnotationSimpleShapeFactory extends AnnotationShapeFactory {
 

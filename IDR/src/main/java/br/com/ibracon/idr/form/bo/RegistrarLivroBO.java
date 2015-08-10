@@ -68,8 +68,7 @@ public class RegistrarLivroBO {
 
 					progresso.setPercentual(20);
 
-					File outFile = new File(new InstalacaoBO()
-							.getDiretorioBaixados().getPath()
+					File outFile = new File(InstalacaoBO.getDiretorioBaixados().getPath()
 							+ File.separator
 							+ livro.getNomeArquivoBaixado());
 					FileOutputStream out = new FileOutputStream(outFile);
@@ -86,7 +85,7 @@ public class RegistrarLivroBO {
 
 					for (int r = -1; (r = in.read(b, 0, n)) != -1; out.write(b,
 							0, r)) {
-						progresso.setTexto("Download - "
+						progresso.setTexto("     Download - "
 								+ tituloCortado
 								+ "... ("
 								+ format.format((double) (outFile.length() / 1024) / 1024)
@@ -94,7 +93,7 @@ public class RegistrarLivroBO {
 					}
 					out.flush();
 
-					logger.info("Download do livro finalizado");
+					logger.info("    Download do livro finalizado");
 
 					progresso.setPercentual(80);
 
@@ -119,8 +118,7 @@ public class RegistrarLivroBO {
 							livro.getFoto().lastIndexOf("/"));
 					progresso.setPercentual(20);
 
-					outFile = new File(new InstalacaoBO()
-							.getDiretorioBaixados().getPath()
+					outFile = new File(InstalacaoBO.getDiretorioBaixados().getPath()
 							+ File.separator
 							+ nomeFoto);
 					out = new FileOutputStream(outFile);
@@ -129,7 +127,7 @@ public class RegistrarLivroBO {
 
 					for (int r = -1; (r = in.read(b, 0, n)) != -1; out.write(b,
 							0, r)) {
-						progresso.setTexto("Download - "
+						progresso.setTexto("    Download - "
 								+ tituloCortado
 								+ "... ("
 								+ format.format((double) (outFile.length() / 1024) / 1024)
@@ -185,14 +183,12 @@ public class RegistrarLivroBO {
 
 								// ABRIR O LIVRO
 								logger.debug(livro);
-								File arquivoIdr = new File(new InstalacaoBO()
-										.getDiretorioBaixados()
+								File arquivoIdr = new File(InstalacaoBO.getDiretorioBaixados()
 										.getAbsolutePath()
 										+ File.separator
 										+ livro.getNomeArquivoBaixado());
 								if (arquivoIdr.exists()) {
-									formPrincipal.abrirIDR(arquivoIdr,
-											livro.getTitulo());
+									formPrincipal.abrirLivroAPINova(livro);
 								}
 
 							} else {

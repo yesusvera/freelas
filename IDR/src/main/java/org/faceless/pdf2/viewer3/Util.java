@@ -2,21 +2,56 @@
 
 package org.faceless.pdf2.viewer3;
 
-import java.io.UnsupportedEncodingException;
-import java.util.*;
-import java.beans.*;
-import java.net.*;
-import java.security.*;
-import java.io.*;
-import javax.swing.*;
-import javax.swing.filechooser.*;
-import java.awt.*;
 import java.applet.Applet;
-import java.awt.event.*;
-import org.faceless.util.log.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dialog;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.Toolkit;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.HierarchyListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+import java.util.Enumeration;
+import java.util.ResourceBundle;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.Icon;
+import javax.swing.InputMap;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
+import javax.swing.TransferHandler;
+import javax.swing.UIManager;
+import javax.swing.filechooser.FileView;
+
 import org.faceless.pdf2.PDF;
 import org.faceless.pdf2.PropertyManager;
-import org.faceless.pdf2.viewer3.util.*;
+import org.faceless.pdf2.viewer3.util.RichTextTransferHandler;
+import org.faceless.util.log.BFOLogger;
 
 /**
  * A utility class that handles localized Strings, display of

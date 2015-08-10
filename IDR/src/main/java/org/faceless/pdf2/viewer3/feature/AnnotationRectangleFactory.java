@@ -2,17 +2,17 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import org.faceless.pdf2.viewer3.util.ColorChoicePanel;
-import javax.swing.*;
-import java.awt.geom.*;
-import javax.swing.event.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import java.awt.*;
-import java.util.*;
+import java.awt.Color;
+import java.awt.Shape;
+import java.awt.geom.Rectangle2D;
 import java.util.prefs.Preferences;
+
+import javax.swing.UIManager;
+
+import org.faceless.pdf2.AnnotationShape;
+import org.faceless.pdf2.PDFAnnotation;
+import org.faceless.pdf2.PDFStyle;
+import org.faceless.pdf2.viewer3.util.ColorChoicePanel;
 
 /**
  * Create annotations that handle Rectangle {@link AnnotationShape} objects.

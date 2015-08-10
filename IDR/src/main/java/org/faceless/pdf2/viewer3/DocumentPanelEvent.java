@@ -2,10 +2,8 @@
 
 package org.faceless.pdf2.viewer3;
 
-import java.awt.event.*;
-import java.awt.*;
-import javax.swing.*;
-import org.faceless.pdf2.*;
+import org.faceless.pdf2.OutputProfile;
+import org.faceless.pdf2.PDFPage;
 
 /**
  * Represents an event on a {@link DocumentPanel} indicating that document has changed

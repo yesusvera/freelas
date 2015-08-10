@@ -2,10 +2,15 @@
 
 package org.faceless.pdf2.viewer3;
 
-import org.faceless.pdf2.*;
-import java.awt.*;
-import java.util.*;
-import javax.swing.*;
+import java.awt.Adjustable;
+import java.awt.Dimension;
+import java.awt.RenderingHints;
+import java.util.Collection;
+import java.util.Collections;
+
+import javax.swing.JComponent;
+
+import org.faceless.pdf2.PDFPage;
 
 /**
  * A DocumentViewport that doesn't display anything. There's no

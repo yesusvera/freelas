@@ -2,10 +2,12 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import javax.swing.*;
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import org.faceless.pdf2.Event;
+import javax.swing.JComponent;
+
+import org.faceless.pdf2.FormBarCode;
+import org.faceless.pdf2.PDFAnnotation;
+import org.faceless.pdf2.WidgetAnnotation;
+import org.faceless.pdf2.viewer3.PagePanel;
 
 /**
  * Create annotations to handle {@link WidgetAnnotation} objects belonging to a {@link FormBarCode}.

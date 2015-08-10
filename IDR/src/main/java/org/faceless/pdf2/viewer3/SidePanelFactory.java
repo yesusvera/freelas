@@ -2,7 +2,7 @@
 
 package org.faceless.pdf2.viewer3;
 
-import org.faceless.pdf2.*;
+import org.faceless.pdf2.PDF;
 
 /**
  * A type of ViewerFeature that creates {@link SidePanel} objects.

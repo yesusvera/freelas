@@ -2,14 +2,26 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.undo.*;
 import java.awt.event.ActionEvent;
-import java.beans.*;
-import java.util.*;
-import org.faceless.pdf2.*;
-import org.faceless.pdf2.viewer3.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.KeyStroke;
+import javax.swing.UIManager;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.undo.AbstractUndoableEdit;
+
+import org.faceless.pdf2.PDF;
+import org.faceless.pdf2.PDFPage;
+import org.faceless.pdf2.viewer3.DocumentPanel;
+import org.faceless.pdf2.viewer3.DocumentPanelEvent;
+import org.faceless.pdf2.viewer3.DocumentPanelListener;
+import org.faceless.pdf2.viewer3.PDFViewer;
+import org.faceless.pdf2.viewer3.ViewerFeature;
 
 /**
  * Moves the pages that have previously been stored with a cut operation to

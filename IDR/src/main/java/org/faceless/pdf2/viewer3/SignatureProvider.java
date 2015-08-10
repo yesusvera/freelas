@@ -2,14 +2,24 @@
 
 package org.faceless.pdf2.viewer3;
 
-import javax.swing.*;
-import java.awt.event.*;
 import java.awt.Point;
-import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.security.GeneralSecurityException;
-import java.security.cert.X509Certificate;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
 import org.faceless.pdf2.FormSignature;
 
 /**

@@ -2,10 +2,8 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import javax.swing.*;
-import java.awt.event.*;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 /**
  * Creates a {@link JLabel} which displays the total number of pages on the Toolbar.

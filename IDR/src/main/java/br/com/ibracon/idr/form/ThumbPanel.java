@@ -1,7 +1,5 @@
 package br.com.ibracon.idr.form;
 
-import com.sun.pdfview.PDFFile;
-import com.sun.pdfview.PDFPage;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -16,6 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JViewport;
 import javax.swing.Scrollable;
 import javax.swing.SwingUtilities;
+
+import com.sun.pdfview.PDFFile;
+import com.sun.pdfview.PDFPage;
 
 public class ThumbPanel extends JPanel
         implements Runnable, Scrollable, ImageObserver {

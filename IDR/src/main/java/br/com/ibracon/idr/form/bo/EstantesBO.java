@@ -16,6 +16,9 @@ import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+
 import br.com.ibracon.idr.form.FormPrincipal;
 import br.com.ibracon.idr.form.criptografia.FileCrypt;
 import br.com.ibracon.idr.form.model.EstanteXML;
@@ -24,9 +27,6 @@ import br.com.ibracon.idr.webservice.ResponseWS;
 import br.com.ibracon.idr.webservice.estante.ConnectionEstante;
 import br.com.ibracon.idr.webservice.estante.RequestEstante;
 import br.com.ibracon.idr.webservice.estante.ResponseEstante;
-
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class EstantesBO {
 	

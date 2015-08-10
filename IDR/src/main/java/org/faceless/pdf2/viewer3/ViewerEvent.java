@@ -2,10 +2,10 @@
 
 package org.faceless.pdf2.viewer3;
 
-import java.awt.event.*;
-import java.awt.*;
-import javax.swing.*;
-import org.faceless.pdf2.*;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+
+import org.faceless.pdf2.PDF;
 
 /**
  * An event which is raised by the Viewer when a {@link ViewerWidget} is

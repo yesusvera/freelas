@@ -2,18 +2,55 @@
 
 package org.faceless.pdf2.viewer3;
 
-import java.awt.*;
-import java.awt.image.*;
-import java.awt.event.*;
-import java.awt.geom.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Composite;
+import java.awt.Container;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FocusTraversalPolicy;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.NoninvertibleTransformException;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
-import javax.swing.*;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
+
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
+import org.faceless.pdf2.AnnotationNote;
+import org.faceless.pdf2.FormElement;
+import org.faceless.pdf2.PDF;
+import org.faceless.pdf2.PDFAnnotation;
+import org.faceless.pdf2.PDFPage;
+import org.faceless.pdf2.PDFParser;
+import org.faceless.pdf2.PageExtractor;
+import org.faceless.pdf2.PagePainter;
+import org.faceless.pdf2.PropertyManager;
+import org.faceless.pdf2.WidgetAnnotation;
 import org.faceless.util.SoftInterruptibleThread;
-import org.faceless.pdf2.*;
 
 /**
  * <p>

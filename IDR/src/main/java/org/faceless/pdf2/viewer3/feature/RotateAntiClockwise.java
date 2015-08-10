@@ -2,11 +2,6 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import javax.swing.*;
-import java.awt.event.*;
-
 /**
  * Create a button that will rotate the page 90 degrees anticlockwise.
  *

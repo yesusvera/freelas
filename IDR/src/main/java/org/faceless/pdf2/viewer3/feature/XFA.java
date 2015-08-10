@@ -2,14 +2,7 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import java.awt.event.*;
-import javax.swing.border.*;
-import java.awt.*;
-import java.util.*;
+import org.faceless.pdf2.viewer3.ViewerWidget;
 
 /**
  * A class which suppressed warnings about missing XFA support in the PDF Viewer when

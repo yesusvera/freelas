@@ -2,9 +2,17 @@
 
 package org.faceless.pdf2.viewer3.feature;
 
-import org.faceless.pdf2.viewer3.*;
-import org.faceless.pdf2.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+
+import org.faceless.pdf2.FormCheckbox;
+import org.faceless.pdf2.FormChoice;
+import org.faceless.pdf2.FormElement;
+import org.faceless.pdf2.FormRadioButton;
+import org.faceless.pdf2.FormText;
+import org.faceless.pdf2.PDFAction;
+import org.faceless.pdf2.viewer3.ActionHandler;
+import org.faceless.pdf2.viewer3.DocumentPanel;
 
 /**
  * Create a handler to handler "FormReset" actions.

@@ -15,10 +15,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import net.java.dev.designgridlayout.DesignGridLayout;
 import br.com.ibracon.idr.form.FormPrincipal;
 import br.com.ibracon.idr.form.bo.NotaBO;
 import br.com.ibracon.idr.form.model.Nota;
+import net.java.dev.designgridlayout.DesignGridLayout;
 
 public class JanelaNota extends JDialog {
 
@@ -95,7 +95,6 @@ public class JanelaNota extends JDialog {
 				formPrincipal.carregarNotas();
 				formPrincipal.setAbaIndex(2);
 				JOptionPane.showMessageDialog(getInstance(), "Nota salva com sucesso!");
-				formPrincipal.recarregaPagina();
 			}
 		});
 		
@@ -110,7 +109,6 @@ public class JanelaNota extends JDialog {
 					formPrincipal.setAbaIndex(2);
 					JOptionPane.showMessageDialog(getInstance(),
 							"Nota excluída com sucesso!");
-					formPrincipal.recarregaPagina();
 					getInstance().dispose();
 				}
 

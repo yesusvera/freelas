@@ -2,14 +2,18 @@
 
 package org.faceless.pdf2.viewer3;
 
-import java.io.UnsupportedEncodingException;
-import java.util.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.beans.*;
-import java.io.*;
-import javax.swing.*;
-import org.faceless.pdf2.PDF;
+import java.util.Map;
+
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
 import org.faceless.pdf2.LoadState;
+import org.faceless.pdf2.PDF;
 import org.faceless.pdf2.viewer3.util.LongRunningTask;
 
 /**

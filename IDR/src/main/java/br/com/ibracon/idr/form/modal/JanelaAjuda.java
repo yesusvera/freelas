@@ -15,10 +15,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import net.java.dev.designgridlayout.DesignGridLayout;
 import br.com.ibracon.idr.form.FormPrincipal;
 import br.com.ibracon.idr.form.bo.NotaBO;
 import br.com.ibracon.idr.form.model.Nota;
+import net.java.dev.designgridlayout.DesignGridLayout;
 
 public class JanelaAjuda extends JDialog {
 
