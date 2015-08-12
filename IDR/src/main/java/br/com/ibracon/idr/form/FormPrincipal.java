@@ -135,7 +135,7 @@ public class FormPrincipal extends JFrame implements KeyListener,
 	String docName;
 
 	/** The split. */
-	JSplitPane split;
+	static JSplitPane split;
 
 	/** The thumbscroll. */
 	JScrollPane thumbscroll;
@@ -1163,6 +1163,19 @@ public class FormPrincipal extends JFrame implements KeyListener,
 			}
 		});
 
+		
+		JPanel pnlEstanteDeDireito = new JPanel();
+		DesignGridLayout design = new DesignGridLayout(pnlEstanteDeDireito);
+		pnlEstanteDeDireito.setBackground(Color.WHITE);
+		ImageIcon icone = (ImageIcon) getIcon("gfx/splash.png");
+		JLabel labelImagem = new JLabel();
+		labelImagem.setIcon(icone);
+		
+//		pnlEstanteDeDireito.add(labelImagem, BorderLayout.CENTER);
+		
+		
+		split.setRightComponent(new JScrollPane(pnlEstanteDeDireito));
+		
 		new ProxyBO().dialogConfigurarProxy(formPrincipal);
 
 		if (!registroBO.licencaEValida(formPrincipal)) {
@@ -1317,11 +1330,11 @@ public class FormPrincipal extends JFrame implements KeyListener,
 
 		List<ViewerFeature> features = new ArrayList<>();
 
-		for (ViewerFeature vf : featuresx) {
-			if (!vf.toString().equalsIgnoreCase("Menus") && !vf.toString().equalsIgnoreCase("Widget:Open")
-					&& !vf.toString().equalsIgnoreCase("Widget:Save")
-					&& !vf.toString().equalsIgnoreCase("Widget:ManageIdentities")) {
-				features.add(vf);
+		for(ViewerFeature vf: featuresx){ 
+			if(!vf.toString().equalsIgnoreCase("Menus") && !vf.toString().equalsIgnoreCase("Widget:Open") && !vf.toString().equalsIgnoreCase("Widget:Save")
+					 && !vf.toString().equalsIgnoreCase("Widget:ManageIdentities") && !vf.toString().equalsIgnoreCase("Widget:SelectArea")
+					 && !vf.toString().equalsIgnoreCase("Widget:AnnotationAddLine")){
+					features.add(vf);
 			}
 		}
 
@@ -1334,7 +1347,8 @@ public class FormPrincipal extends JFrame implements KeyListener,
 		frame.getContentPane().add(viewerLeitorIbracon, BorderLayout.CENTER);
 		frame.pack();
 		frame.setVisible(true);
-
+		ImageIcon icone = (ImageIcon) getIcon("gfx/icone.png");
+		frame.setIconImage(icone.getImage());
 		viewerLeitorIbracon.loadPDF(new ByteArrayInputStream(livroIDR.getPdfByteArray()), null,
 				"Livro Ibracon", null);
 	}

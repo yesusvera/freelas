@@ -96,7 +96,7 @@ public class Info extends ViewerWidget {
 
         // Add OutputProfile panel
         comp = getProfilePanel(viewer.getActiveDocumentPanel().getParser());
-        tabbed.addTab(UIManager.getString("PDFViewer.Features"), new JScrollPane(comp));
+//        tabbed.addTab(UIManager.getString("PDFViewer.Features"), new JScrollPane(comp));
 
         tabbed.setSelectedIndex(0);
         dialog.addComponent(tabbed);
