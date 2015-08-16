@@ -1,6 +1,7 @@
 package br.com.ibracon.idr.form.util;
 
 import java.awt.Desktop;
+import java.awt.Image;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -8,8 +9,12 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.UnknownHostException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+
 import org.apache.log4j.Logger;
 
+import br.com.ibracon.idr.form.FormPrincipal;
 import br.com.ibracon.idr.form.model.EnumSO;
 
 public class IdrUtil {
@@ -75,6 +80,21 @@ public class IdrUtil {
 		 */
 	}
 
+	/**
+	 * @author yesus
+	 * @param resource
+	 * @return
+	 */
+	public static ImageIcon getImageIcon(String resource){
+		Image img = null;
+		try {
+			img = ImageIO.read(FormPrincipal.class.getResource(resource));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		return new ImageIcon(img);
+	}
+	
 	public static void main(String[] args) {
 		logger.debug(verificarSO());
 		logger.debug(System.getProperties());

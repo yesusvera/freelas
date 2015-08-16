@@ -9,6 +9,7 @@ import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.print.PageFormat;
@@ -55,6 +56,7 @@ import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.Icon;
 import javax.swing.InputMap;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -62,6 +64,7 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
@@ -81,6 +84,12 @@ import org.faceless.pdf2.PropertyManager;
 import org.faceless.pdf2.viewer3.feature.ContinuousPageView;
 import org.faceless.pdf2.viewer3.feature.DualPageView;
 import org.faceless.pdf2.viewer3.feature.SinglePageView;
+
+import br.com.ibracon.idr.form.bo.NotaBO;
+import br.com.ibracon.idr.form.modal.JanelaNota;
+import br.com.ibracon.idr.form.model.Nota;
+import br.com.ibracon.idr.form.util.IdrUtil;
+import net.java.dev.designgridlayout.DesignGridLayout;
 
 /**
  * <p>
@@ -144,7 +153,8 @@ public class DocumentPanel extends JPanel {
     private int signaturePermissionDenied;
     private LinearizedSupport linearizedsupport;
     private String windowtitle;
-
+    public JPanel notas = new JPanel();
+    
     final int panelindex;               // For debugging
     private static int globalpanelindex;        // For debugging
 
@@ -653,6 +663,10 @@ public class DocumentPanel extends JPanel {
         }
         List<SidePanel> l = new ArrayList<SidePanel>(tabbedpane.getTabCount());
         for (int i=0;i<tabbedpane.getTabCount();i++) {
+        	 //** YESUS -> Acrescentando proteção de instanceof
+            if(tabbedpane.getComponentAt(i) instanceof javax.swing.JPanel ){
+            	continue;
+            }
             l.add((SidePanel)tabbedpane.getComponentAt(i));
         }
         return Collections.unmodifiableCollection(l);
@@ -694,25 +708,7 @@ public class DocumentPanel extends JPanel {
      */
     public void addSidePanel(final SidePanel panel) {
         final Component comp = (Component)panel;
-        if (tabbedpane == null) {
-            tabbedpane = new JTabbedPane(JTabbedPane.TOP);
-            tabbedpane.setMinimumSize(new Dimension(0, 0));
-            tabbedpane.addChangeListener(new ChangeListener() {
-                public void stateChanged(ChangeEvent event) {
-                    if (splitpaneopen) {
-                        if (selectedsidepanel != null) {
-                            selectedsidepanel.panelHidden();
-                        }
-                        selectedsidepanel = (SidePanel)tabbedpane.getSelectedComponent();
-                        if (selectedsidepanel != null) {
-                            selectedsidepanel.panelVisible();
-                            setPreference("sidePanelName", selectedsidepanel.getName());
-                        }
-                    }
-                }
-            });
-            splitpane.setTopComponent(tabbedpane);
-        }
+        initTabbedPane();
         panel.setDocumentPanel(DocumentPanel.this);
         if (comp.isVisible()) {
             if (tabbedpane.indexOfComponent(comp) < 0) {
@@ -721,6 +717,7 @@ public class DocumentPanel extends JPanel {
                     icon = panel.getIcon();
                 } catch (Throwable e) {}    // Just in case old interface was used.
                 String name = UIManager.getString("PDFViewer."+panel.getName());
+                comp.setBackground(Color.WHITE);
                 if (icon == null || "true".equals(getProperty("useNamedSidePanels"))) {
                     tabbedpane.addTab(name, comp);
                 } else {
@@ -742,6 +739,34 @@ public class DocumentPanel extends JPanel {
             }
         }
     }
+
+	private void initTabbedPane() {
+		if (tabbedpane == null) {
+            tabbedpane = new JTabbedPane(JTabbedPane.TOP);
+            tabbedpane.setMinimumSize(new Dimension(0, 0));
+            tabbedpane.addChangeListener(new ChangeListener() {
+                public void stateChanged(ChangeEvent event) {
+                    if (splitpaneopen) {
+                        if (selectedsidepanel != null) {
+                            selectedsidepanel.panelHidden();
+                        }
+                        
+                        //** YESUS -> Acrescentando proteção de instanceof
+                        if(tabbedpane.getSelectedComponent() instanceof javax.swing.JPanel ){
+                        	return;
+                        }
+                        
+                        selectedsidepanel = (SidePanel)tabbedpane.getSelectedComponent();
+                        if (selectedsidepanel != null) {
+                            selectedsidepanel.panelVisible();
+                            setPreference("sidePanelName", selectedsidepanel.getName());
+                        }
+                    }
+                }
+            });
+            splitpane.setTopComponent(tabbedpane);
+        }
+	}
 
     /**
      * Set the currently displayed {@link SidePanel}
@@ -953,12 +978,18 @@ public class DocumentPanel extends JPanel {
             // 
             getViewport();      // Will call setViewport() if we create a new one here
 
+            initTabbedPane();
+            
             for (Iterator<SidePanelFactory> i = panelfactories.iterator();i.hasNext();) {
                 SidePanelFactory panelfactory = i.next();
                 if (panelfactory.isSidePanelRequired(pdf)) {
                     addSidePanel(panelfactory.createSidePanel());
                 }
             }
+            
+            carregarNotas();
+            tabbedpane.add("Notas", notas);
+            
             if (currentsize != 0) {
                 SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
@@ -1052,6 +1083,38 @@ public class DocumentPanel extends JPanel {
         }
         repaint();
     }
+    
+    /**
+     * @author Yesus
+     * Carregar Notas
+     * @return
+     */
+    public JPanel carregarNotas() {
+    	notas = new JPanel();
+		notas.setBackground(Color.WHITE);
+		DesignGridLayout ds = new DesignGridLayout(notas);
+		// DesignGridLayout layoutNotas = new DesignGridLayout(notas);
+		NotaBO notaBO = new NotaBO();
+		
+		ArrayList<Nota> listaNotas = notaBO.listaNotasGravadas(viewer.getTitle());
+
+		for (final Nota nota : listaNotas) {
+			JButton btnNota = new JButton("Pág. " + nota.getPagina() + " - "
+					+ nota.getTitulo());
+			btnNota.setBackground(Color.WHITE);
+			btnNota.setIcon(IdrUtil.getImageIcon("gfx/notas.png"));
+			btnNota.setHorizontalAlignment(SwingConstants.LEFT);
+			btnNota.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					setPageNumber(nota.getPagina() - 1);
+					new JanelaNota(viewer, viewer.getTitle(), nota.getPagina());
+				}
+			});
+			ds.row().grid().add(btnNota);
+		}
+		
+		return notas;
+	}
 
     private void postLoaded() {
         boolean found = false;

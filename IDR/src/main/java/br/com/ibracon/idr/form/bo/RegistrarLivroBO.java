@@ -257,7 +257,6 @@ public class RegistrarLivroBO {
 					exception.printStackTrace();
 				}
 
-				formPrincipal.setAbaIndex(3);
 			}
 		}).start();
 

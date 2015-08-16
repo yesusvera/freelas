@@ -73,7 +73,6 @@ public class JanelaBoasVindas extends JDialog {
 				estantesBO.conectarEstante(formPrincipal, palavraChaveField.getText(), senhaField.getText());
 				hide();
 				dispose();
-				formPrincipal.setAbaIndex(3);
 				formPrincipal.mostraLivrosDeDireito();
 			}
 

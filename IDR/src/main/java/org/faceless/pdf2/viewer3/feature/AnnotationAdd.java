@@ -35,9 +35,10 @@ import org.faceless.pdf2.viewer3.DocumentPanel;
 import org.faceless.pdf2.viewer3.DocumentPanelEvent;
 import org.faceless.pdf2.viewer3.PDFViewer;
 import org.faceless.pdf2.viewer3.PagePanel;
-import org.faceless.pdf2.viewer3.ViewerEvent;
 import org.faceless.pdf2.viewer3.ViewerFeature;
 import org.faceless.pdf2.viewer3.util.DialogPanel;
+
+import br.com.ibracon.idr.form.modal.JanelaNota;
 
 /**
  * An {@link AbstractRegionSelector} that allows new annotations to be added to the
@@ -66,7 +67,13 @@ public class AnnotationAdd extends AbstractRegionSelector {
         factories = new LinkedHashSet<AnnotationComponentFactory>();
         action = new AbstractAction() {
             public void actionPerformed(ActionEvent event) {
-                action(new ViewerEvent(event, getViewer()));
+            	
+            	new JanelaNota(getViewer(), 
+            					getViewer().getTitle(),
+            					getViewer().getDocumentPanels()[0].getPageNumber()+1
+            					);
+            	
+            	
             }
         };
     }

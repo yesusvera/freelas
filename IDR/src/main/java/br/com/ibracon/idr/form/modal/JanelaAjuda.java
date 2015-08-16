@@ -87,8 +87,7 @@ public class JanelaAjuda extends JDialog {
 						.getText()), textoTextArea.getText(), new Date(),
 						tituloField.getText(), new Date());
 				notaBO.salvarNota(nota, serialPDF);
-				formPrincipal.carregarNotas();
-				formPrincipal.setAbaIndex(3);
+//				formPrincipal.carregarNotas();
 				JOptionPane.showMessageDialog(getInstance(), "Nota salva com sucesso!");
 			}
 		});

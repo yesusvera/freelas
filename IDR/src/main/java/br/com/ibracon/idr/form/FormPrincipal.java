@@ -10,14 +10,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.print.PageFormat;
-import java.awt.print.PrinterJob;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -42,13 +36,10 @@ import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
@@ -60,7 +51,6 @@ import javax.swing.JSlider;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
-import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -69,7 +59,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.plaf.metal.DefaultMetalTheme;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.plaf.metal.OceanTheme;
@@ -83,30 +72,24 @@ import com.sun.pdfview.PDFDestination;
 import com.sun.pdfview.PDFFile;
 import com.sun.pdfview.PDFObject;
 import com.sun.pdfview.PageChangeListener;
-import com.sun.pdfview.PagePanel;
-import com.sun.pdfview.ThumbPanel;
 import com.sun.pdfview.action.GoToAction;
 import com.sun.pdfview.action.PDFAction;
 
 import br.com.ibracon.idr.form.bo.EstantesBO;
 import br.com.ibracon.idr.form.bo.InstalacaoBO;
 import br.com.ibracon.idr.form.bo.LivroIdrBO;
-import br.com.ibracon.idr.form.bo.NotaBO;
 import br.com.ibracon.idr.form.bo.ProxyBO;
 import br.com.ibracon.idr.form.bo.RegistrarLivroBO;
 import br.com.ibracon.idr.form.bo.RegistroBO;
 import br.com.ibracon.idr.form.criptografia.CriptografiaUtil;
 import br.com.ibracon.idr.form.modal.JanelaBoasVindas;
 import br.com.ibracon.idr.form.modal.JanelaConfProxy;
-import br.com.ibracon.idr.form.modal.JanelaNota;
 import br.com.ibracon.idr.form.modal.JanelaProgresso;
 import br.com.ibracon.idr.form.modal.JanelaRegistro;
 import br.com.ibracon.idr.form.modal.JanelaSplash;
 import br.com.ibracon.idr.form.model.EstanteXML;
-import br.com.ibracon.idr.form.model.ItemResultado;
 import br.com.ibracon.idr.form.model.Livro;
 import br.com.ibracon.idr.form.model.LivroIDR;
-import br.com.ibracon.idr.form.model.Nota;
 import br.com.ibracon.idr.form.model.RegistroXml;
 import br.com.ibracon.idr.form.util.IdrUtil;
 import br.com.ibracon.idr.webservice.estante.ResponseEstante;
@@ -115,7 +98,7 @@ import net.java.dev.designgridlayout.DesignGridLayout;
 /**
  * The Class FormPrincipal.
  */
-public class FormPrincipal extends JFrame implements KeyListener,
+public class FormPrincipal extends JFrame implements 
 		TreeSelectionListener, PageChangeListener {
 	
 	static Logger logger = Logger.getLogger(FormPrincipal.class);
@@ -131,47 +114,14 @@ public class FormPrincipal extends JFrame implements KeyListener,
 	/** The cur file. */
 	PDFFile curFile;
 
-	/** The doc name. */
-	String docName;
-
 	/** The split. */
 	static JSplitPane split;
-
-	/** The thumbscroll. */
-	JScrollPane thumbscroll;
-
-	/** The thumbs. */
-	ThumbPanel thumbs;
 
 	/** The page. */
 	JPanel page;
 
-	/** The fspp. */
-	PagePanel fspp;
-
-	/** The curpage. */
-	int curpage = -1;
-
-	/** The full screen button. */
-	JToggleButton fullScreenButton;
-
-	/** The indice. */
-	OutlineNode indice = null;
-
-	/** The pformat. */
-	PageFormat pformat = PrinterJob.getPrinterJob().defaultPage();
-
-	/** The fazer miniatura. */
-	boolean fazerMiniatura = true;
-
-	/** The doc waiter. */
 	Flag docWaiter;
 
-	/** The olf. */
-	JDialog olf;
-
-	/** The doc menu. */
-	JMenu docMenu;
 
 	/** The slider navegacao. */
 	JSlider sliderNavegacao;
@@ -179,12 +129,7 @@ public class FormPrincipal extends JFrame implements KeyListener,
 	/** The abas. */
 	JTabbedPane abas;
 
-	/** The scroll indice. */
-	JScrollPane scrollIndice;
-
 	JanelaProgresso jp;
-
-	File selectedFile = null;
 
 	/** The scroll pagina. */
 	JScrollPane scrollPagina;
@@ -192,7 +137,6 @@ public class FormPrincipal extends JFrame implements KeyListener,
 	/** The estante. */
 	JPanel estante;
 
-	JPanel notas;
 
 	/** The painel central. */
 	JPanel painelCentral;
@@ -200,11 +144,6 @@ public class FormPrincipal extends JFrame implements KeyListener,
 	JPanel pnlPage;
 
 	DesignGridLayout designPainelCentral;
-
-
-	JButton notaBtn;
-
-	String serialPDF = "";
 
 	JPanel pnlPagina;
 
@@ -221,10 +160,6 @@ public class FormPrincipal extends JFrame implements KeyListener,
 	
 	public LivroIDR livroIDR = null;
 	
-	private	JList<ItemResultado> resultadoJList;
-	
-	private ArrayList<ItemResultado> listaResultadoPesquisa;
-
 	
 	 // Specify the look and feel to use by defining the LOOKANDFEEL constant
     // Valid values are: null (use the default), "Metal", "System", "Motif",
@@ -236,27 +171,6 @@ public class FormPrincipal extends JFrame implements KeyListener,
     // Valid values are: "DefaultMetal", "Ocean",  and "Test"
     final static String THEME = "DefaultMetal";
     
-	/**
-	 * Gets the icon.
-	 * 
-	 * @param name
-	 *            the name
-	 * @return the icon
-	 */
-	public static Icon getIcon(String name) {
-		Icon icon = null;
-		URL url = null;
-		try {
-			url = FormPrincipal.class.getResource(name);
-
-			icon = new ImageIcon(url);
-		} catch (Exception e) {
-			logger.debug("Couldn't find " + FormPrincipal.class.getName()
-					+ "/" + name);
-			e.printStackTrace();
-		}
-		return icon;
-	}
 
 	Action proxyAction = new AbstractAction("Proxy") {
 
@@ -378,12 +292,11 @@ public class FormPrincipal extends JFrame implements KeyListener,
 	 * @param usarMiniaturas
 	 *            true if the thumb panel should exist, false if not.
 	 */
-	public FormPrincipal(boolean usarMiniaturas) {
+	public FormPrincipal() {
 		super(TITLE);
 		
 		initLookAndFeel();
 		
-		fazerMiniatura = usarMiniaturas;
 		setEnabled(false);
 
 		addWindowListener(new WindowAdapter() {
@@ -391,7 +304,7 @@ public class FormPrincipal extends JFrame implements KeyListener,
 				doQuit();
 			}
 		});
-		ImageIcon icone = (ImageIcon) getIcon("gfx/icone.png");
+		ImageIcon icone = IdrUtil.getImageIcon("gfx/icone.png");
 		setIconImage(icone.getImage());
 		init(); 
 	}
@@ -409,7 +322,7 @@ public class FormPrincipal extends JFrame implements KeyListener,
 			URL url = new URL(livro.getFoto().replace(" ", "%20"));
 
 			JLabel lblLivro = new JLabel();
-
+			
 			try {
 				Image image = ImageIO.read(url);
 				lblLivro = new JLabel(new ImageIcon(image));
@@ -417,7 +330,9 @@ public class FormPrincipal extends JFrame implements KeyListener,
 				logger.debug("Não consegui ler: " + url);
 			}
 
-			JButton btnBaixar = new JButton("Baixar");
+			JButton btnBaixar = new JButton(IdrUtil.getImageIcon("gfx/download.png"));			
+			btnBaixar.setBorderPainted(false);
+			btnBaixar.setBackground(Color.WHITE);
 			btnBaixar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			Font fontBaixar = new Font("ARIAL", Font.HANGING_BASELINE, 13);
 			btnBaixar.setFont(fontBaixar);
@@ -530,7 +445,10 @@ public class FormPrincipal extends JFrame implements KeyListener,
 		} catch (Exception e) {
 			logger.debug("Não consegui ler a imagem...");
 		}
-		JButton btnAbrir = new JButton("Abrir");
+
+		JButton btnAbrir = new JButton(IdrUtil.getImageIcon("gfx/abrir.png"));			
+		btnAbrir.setBorderPainted(false);
+		btnAbrir.setBackground(Color.WHITE);
 		btnAbrir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAbrir.addActionListener(new ActionListener() {
 			@Override
@@ -620,7 +538,6 @@ public class FormPrincipal extends JFrame implements KeyListener,
 			}
 		}
 		
-		setAbaIndex(3);
 		split.setRightComponent(new JScrollPane(pnlEstanteBaixados));
 	}
 
@@ -650,7 +567,10 @@ public class FormPrincipal extends JFrame implements KeyListener,
 		estante = new JPanel();
 		estante.setBackground(Color.WHITE);
 		DesignGridLayout layout = new DesignGridLayout(estante);
+
 		JButton btnTodos = new JButton("Visão Geral");
+		btnTodos.setIcon(IdrUtil.getImageIcon("gfx/visaoGeral.png"));
+		btnTodos.setBackground(Color.WHITE);
 		btnTodos.setHorizontalAlignment(SwingConstants.LEFT);
 		btnTodos.addActionListener(new ActionListener() {
 			@Override
@@ -690,6 +610,8 @@ public class FormPrincipal extends JFrame implements KeyListener,
 		});
 
 		JButton btnBaixar = new JButton("Disponíveis");
+		btnBaixar.setBackground(Color.WHITE);
+		btnBaixar.setIcon(IdrUtil.getImageIcon("gfx/disponiveis.png"));
 		btnBaixar.setHorizontalAlignment(SwingConstants.LEFT);
 		btnBaixar.addActionListener(new ActionListener() {
 			@Override
@@ -712,6 +634,8 @@ public class FormPrincipal extends JFrame implements KeyListener,
 
 		});
 		JButton btnMeusLivros = new JButton("Direito de uso");
+		btnMeusLivros.setBackground(Color.WHITE);
+		btnMeusLivros.setIcon(IdrUtil.getImageIcon("gfx/direitoDeUso.png"));
 		btnMeusLivros.setHorizontalAlignment(SwingConstants.LEFT);
 		btnMeusLivros.addActionListener(new ActionListener() {
 			@Override
@@ -723,6 +647,8 @@ public class FormPrincipal extends JFrame implements KeyListener,
 		});
 
 		JButton btnBaixados = new JButton("Minha biblioteca");
+		btnBaixados.setBackground(Color.WHITE);
+		btnBaixados.setIcon(IdrUtil.getImageIcon("gfx/minhaBiblioteca.png"));
 		btnBaixados.setHorizontalAlignment(SwingConstants.LEFT);
 		btnBaixados.addActionListener(new ActionListener() {
 
@@ -766,14 +692,9 @@ public class FormPrincipal extends JFrame implements KeyListener,
 		logger.info("Swing: Montando as abas");
 		abas = new JTabbedPane();
 
-//		abas.addTab("Índice", scrollIndice);
-//		abas.addTab("Miniaturas", thumbscroll);
 //		abas.addTab("Notas", new JScrollPane(notas));
 		
 		abas.addTab("Estantes", estante);
-		if(resultadoJList!=null && listaResultadoPesquisa != null){
-			abas.addTab("Resultado da pesquisa ("+listaResultadoPesquisa.size()+") ocorrências", new JScrollPane(resultadoJList));
-		}
 
 		abas.addChangeListener(new ChangeListener() {
 			@Override
@@ -783,52 +704,6 @@ public class FormPrincipal extends JFrame implements KeyListener,
 		});
 
 		split.setLeftComponent(abas);
-	}
-
-	public JScrollBar criaBarraRolagemVertical() {
-		logger.info("Criando barra de rolagem vertical para o pdf");
-		
-		barraRolagemVertical = new JScrollBar();
-		barraRolagemVertical.setMinimum(0);
-		barraRolagemVertical.setUnitIncrement(30);
-		barraRolagemVertical.setMaximum(2000);
-		barraRolagemVertical.setOrientation(JProgressBar.VERTICAL);
-		barraRolagemVertical.addAdjustmentListener(new AdjustmentListener() {
-			public void adjustmentValueChanged(AdjustmentEvent e) {
-				// pesquisaField.setText("" + barraRolagemVertical.getValue());
-				page.setLocation(page.getX(),
-						0 - barraRolagemVertical.getValue());
-				if (barraRolagemVertical.getValue() == barraRolagemVertical
-						.getMaximum() - 10) {
-					barraRolagemVertical.setValue(1);
-					sliderNavegacao.setValue(sliderNavegacao.getValue() + 1);
-				} else if (barraRolagemVertical.getValue() == 0) {
-					if (sliderNavegacao.getValue() > 0) {
-						barraRolagemVertical.setValue(barraRolagemVertical
-								.getMaximum() - 15);
-						sliderNavegacao.setValue(sliderNavegacao.getValue() - 1);
-					}
-				}
-			}
-		});
-		return barraRolagemVertical;
-	}
-
-	public JScrollBar criaBarraRolagemHorizontal() {
-		logger.info("Criando barra de rolagem horizontal");
-		barraRolagemHorizontal = new JScrollBar();
-		barraRolagemHorizontal.setUnitIncrement(10);
-		barraRolagemHorizontal.setMinimum(0);
-		barraRolagemHorizontal.setMaximum(1000);
-		barraRolagemHorizontal.setOrientation(JProgressBar.HORIZONTAL);
-		barraRolagemHorizontal.addAdjustmentListener(new AdjustmentListener() {
-			public void adjustmentValueChanged(AdjustmentEvent e) {
-				page.setLocation(
-						0 - (barraRolagemHorizontal.getValue() - (int) pnlPage
-								.getWidth() / 2), page.getY());
-			}
-		});
-		return barraRolagemHorizontal;
 	}
 
 	/**
@@ -967,38 +842,11 @@ public class FormPrincipal extends JFrame implements KeyListener,
 	public void montaLivro() {
 		logger.info("Montando o livro na tela");
 		montarAbas();
-		carregarNotas();
+//		carregarNotas();
 
 		sliderNavegacao.setMinimum(0);
 		sliderNavegacao.setMaximum(curFile.getNumPages());
 		sliderNavegacao.setValue(0);
-	}
-
-	public void carregarNotas() {
-		logger.info("Carregando as notas do livro");
-		notas = new JPanel();
-		DesignGridLayout ds = new DesignGridLayout(notas);
-		// DesignGridLayout layoutNotas = new DesignGridLayout(notas);
-		NotaBO notaBO = new NotaBO();
-		ArrayList<Nota> listaNotas = notaBO.listaNotasGravadas(serialPDF);
-
-		for (final Nota nota : listaNotas) {
-			JButton btnNota = new JButton("Pág. " + nota.getPagina() + " - "
-					+ nota.getTitulo());
-			btnNota.setHorizontalAlignment(SwingConstants.LEFT);
-			btnNota.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					gotoPage(nota.getPagina() - 1);
-					new JanelaNota(getInstance(), serialPDF, nota.getPagina());
-				}
-			});
-			ds.row().grid().add(btnNota);
-		}
-		montarAbas();
-	}
-
-	public void setAbaIndex(int index) {
-//		abas.setSelectedIndex(index);
 	}
 
 
@@ -1016,75 +864,6 @@ public class FormPrincipal extends JFrame implements KeyListener,
 	public void doQuit() {
 		dispose();
 		System.exit(0);
-	}
-
-
-	/**
-	 * Turns off zooming; makes the page fit in the window.
-	 */
-	public void doFitInWindow() {
-		if (fspp == null) {
-			// page.useZoomTool(false);
-			// montarPagina();
-		}
-	}
-
-	/**
-	 * Shows or hides the thumbnails by moving the split pane divider.
-	 * 
-	 * @param show
-	 *            the show
-	 */
-	public void doThumbs(boolean show) {
-		if (show) {
-			split.setDividerLocation((int) thumbs.getPreferredSize().width
-					+ (int) thumbscroll.getVerticalScrollBar().getWidth() + 4);
-		} else {
-			split.setDividerLocation(0);
-		}
-	}
-
-	public void deslocamentoY(int value) {
-		page.setLocation(page.getX(), page.getY() + value);
-		// pesquisaField.setText(page.getBounds() + "");
-	}
-
-	public void deslocamentoX(int value) {
-		page.setLocation(page.getX() + value, page.getY());
-		// pesquisaField.setText(page.getBounds() + "");
-	}
-
-	public void deslocamentoXY() {
-
-	}
-
-
-	/**
-	 * Goes to the next page.
-	 */
-	public void doNext() {
-		gotoPage(curpage + 1);
-	}
-
-	/**
-	 * Goes to the previous page.
-	 */
-	public void doPrev() {
-		gotoPage(curpage - 1);
-	}
-
-	/**
-	 * Goes to the first page.
-	 */
-	public void doFirst() {
-		gotoPage(0);
-	}
-
-	/**
-	 * Goes to the last page.
-	 */
-	public void doLast() {
-		gotoPage(curFile.getNumPages() - 1);
 	}
 
 
@@ -1128,7 +907,7 @@ public class FormPrincipal extends JFrame implements KeyListener,
 		
 		// TELA SPLASH
 		JanelaSplash telaSplash = new JanelaSplash(3000,
-				(ImageIcon) (getIcon("gfx/splash.png")));
+				IdrUtil.getImageIcon(("gfx/splash.png")));
 		telaSplash.setVisible(true);
 		telaSplash.ControlaTempoApresentacao();
 
@@ -1136,11 +915,9 @@ public class FormPrincipal extends JFrame implements KeyListener,
 		// INFORMACOES DA MAQUINA
 		RegistroBO registroBO = new RegistroBO();
 
-		String fileName = "configuracoes/ibracon.pdf";
-		boolean useThumbs = true;
-
+//		String fileName = "configuracoes/ibracon.pdf";
 		
-		formPrincipal = new FormPrincipal(useThumbs);
+		formPrincipal = new FormPrincipal();
 
 		// AUTENTICAÇÃO DE PROXY
 		Authenticator.setDefault(new Authenticator() {
@@ -1167,7 +944,7 @@ public class FormPrincipal extends JFrame implements KeyListener,
 		JPanel pnlEstanteDeDireito = new JPanel();
 		DesignGridLayout design = new DesignGridLayout(pnlEstanteDeDireito);
 		pnlEstanteDeDireito.setBackground(Color.WHITE);
-		ImageIcon icone = (ImageIcon) getIcon("gfx/splash.png");
+		ImageIcon icone = IdrUtil.getImageIcon("gfx/splash.png");
 		JLabel labelImagem = new JLabel();
 		labelImagem.setIcon(icone);
 		
@@ -1208,42 +985,7 @@ public class FormPrincipal extends JFrame implements KeyListener,
 		formPrincipal.mostraLivrosBaixados();
 	}
 
-	/**
-	 * Handle a key press for navigation.
-	 * 
-	 * @param evt
-	 *            the evt
-	 */
-	public void keyPressed(KeyEvent evt) {
-		int code = evt.getKeyCode();
-		if (code == evt.VK_LEFT) {
-			doPrev();
-		} else if (code == evt.VK_RIGHT) {
-			doNext();
-		} else if (code == evt.VK_UP) {
-			doPrev();
-		} else if (code == evt.VK_DOWN) {
-			doNext();
-		} else if (code == evt.VK_HOME) {
-			doFirst();
-		} else if (code == evt.VK_END) {
-			doLast();
-		} else if (code == evt.VK_PAGE_UP) {
-			doPrev();
-		} else if (code == evt.VK_PAGE_DOWN) {
-			doNext();
-		} else if (code == evt.VK_SPACE) {
-			doNext();
-		}
-	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
-	 */
-	public void keyReleased(KeyEvent evt) {
-	}
 
 	/**
 	 * Someone changed the selection of the outline tree. Go to the new page.
@@ -1292,11 +1034,6 @@ public class FormPrincipal extends JFrame implements KeyListener,
 		return this;
 	}
 
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
 	/**
 	 * Abrindo livros com a API nova AGO/2015
 	 * @param livro
@@ -1341,16 +1078,16 @@ public class FormPrincipal extends JFrame implements KeyListener,
 		PDFViewer viewerLeitorIbracon = new PDFViewer(features);
 
 		JFrame frame = new JFrame();
-		frame.setTitle("Leitor IBRACON");
+		frame.setTitle(livro.getTitulo());
 		frame.setExtendedState(6);
 
 		frame.getContentPane().add(viewerLeitorIbracon, BorderLayout.CENTER);
 		frame.pack();
 		frame.setVisible(true);
-		ImageIcon icone = (ImageIcon) getIcon("gfx/icone.png");
+		ImageIcon icone = IdrUtil.getImageIcon("gfx/icone.png");
 		frame.setIconImage(icone.getImage());
 		viewerLeitorIbracon.loadPDF(new ByteArrayInputStream(livroIDR.getPdfByteArray()), null,
-				"Livro Ibracon", null);
+				livro.getTitulo(), null);
 	}
 
 }

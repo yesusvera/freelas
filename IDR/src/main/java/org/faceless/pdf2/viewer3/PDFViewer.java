@@ -1476,6 +1476,24 @@ public class PDFViewer extends JPanel implements Scrollable {
 //        f.remove(MultiWindow.getInstance());
         return newPDFViewer(f);
     }
+    
+    
+    /***
+     * @author yesus
+     * @return o frame principal adicionado ao chamar a API.
+     */
+    public Frame getParentFrame(){
+    	return (Frame)getParent().getParent().getParent().getParent();
+    }
+    
+    /***
+     * @author yesus
+     * @return
+     */
+    public String getTitle(){
+    	 Frame parentViewer = getParentFrame();
+    	 return parentViewer.getTitle();
+    }
 
     /**
      * Create a new PDFViewer object in a frame of its own with the specified features.

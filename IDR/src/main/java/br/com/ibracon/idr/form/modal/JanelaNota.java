@@ -15,7 +15,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import br.com.ibracon.idr.form.FormPrincipal;
+import org.faceless.pdf2.viewer3.PDFViewer;
+
 import br.com.ibracon.idr.form.bo.NotaBO;
 import br.com.ibracon.idr.form.model.Nota;
 import net.java.dev.designgridlayout.DesignGridLayout;
@@ -42,29 +43,28 @@ public class JanelaNota extends JDialog {
 	JButton btnSalvar = new JButton("Salvar");
 	JButton btnExcluir = new JButton("Excluir");
 	
+	private PDFViewer viewer;
 
 	String serialPDF;
 	int pagina;
 	
-	FormPrincipal formPrincipal;
-	
 	private NotaBO notaBO = new NotaBO();
 
-	public JanelaNota(FormPrincipal formPrincipal, String serialPDF, int pagina) {
-		super(formPrincipal);
+	public JanelaNota(PDFViewer viewer, String serialPDF, int pagina) {
+		super(viewer.getParentFrame());
 
-		this.formPrincipal = formPrincipal;
+		this.viewer = viewer;
 		
 		this.serialPDF = serialPDF;
 		this.pagina = pagina;
 
-		setTitle("Adicionar nota - " + formPrincipal.getTitle());
+//		setTitle("Adicionar nota - " + formPrincipal.getTitle());
 
 		configuracoesBasicas();
 		acrescentaComponentes();
 		centralizaDialog();
 		carregaInformacoes();
-		
+		setModal(true);
 		setVisible(true);
 	}
 
@@ -92,9 +92,9 @@ public class JanelaNota extends JDialog {
 						.getText()), textoTextArea.getText(), new Date(),
 						tituloField.getText(), new Date());
 				notaBO.salvarNota(nota, serialPDF);
-				formPrincipal.carregarNotas();
-				formPrincipal.setAbaIndex(2);
 				JOptionPane.showMessageDialog(getInstance(), "Nota salva com sucesso!");
+				viewer.getDocumentPanels()[0].carregarNotas();
+				viewer.getDocumentPanels()[0].notas.repaint();
 			}
 		});
 		
@@ -105,10 +105,10 @@ public class JanelaNota extends JDialog {
 						"Excluir nota: " + tituloField.getText(),
 						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					notaBO.excluirNota(pagina, serialPDF);
-					formPrincipal.carregarNotas();
-					formPrincipal.setAbaIndex(2);
 					JOptionPane.showMessageDialog(getInstance(),
 							"Nota excluída com sucesso!");
+					viewer.getDocumentPanels()[0].carregarNotas();
+					viewer.getDocumentPanels()[0].notas.repaint();
 					getInstance().dispose();
 				}
 
