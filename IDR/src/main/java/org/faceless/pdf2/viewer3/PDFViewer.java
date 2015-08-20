@@ -92,6 +92,8 @@ import org.faceless.pdf2.viewer3.util.KeyStoreTrustManager;
 import org.faceless.pdf2.viewer3.util.PromptingAuthenticator;
 import org.faceless.util.ToolBarLayout;
 
+import br.com.ibracon.idr.form.model.LivroIDR;
+
 /**
  * The <code>PDFViewer</code> class is a simple Swing PDF viewer application.
  * It demonstrates the {@link DocumentPanel} class, and can be run directly
@@ -141,6 +143,7 @@ public class PDFViewer extends JPanel implements Scrollable {
     private volatile boolean createdEventPending; // For lazy create event on non MultiWindow viewers
     private boolean initialized, unprompteddirtyclose;
     private String user;
+    private LivroIDR livroIDR;
 
     /**
      * Creates new PDFViewer with the specified features
@@ -1013,8 +1016,9 @@ public class PDFViewer extends JPanel implements Scrollable {
      * @deprecated this method has been superceded by the {@link PDFImporter} class
      * @since 2.8.3
      */
-    public void loadPDF(InputStream in, EncryptionHandler[] handlers, String title, File file) {
+    public void loadPDF(LivroIDR livroIDR, InputStream in, EncryptionHandler[] handlers, String title, File file) {
         initialize();
+        this.livroIDR = livroIDR;
         PDFImporter importer = getFeature(PDFImporter.class);
         if (importer==null) {
             importer = new PDFImporter();
@@ -1548,7 +1552,15 @@ public class PDFViewer extends JPanel implements Scrollable {
         return viewer;
     }
 
-    /**
+    public LivroIDR getLivroIDR() {
+		return livroIDR;
+	}
+
+	public void setLivroIDR(LivroIDR livroIDR) {
+		this.livroIDR = livroIDR;
+	}
+
+	/**
      * The main() method can be invoked to run this class from the command line.
      * A single argument specifying the name of the file to open is optional
      */

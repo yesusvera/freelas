@@ -61,16 +61,22 @@ import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTree;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeSelectionModel;
 
 import org.faceless.pdf2.EncryptionHandler;
 import org.faceless.pdf2.FormElement;
@@ -85,9 +91,11 @@ import org.faceless.pdf2.viewer3.feature.ContinuousPageView;
 import org.faceless.pdf2.viewer3.feature.DualPageView;
 import org.faceless.pdf2.viewer3.feature.SinglePageView;
 
+import br.com.ibracon.idr.form.bo.IndiceBO;
 import br.com.ibracon.idr.form.bo.NotaBO;
 import br.com.ibracon.idr.form.modal.JanelaNota;
 import br.com.ibracon.idr.form.model.Nota;
+import br.com.ibracon.idr.form.model.indice.Item;
 import br.com.ibracon.idr.form.util.IdrUtil;
 import net.java.dev.designgridlayout.DesignGridLayout;
 
@@ -153,7 +161,9 @@ public class DocumentPanel extends JPanel {
     private int signaturePermissionDenied;
     private LinearizedSupport linearizedsupport;
     private String windowtitle;
-    public JPanel notas = new JPanel();
+    private JPanel notas = new JPanel();
+    /** The scroll indice. */
+	private JScrollPane scrollIndice;
     
     final int panelindex;               // For debugging
     private static int globalpanelindex;        // For debugging
@@ -987,7 +997,10 @@ public class DocumentPanel extends JPanel {
                 }
             }
             
+            carregarIndice();
             carregarNotas();
+            
+            tabbedpane.add("Índice", scrollIndice);
             tabbedpane.add("Notas", notas);
             
             if (currentsize != 0) {
@@ -1084,12 +1097,49 @@ public class DocumentPanel extends JPanel {
         repaint();
     }
     
+
+    /**
+     * @author Yesus
+     * Carregar Indice
+     * @return
+     */
+    public void carregarIndice() {
+    	
+    	DefaultMutableTreeNode dmtIndice = new IndiceBO()
+				.montarArvoreIndice(viewer.getLivroIDR()
+						.getIndiceByteArray());
+		JTree arvoreIndice = new JTree(
+				dmtIndice);
+		arvoreIndice
+				.getSelectionModel()
+				.setSelectionMode(
+						TreeSelectionModel.SINGLE_TREE_SELECTION);
+		arvoreIndice
+				.addTreeSelectionListener(new TreeSelectionListener() {
+					public void valueChanged(
+							TreeSelectionEvent arg0) {
+						try {
+							Item item = (Item) ((DefaultMutableTreeNode) (arg0
+									.getPath()
+									.getLastPathComponent()))
+									.getUserObject();
+							setPageNumber(Integer.parseInt(item.getPaginareal()) - 1);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+		
+    	scrollIndice = new JScrollPane(
+				arvoreIndice);
+    }
+    
     /**
      * @author Yesus
      * Carregar Notas
      * @return
      */
-    public JPanel carregarNotas() {
+    public void carregarNotas() {
     	notas = new JPanel();
 		notas.setBackground(Color.WHITE);
 		DesignGridLayout ds = new DesignGridLayout(notas);
@@ -1112,8 +1162,6 @@ public class DocumentPanel extends JPanel {
 			});
 			ds.row().grid().add(btnNota);
 		}
-		
-		return notas;
 	}
 
     private void postLoaded() {
@@ -1586,8 +1634,23 @@ public class DocumentPanel extends JPanel {
             raiseDocumentPanelEvent(DocumentPanelEvent.createPermissionChanged(this, null));
         }
     }
-
-
+    
+    public void refreshTabs(){
+    	tabbedpane.remove(1);
+    	tabbedpane.remove(1);
+  	
+  	    carregarIndice();
+        carregarNotas();
+      
+        tabbedpane.add("Índice", scrollIndice);
+        tabbedpane.add("Notas", notas);
+        
+        tabbedpane.setSelectedComponent(notas);
+     
+//    	tabbedpane.revalidate();	
+//    	viewer.revalidate();
+    }
+    
     /*
     public static void main(final String args[]) throws Exception {
         final PDF pdf = new PDF(new PDFReader(new java.io.File(args[0])));

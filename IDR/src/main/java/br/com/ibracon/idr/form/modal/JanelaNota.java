@@ -93,8 +93,13 @@ public class JanelaNota extends JDialog {
 						tituloField.getText(), new Date());
 				notaBO.salvarNota(nota, serialPDF);
 				JOptionPane.showMessageDialog(getInstance(), "Nota salva com sucesso!");
-				viewer.getDocumentPanels()[0].carregarNotas();
-				viewer.getDocumentPanels()[0].notas.repaint();
+				getInstance().dispose();
+				
+				viewer.getDocumentPanels()[0].refreshTabs();
+				
+//				viewer.getDocumentPanels()[0].notas.removeAll();
+//				viewer.getDocumentPanels()[0].carregarNotas();
+//				viewer.revalidate();
 			}
 		});
 		
@@ -107,9 +112,15 @@ public class JanelaNota extends JDialog {
 					notaBO.excluirNota(pagina, serialPDF);
 					JOptionPane.showMessageDialog(getInstance(),
 							"Nota excluída com sucesso!");
-					viewer.getDocumentPanels()[0].carregarNotas();
-					viewer.getDocumentPanels()[0].notas.repaint();
 					getInstance().dispose();
+					
+					viewer.getDocumentPanels()[0].refreshTabs();
+					
+					
+//					viewer.getDocumentPanels()[0].notas.removeAll();
+//					viewer.getDocumentPanels()[0].carregarNotas();
+//					viewer.revalidate();
+					
 				}
 
 			}

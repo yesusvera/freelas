@@ -1086,7 +1086,7 @@ public class FormPrincipal extends JFrame implements
 		frame.setVisible(true);
 		ImageIcon icone = IdrUtil.getImageIcon("gfx/icone.png");
 		frame.setIconImage(icone.getImage());
-		viewerLeitorIbracon.loadPDF(new ByteArrayInputStream(livroIDR.getPdfByteArray()), null,
+		viewerLeitorIbracon.loadPDF(livroIDR,new ByteArrayInputStream(livroIDR.getPdfByteArray()), null,
 				livro.getTitulo(), null);
 	}
 

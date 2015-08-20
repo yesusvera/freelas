@@ -6,20 +6,12 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.apache.log4j.Logger;
 
-import br.com.ibracon.idr.form.FormPrincipal;
 import br.com.ibracon.idr.form.model.indice.Item;
 import br.com.ibracon.idr.form.model.indice.Response;
 
 public class IndiceBO {
 	static Logger logger = Logger.getLogger(IndiceBO.class);
 
-	private FormPrincipal formPrincipal;
-	
-	
-	public IndiceBO(FormPrincipal formPrincipal) {
-		this.formPrincipal = formPrincipal;
-	}
-	
 	public DefaultMutableTreeNode montarArvoreIndice(byte[] byteBuff) {
 		
 		logger.info("Montando a árvore do índice");
