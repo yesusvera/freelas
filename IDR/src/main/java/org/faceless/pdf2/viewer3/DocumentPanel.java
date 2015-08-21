@@ -674,7 +674,8 @@ public class DocumentPanel extends JPanel {
         List<SidePanel> l = new ArrayList<SidePanel>(tabbedpane.getTabCount());
         for (int i=0;i<tabbedpane.getTabCount();i++) {
         	 //** YESUS -> Acrescentando proteção de instanceof
-            if(tabbedpane.getComponentAt(i) instanceof javax.swing.JPanel ){
+            if(tabbedpane.getComponentAt(i) instanceof javax.swing.JPanel ||
+            		tabbedpane.getComponentAt(i) instanceof javax.swing.JScrollPane){
             	continue;
             }
             l.add((SidePanel)tabbedpane.getComponentAt(i));
@@ -762,7 +763,8 @@ public class DocumentPanel extends JPanel {
                         }
                         
                         //** YESUS -> Acrescentando proteção de instanceof
-                        if(tabbedpane.getSelectedComponent() instanceof javax.swing.JPanel ){
+                        if(tabbedpane.getSelectedComponent() instanceof javax.swing.JPanel ||
+                        		tabbedpane.getSelectedComponent() instanceof javax.swing.JScrollPane){
                         	return;
                         }
                         
