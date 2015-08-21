@@ -66,7 +66,7 @@ public class JanelaSplash extends JWindow {
 		pnlStatus = new JPanel();
 		pnlStatus.setBackground(Color.white);
 		DesignGridLayout ds = new DesignGridLayout(pnlStatus);
-		ds.row().center().add(new JLabel("AGO/2014 - Versão 3.1"));
+		ds.row().center().add(new JLabel("AGO/2015 - Versão 1.0"));
 		if (adicionarBtnSair) {
 			JButton btnSair = new JButton("Fechar");
 			btnSair.addActionListener(new ActionListener() {
