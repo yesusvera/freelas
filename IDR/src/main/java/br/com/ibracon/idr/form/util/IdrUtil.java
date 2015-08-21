@@ -86,9 +86,10 @@ public class IdrUtil {
 	 * @return
 	 */
 	public static ImageIcon getImageIcon(String resource){
+		logger.info("getImageIcon("+resource+")");
 		Image img = null;
 		try {
-			img = ImageIO.read(FormPrincipal.class.getResource(resource));
+			img = ImageIO.read(FormPrincipal.class.getResourceAsStream(resource));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
