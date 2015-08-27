@@ -58,9 +58,7 @@ public class LivroIdrBO {
 //		return livroIDR;
 //	}
 
-	public LivroIDR getLivroIDRArrayBytes(File arquivoLivroIDR)
-			throws IOException, InvalidKeyException, NoSuchAlgorithmException,
-			NoSuchPaddingException, InvalidAlgorithmParameterException {
+	public LivroIDR getLivroIDRArrayBytes(File arquivoLivroIDR) throws Exception{
 		
 		logger.info("Pegando array de bytes do Livro Idr");
 		

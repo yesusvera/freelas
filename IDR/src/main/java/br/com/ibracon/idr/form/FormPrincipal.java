@@ -14,6 +14,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
@@ -348,49 +349,7 @@ public class FormPrincipal extends JFrame implements
 					}
 				}
 			});
-//			JButton btnAbrir = new JButton("Abrir");
-//			btnAbrir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-//			btnAbrir.addActionListener(new ActionListener() {
-//				@Override
-//				public void actionPerformed(ActionEvent e) {
-//					
-//					//VERIFICANDO NOVA VERSÃO DO LIVRO.
-//					responseEstanteXMLLocal = new EstantesBO().pegaEstanteEmDisco();
-//					if(responseEstanteXMLLocal!=null){
-//						ArrayList<Livro> listaBaixados =  responseEstanteXMLLocal.baixados;
-//						if(listaBaixados!=null && listaBaixados.size() > 0){
-//							for(Livro lvTmp : listaBaixados){
-//								if(lvTmp.getCodigolivro().equals(livro.getCodigolivro()) && 
-//									lvTmp.getCodigoloja().equals(livro.getCodigoloja())){
-//									if(!lvTmp.getVersao().equals(livro.getVersao())){
-//										if (JOptionPane.showConfirmDialog(getInstance(),
-//												"Existe uma versão diferente deste livro nos servidores da IBRACON. Deseja baixar a nova versão?", "Versão nova do livro",
-//												JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-//											RegistrarLivroBO registrarLivroBO = new RegistrarLivroBO();
-//											registrarLivroBO.downloadLivro(getInstance(), livro,
-//													progressBar);
-//											return;
-//										}
-//									}
-//								}
-//							}
-//						}
-//					}
-//					
-//					if (JOptionPane.showConfirmDialog(getInstance(),
-//							"Deseja abrir o livro?", "Abrir livro",
-//							JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-//						logger.debug(livro);
-//						File arquivoIdr = new File(instalacaoBO
-//								.getDiretorioBaixados().getAbsolutePath()
-//								+ File.separator
-//								+ livro.getNomeArquivoBaixado());
-//						if (arquivoIdr.exists()) {
-//							abrirIDR(arquivoIdr, livro.getTitulo());
-//						}
-//					}
-//				}
-//			});
+
 
 			lblLivro.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
@@ -654,26 +613,27 @@ public class FormPrincipal extends JFrame implements
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JPanel pnlEstanteBaixados = new JPanel();
-				DesignGridLayout design = new DesignGridLayout(
-						pnlEstanteBaixados);
-
-				pnlEstanteBaixados.setBackground(Color.white);
-
-				responseEstanteXMLLocal = new EstantesBO().pegaEstanteEmDisco();
-				if (responseEstanteXMLLocal != null) {
-					for (Livro livro : responseEstanteXMLLocal.baixados) {
-						try {
-							if(!livroEstaRevogado(livro)){
-								adicionaLivroBaixadoNoPainel(design, livro);
-							}
-						} catch (Exception exc) {
-							exc.printStackTrace();
-						}
-					}
-				}
-				
-				split.setRightComponent(new JScrollPane(pnlEstanteBaixados));
+				mostraLivrosBaixados();
+//				JPanel pnlEstanteBaixados = new JPanel();
+//				DesignGridLayout design = new DesignGridLayout(
+//						pnlEstanteBaixados);
+//
+//				pnlEstanteBaixados.setBackground(Color.white);
+//
+//				responseEstanteXMLLocal = new EstantesBO().pegaEstanteEmDisco();
+//				if (responseEstanteXMLLocal != null) {
+//					for (Livro livro : responseEstanteXMLLocal.baixados) {
+//						try {
+//							if(!livroEstaRevogado(livro)){
+//								adicionaLivroBaixadoNoPainel(design, livro);
+//							}
+//						} catch (Exception exc) {
+//							exc.printStackTrace();
+//						}
+//					}
+//				}
+//				
+//				split.setRightComponent(new JScrollPane(pnlEstanteBaixados));
 			}
 		});
 
@@ -1039,55 +999,54 @@ public class FormPrincipal extends JFrame implements
 	 * @param livro
 	 */
 	public void abrirLivroAPINova(final Livro livro) {
-		// Uso da API BFO para abrir o PDF
-		File arquivoIdr = new File(InstalacaoBO.getDiretorioBaixados().getAbsolutePath() + File.separator
-				+ livro.getNomeArquivoBaixado());
-
-		if (arquivoIdr.getName().endsWith(".idr")) {
-			try {
-				livroIDR = new LivroIdrBO().getLivroIDRArrayBytes(arquivoIdr);
-			} catch (InvalidKeyException e1) {
-				e1.printStackTrace();
-			} catch (NoSuchAlgorithmException e1) {
-				e1.printStackTrace();
-			} catch (NoSuchPaddingException e1) {
-				e1.printStackTrace();
-			} catch (InvalidAlgorithmParameterException e1) {
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			arquivoIdr = livroIDR.getPdfFile();
-		} else {
-			return;
-		}
-		List<ViewerFeature> featuresx = new ArrayList<>(ViewerFeature.getAllEnabledFeatures());
-
-		System.out.println(featuresx);
-
-		List<ViewerFeature> features = new ArrayList<>();
-
-		for(ViewerFeature vf: featuresx){ 
+		List<ViewerFeature> allFeatures = new ArrayList<>(ViewerFeature.getAllEnabledFeatures());
+		List<ViewerFeature> selectedFeatures = new ArrayList<>();
+		
+		for(ViewerFeature vf: allFeatures){ 
 			if(!vf.toString().equalsIgnoreCase("Menus") && !vf.toString().equalsIgnoreCase("Widget:Open") && !vf.toString().equalsIgnoreCase("Widget:Save")
 					 && !vf.toString().equalsIgnoreCase("Widget:ManageIdentities") && !vf.toString().equalsIgnoreCase("Widget:SelectArea")
 					 && !vf.toString().equalsIgnoreCase("Widget:AnnotationAddLine")){
-					features.add(vf);
+					selectedFeatures.add(vf);
 			}
 		}
-
-		PDFViewer viewerLeitorIbracon = new PDFViewer(features);
-
+		
+		PDFViewer viewerLeitorIbracon = new PDFViewer(selectedFeatures);
 		JFrame frame = new JFrame();
 		frame.setTitle(livro.getTitulo());
 		frame.setExtendedState(6);
-
 		frame.getContentPane().add(viewerLeitorIbracon, BorderLayout.CENTER);
 		frame.pack();
 		frame.setVisible(true);
 		ImageIcon icone = IdrUtil.getImageIcon("gfx/icone.png");
 		frame.setIconImage(icone.getImage());
-		viewerLeitorIbracon.loadPDF(livroIDR,new ByteArrayInputStream(livroIDR.getPdfByteArray()), null,
-				livro.getTitulo(), null);
+		
+		// Uso da API BFO para abrir o PDF
+		File arquivoBaixado = new File(InstalacaoBO.getDiretorioBaixados().getAbsolutePath() + File.separator
+				+ livro.getNomeArquivoBaixado());
+
+		if (arquivoBaixado.getName().endsWith(".idr")) {
+			
+			try {
+				livroIDR = new LivroIdrBO().getLivroIDRArrayBytes(arquivoBaixado);
+				arquivoBaixado = livroIDR.getPdfFile();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+			viewerLeitorIbracon.loadPDF(livroIDR,new ByteArrayInputStream(livroIDR.getPdfByteArray()), null,
+					livro.getTitulo(), null);
+			
+		}else if(arquivoBaixado.getName().endsWith(".pdf")){
+			try{
+				byte[] arrTmpFile = org.apache.poi.util.IOUtils.toByteArray(new FileInputStream(arquivoBaixado));
+				viewerLeitorIbracon.loadPDF(new LivroIDR(),new ByteArrayInputStream(arrTmpFile), null,
+						livro.getTitulo(), null);
+			}catch(Exception e){
+				
+			}
+		}
+		
+		
 	}
 
 }
