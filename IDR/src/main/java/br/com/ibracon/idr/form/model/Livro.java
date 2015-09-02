@@ -10,6 +10,8 @@ public class Livro {
 	private String codigoloja;
 	private String foto;
 	private String arquivo;
+
+	private boolean baixado;
 	
 	public String getCodigolivro() {
 		return codigolivro;
@@ -48,10 +50,18 @@ public class Livro {
 		this.arquivo = arquivo;
 	}
 	
+	public boolean isBaixado() {
+		return baixado;
+	}
+	public void setBaixado(boolean baixado) {
+		this.baixado = baixado;
+	}
 	public String getNomeArquivoBaixado() {
 		String nomeArquivo = this.getArquivo().substring(this.getArquivo().lastIndexOf("/"));
 		return nomeArquivo;
 	}
+	
+	
 	
 	@Override
 	public String toString() {

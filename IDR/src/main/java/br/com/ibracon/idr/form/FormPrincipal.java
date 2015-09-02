@@ -27,6 +27,8 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
 
@@ -46,20 +48,18 @@ import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.plaf.metal.DefaultMetalTheme;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.plaf.metal.OceanTheme;
@@ -67,14 +67,6 @@ import javax.swing.plaf.metal.OceanTheme;
 import org.apache.log4j.Logger;
 import org.faceless.pdf2.viewer3.PDFViewer;
 import org.faceless.pdf2.viewer3.ViewerFeature;
-
-import com.sun.pdfview.OutlineNode;
-import com.sun.pdfview.PDFDestination;
-import com.sun.pdfview.PDFFile;
-import com.sun.pdfview.PDFObject;
-import com.sun.pdfview.PageChangeListener;
-import com.sun.pdfview.action.GoToAction;
-import com.sun.pdfview.action.PDFAction;
 
 import br.com.ibracon.idr.form.bo.EstantesBO;
 import br.com.ibracon.idr.form.bo.InstalacaoBO;
@@ -99,9 +91,10 @@ import net.java.dev.designgridlayout.DesignGridLayout;
 /**
  * The Class FormPrincipal.
  */
-public class FormPrincipal extends JFrame implements 
-		TreeSelectionListener, PageChangeListener {
+public class FormPrincipal extends JFrame{
 	
+	private static final long serialVersionUID = -7766624471292910869L;
+
 	static Logger logger = Logger.getLogger(FormPrincipal.class);
 	
 	/** The Constant TITLE. */
@@ -109,19 +102,16 @@ public class FormPrincipal extends JFrame implements
 	
 	// start the viewer
 	public static FormPrincipal formPrincipal;
+	
+	private List<Livro> listaLivro;
 
 	InstalacaoBO instalacaoBO = new InstalacaoBO();
-
-	/** The cur file. */
-	PDFFile curFile;
 
 	/** The split. */
 	static JSplitPane split;
 
 	/** The page. */
 	JPanel page;
-
-	Flag docWaiter;
 
 
 	/** The slider navegacao. */
@@ -147,10 +137,6 @@ public class FormPrincipal extends JFrame implements
 	DesignGridLayout designPainelCentral;
 
 	JPanel pnlPagina;
-
-	JScrollBar barraRolagemVertical;
-
-	JScrollBar barraRolagemHorizontal;
 
 	public RegistroXml registroXML;
 
@@ -311,7 +297,12 @@ public class FormPrincipal extends JFrame implements
 	}
 
 	private void adicionaLivroNoPainel(DesignGridLayout design,
-			final Livro livro, boolean baixado) {
+			final Livro livro, boolean addLivro) {
+		
+		if(addLivro && listaLivro!=null && livro!=null){
+			listaLivro.add(livro);
+		}
+		
 		JPanel pnlTmp = new JPanel(new GridLayout(0, 2));
 		pnlTmp.setBackground(Color.WHITE);
 		pnlTmp.setBorder(javax.swing.BorderFactory.createTitledBorder(livro
@@ -356,11 +347,7 @@ public class FormPrincipal extends JFrame implements
 			JPanel pnlLivro = new JPanel(new BorderLayout());
 			pnlLivro.setBackground(Color.WHITE);
 			pnlLivro.add(lblLivro, BorderLayout.CENTER);
-			if (baixado) {
-				//pnlLivro.add(btnAbrir, BorderLayout.SOUTH);
-			} else {
-				pnlLivro.add(btnBaixar, BorderLayout.SOUTH);
-			}
+			pnlLivro.add(btnBaixar, BorderLayout.SOUTH);
 
 			JTextArea txtInformacoes = new JTextArea(10, 10);
 			txtInformacoes.setWrapStyleWord(true);
@@ -381,7 +368,13 @@ public class FormPrincipal extends JFrame implements
 	}
 
 	private void adicionaLivroBaixadoNoPainel(DesignGridLayout design,
-			final Livro livro) {
+			final Livro livro, boolean addLivro) {
+		
+		livro.setBaixado(true);
+		
+		if(addLivro && listaLivro!=null && livro!=null){
+			listaLivro.add(livro);
+		}
 		
 		System.out.println(livro);
 		JPanel pnlTmp = new JPanel(new GridLayout(0, 2));
@@ -468,20 +461,28 @@ public class FormPrincipal extends JFrame implements
 	public void mostraLivrosDeDireito() {
 		JPanel pnlEstanteDeDireito = new JPanel();
 		DesignGridLayout design = new DesignGridLayout(pnlEstanteDeDireito);
+		
+		adicionaToolBarLivros(design);
+		
 		pnlEstanteDeDireito.setBackground(Color.white);
 
 		if (responseEstanteXML != null && responseEstanteXML.dedireito != null) {
 			for (Livro livro : responseEstanteXML.dedireito) {
-				adicionaLivroNoPainel(design, livro, false);
+				adicionaLivroNoPainel(design, livro, true);
 			}
 		}
 		split.setRightComponent(new JScrollPane(pnlEstanteDeDireito));
 	}
 
 	public void mostraLivrosBaixados() {
+		
+		listaLivro = new ArrayList<>();
+		
 		JPanel pnlEstanteBaixados = new JPanel();
 		DesignGridLayout design = new DesignGridLayout(pnlEstanteBaixados);
 
+		adicionaToolBarLivros(design);
+		
 		pnlEstanteBaixados.setBackground(Color.white);
 
 		responseEstanteXMLLocal = new EstantesBO().pegaEstanteEmDisco();
@@ -489,7 +490,7 @@ public class FormPrincipal extends JFrame implements
 			for (Livro livro : responseEstanteXMLLocal.baixados) {
 				try {
 					if(!livroEstaRevogado(livro)){
-						adicionaLivroBaixadoNoPainel(design, livro);
+						adicionaLivroBaixadoNoPainel(design, livro, true);
 					}
 				} catch (Exception exc) {
 					exc.printStackTrace();
@@ -534,21 +535,26 @@ public class FormPrincipal extends JFrame implements
 		btnTodos.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				listaLivro = new ArrayList<Livro>();
+				
 				JPanel pnlEstanteTodos = new JPanel();
 				DesignGridLayout design = new DesignGridLayout(pnlEstanteTodos);
+				
+				adicionaToolBarLivros(design);
+				
 				pnlEstanteTodos.setBackground(Color.white);
 
 				if (responseEstanteXML != null
 						&& responseEstanteXML.dedireito != null) {
 					for (Livro livro : responseEstanteXML.dedireito) {
-						adicionaLivroNoPainel(design, livro, false);
+						adicionaLivroNoPainel(design, livro, true);
 					}
 				}
 
 				if (responseEstanteXML != null
 						&& responseEstanteXML.parabaixar != null) {
 					for (Livro livro : responseEstanteXML.parabaixar) {
-						adicionaLivroNoPainel(design, livro, false);
+						adicionaLivroNoPainel(design, livro, true);
 					}
 				}
 				
@@ -557,7 +563,7 @@ public class FormPrincipal extends JFrame implements
 					for (Livro livro : responseEstanteXMLLocal.baixados) {
 						try {
 							if(!livroEstaRevogado(livro)){
-								adicionaLivroBaixadoNoPainel(design, livro);
+								adicionaLivroBaixadoNoPainel(design, livro, true);
 							}
 						} catch (Exception exc) {
 							exc.printStackTrace();
@@ -575,23 +581,26 @@ public class FormPrincipal extends JFrame implements
 		btnBaixar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				listaLivro = new ArrayList<Livro>();
+				
 				JPanel pnlEstanteParaBaixar = new JPanel();
 				DesignGridLayout design = new DesignGridLayout(
 						pnlEstanteParaBaixar);
+				
+				adicionaToolBarLivros(design);
+				
 				pnlEstanteParaBaixar.setBackground(Color.white);
 
 				if (responseEstanteXML != null
 						&& responseEstanteXML.parabaixar != null) {
 					for (Livro livro : responseEstanteXML.parabaixar) {
-						adicionaLivroNoPainel(design, livro, false);
+						adicionaLivroNoPainel(design, livro, true);
 					}
 				}
-
 				split.setRightComponent(new JScrollPane(pnlEstanteParaBaixar));
-
 			}
-
 		});
+		
 		JButton btnMeusLivros = new JButton("Direito de uso");
 		btnMeusLivros.setBackground(Color.WHITE);
 		btnMeusLivros.setIcon(IdrUtil.getImageIcon("gfx/direitoDeUso.png"));
@@ -599,10 +608,9 @@ public class FormPrincipal extends JFrame implements
 		btnMeusLivros.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				listaLivro = new ArrayList<Livro>();
 				new JanelaBoasVindas(getInstance());
-
 			}
-
 		});
 
 		JButton btnBaixados = new JButton("Minha biblioteca");
@@ -613,6 +621,7 @@ public class FormPrincipal extends JFrame implements
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				listaLivro = new ArrayList<Livro>();
 				mostraLivrosBaixados();
 //				JPanel pnlEstanteBaixados = new JPanel();
 //				DesignGridLayout design = new DesignGridLayout(
@@ -646,14 +655,137 @@ public class FormPrincipal extends JFrame implements
 
 
 	/**
+	 * Criando toolbar de livros.
+	 * @param designGridLayoutContext
+	 */
+	protected void adicionaToolBarLivros(DesignGridLayout designGridLayoutContext) {
+		JPanel toolBarPnl = new JPanel();
+		toolBarPnl.setBackground(Color.white);
+		toolBarPnl.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisa"));
+		
+		final JTextField txtPesquisa = new JTextField(30);
+		JButton btnPesquisa = new JButton(IdrUtil.getImageIcon("gfx/search.png"));
+		JButton btnOrdemCrescente = new JButton(IdrUtil.getImageIcon("gfx/sort-ascending.gif"));
+		JButton btnOrdemDescescente = new JButton(IdrUtil.getImageIcon("gfx/sort-descending.gif"));
+		
+		
+		btnPesquisa.setBackground(Color.white);
+		btnOrdemCrescente.setBackground(Color.white);
+		btnOrdemDescescente.setBackground(Color.white);
+
+		toolBarPnl.add(txtPesquisa);
+		toolBarPnl.add(btnPesquisa);
+		toolBarPnl.add(btnOrdemCrescente);
+		toolBarPnl.add(btnOrdemDescescente);
+		
+		btnOrdemCrescente.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JPanel pnlEstanteResultadoPesquisa = new JPanel();
+				DesignGridLayout design = new DesignGridLayout(pnlEstanteResultadoPesquisa);
+				adicionaToolBarLivros(design);
+				pnlEstanteResultadoPesquisa.setBackground(Color.white);
+				
+				Collections.sort(listaLivro, new Comparator<Livro>() {
+					@Override
+					public int compare(Livro livro1, Livro livro2) {
+						return  livro1.getTitulo().compareTo(livro2.getTitulo());
+					}
+				});
+				
+				if(listaLivro!=null){
+					for (Livro livro : listaLivro) {
+							if(livro.isBaixado()){
+								adicionaLivroBaixadoNoPainel(design, livro, false);
+							}else{
+								adicionaLivroNoPainel(design, livro, false);
+							}
+					}
+				}
+				split.setRightComponent(new JScrollPane(pnlEstanteResultadoPesquisa));
+			}
+		});
+		
+		btnOrdemDescescente.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JPanel pnlEstanteResultadoPesquisa = new JPanel();
+				DesignGridLayout design = new DesignGridLayout(pnlEstanteResultadoPesquisa);
+				adicionaToolBarLivros(design);
+				pnlEstanteResultadoPesquisa.setBackground(Color.white);
+				
+				Collections.sort(listaLivro, new Comparator<Livro>() {
+					@Override
+					public int compare(Livro livro1, Livro livro2) {
+						return  livro2.getTitulo().compareTo(livro1.getTitulo());
+					}
+				});
+				
+				if(listaLivro!=null){
+					for (Livro livro : listaLivro) {
+							if(livro.isBaixado()){
+								adicionaLivroBaixadoNoPainel(design, livro, false);
+							}else{
+								adicionaLivroNoPainel(design, livro, false);
+							}
+					}
+				}
+				split.setRightComponent(new JScrollPane(pnlEstanteResultadoPesquisa));
+			}
+		});
+		
+		btnPesquisa.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JPanel pnlEstanteResultadoPesquisa = new JPanel();
+				DesignGridLayout design = new DesignGridLayout(pnlEstanteResultadoPesquisa);
+
+				adicionaToolBarLivros(design);
+
+				pnlEstanteResultadoPesquisa.setBackground(Color.white);
+
+				//Fazendo a pesquisa por título, versão e codigo loja.
+				if(listaLivro!=null){
+					for (Livro livro : listaLivro) {
+						
+						if(	   (livro.getTitulo()!=null &&
+										livro.getTitulo().toLowerCase().
+										contains(txtPesquisa.getText().toLowerCase())
+								||
+								(livro.getVersao()!=null &&
+										livro.getVersao().toLowerCase().
+										contains(txtPesquisa.getText().toLowerCase())
+										)
+								||
+								
+								(livro.getCodigoloja()!=null &&
+								livro.getCodigoloja().toLowerCase().
+								contains(txtPesquisa.getText().toLowerCase())
+								)
+							)
+						   ){
+							if(livro.isBaixado()){
+								adicionaLivroBaixadoNoPainel(design, livro, false);
+							}else{
+								adicionaLivroNoPainel(design, livro, false);
+							}
+						}
+					}
+				}
+				split.setRightComponent(new JScrollPane(pnlEstanteResultadoPesquisa));
+			}
+		});
+		
+		designGridLayoutContext.row().center().add(toolBarPnl);
+	}
+
+	/**
 	 * Montar abas.
 	 */
 	private void montarAbas() {
 		logger.info("Swing: Montando as abas");
 		abas = new JTabbedPane();
 
-//		abas.addTab("Notas", new JScrollPane(notas));
-		
 		abas.addTab("Estantes", estante);
 
 		abas.addChangeListener(new ChangeListener() {
@@ -757,23 +889,6 @@ public class FormPrincipal extends JFrame implements
 		split.setRightComponent(painelCentral);
 	}
 
-	/**
-	 * Changes the displayed page, desyncing if we're not on the same page as a
-	 * presenter.
-	 * 
-	 * @param pagenum
-	 *            the page to display
-	 */
-	public void gotoPage(int pagenum) {
-		logger.info("Ir para página: " + pagenum);
-		if (pagenum < 0) {
-			pagenum = 0;
-		} else if (curFile !=null && pagenum >= curFile.getNumPages()) {
-			pagenum = curFile.getNumPages() - 1;
-		}
-		
-	}
-
 
 	public void centralizarPageNoPainelCentral() {
 		logger.info("Centralizando o pdf no painel central");
@@ -793,20 +908,6 @@ public class FormPrincipal extends JFrame implements
 	public void erroAoAbrir(String message) {
 		JOptionPane.showMessageDialog(split, message,
 				"Erro ao abrir o arquivo.", JOptionPane.ERROR_MESSAGE);
-	}
-
-	/** The prev dir choice. */
-	private File prevDirChoice;
-
-
-	public void montaLivro() {
-		logger.info("Montando o livro na tela");
-		montarAbas();
-//		carregarNotas();
-
-		sliderNavegacao.setMinimum(0);
-		sliderNavegacao.setMaximum(curFile.getNumPages());
-		sliderNavegacao.setValue(0);
 	}
 
 
@@ -943,50 +1044,6 @@ public class FormPrincipal extends JFrame implements
 		formPrincipal.setEnabled(true);
 
 		formPrincipal.mostraLivrosBaixados();
-	}
-
-
-
-	/**
-	 * Someone changed the selection of the outline tree. Go to the new page.
-	 * 
-	 * @param e
-	 *            the e
-	 */
-	public void valueChanged(TreeSelectionEvent e) {
-		if (e.isAddedPath()) {
-			OutlineNode node = (OutlineNode) e.getPath().getLastPathComponent();
-			if (node == null) {
-				return;
-			}
-
-			try {
-				PDFAction action = node.getAction();
-				if (action == null) {
-					return;
-				}
-
-				if (action instanceof GoToAction) {
-					PDFDestination dest = ((GoToAction) action)
-							.getDestination();
-					if (dest == null) {
-						return;
-					}
-
-					PDFObject page = dest.getPage();
-					if (page == null) {
-						return;
-					}
-
-					int pageNum = curFile.getPageNumber(page);
-					if (pageNum >= 0) {
-						gotoPage(pageNum);
-					}
-				}
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			}
-		}
 	}
 
 
