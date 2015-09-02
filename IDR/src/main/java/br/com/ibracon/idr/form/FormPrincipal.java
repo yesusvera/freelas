@@ -133,10 +133,14 @@ public class FormPrincipal extends JFrame{
 	JPanel painelCentral;
 
 	JPanel pnlPage;
+	
+	private String textoPesquisa;
 
 	DesignGridLayout designPainelCentral;
 
 	JPanel pnlPagina;
+	
+	private JPanel toolBarLivros;
 
 	public RegistroXml registroXML;
 
@@ -659,124 +663,163 @@ public class FormPrincipal extends JFrame{
 	 * @param designGridLayoutContext
 	 */
 	protected void adicionaToolBarLivros(DesignGridLayout designGridLayoutContext) {
-		JPanel toolBarPnl = new JPanel();
-		toolBarPnl.setBackground(Color.white);
-		toolBarPnl.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisa"));
-		
-		final JTextField txtPesquisa = new JTextField(30);
-		JButton btnPesquisa = new JButton(IdrUtil.getImageIcon("gfx/search.png"));
-		JButton btnOrdemCrescente = new JButton(IdrUtil.getImageIcon("gfx/sort-ascending.gif"));
-		JButton btnOrdemDescescente = new JButton(IdrUtil.getImageIcon("gfx/sort-descending.gif"));
-		
-		
-		btnPesquisa.setBackground(Color.white);
-		btnOrdemCrescente.setBackground(Color.white);
-		btnOrdemDescescente.setBackground(Color.white);
+			toolBarLivros = new JPanel();
+			toolBarLivros.setBackground(Color.white);
+			toolBarLivros.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisa"));
+			
+			final JTextField txtPesquisa = new JTextField(30);
+			JButton btnPesquisa = new JButton(IdrUtil.getImageIcon("gfx/search.png"));
+			JButton btnOrdemCrescente = new JButton(IdrUtil.getImageIcon("gfx/sort-ascending.gif"));
+			JButton btnOrdemDescescente = new JButton(IdrUtil.getImageIcon("gfx/sort-descending.gif"));
+			
+			
+			btnPesquisa.setBackground(Color.white);
+			btnOrdemCrescente.setBackground(Color.white);
+			btnOrdemDescescente.setBackground(Color.white);
+	
+			toolBarLivros.add(txtPesquisa);
+			toolBarLivros.add(btnPesquisa);
+			toolBarLivros.add(btnOrdemCrescente);
+			toolBarLivros.add(btnOrdemDescescente);
+			
+			txtPesquisa.setText(textoPesquisa);
+			
+			btnOrdemCrescente.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					textoPesquisa = txtPesquisa.getText();
+					JPanel pnlEstanteResultadoPesquisa = new JPanel();
+					DesignGridLayout design = new DesignGridLayout(pnlEstanteResultadoPesquisa);
+					adicionaToolBarLivros(design);
+					pnlEstanteResultadoPesquisa.setBackground(Color.white);
+					
+					Collections.sort(listaLivro, new Comparator<Livro>() {
+						@Override
+						public int compare(Livro livro1, Livro livro2) {
+							return  livro1.getTitulo().compareTo(livro2.getTitulo());
+						}
+					});
+					
+					if(listaLivro!=null){
+						for (Livro livro : listaLivro) {
+							if(	   (livro.getTitulo()!=null &&
+									livro.getTitulo().toLowerCase().
+									contains(txtPesquisa.getText().toLowerCase())
+									||
+									(livro.getVersao()!=null &&
+									livro.getVersao().toLowerCase().
+									contains(txtPesquisa.getText().toLowerCase())
+											)
+									||
 
-		toolBarPnl.add(txtPesquisa);
-		toolBarPnl.add(btnPesquisa);
-		toolBarPnl.add(btnOrdemCrescente);
-		toolBarPnl.add(btnOrdemDescescente);
-		
-		btnOrdemCrescente.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JPanel pnlEstanteResultadoPesquisa = new JPanel();
-				DesignGridLayout design = new DesignGridLayout(pnlEstanteResultadoPesquisa);
-				adicionaToolBarLivros(design);
-				pnlEstanteResultadoPesquisa.setBackground(Color.white);
-				
-				Collections.sort(listaLivro, new Comparator<Livro>() {
-					@Override
-					public int compare(Livro livro1, Livro livro2) {
-						return  livro1.getTitulo().compareTo(livro2.getTitulo());
-					}
-				});
-				
-				if(listaLivro!=null){
-					for (Livro livro : listaLivro) {
-							if(livro.isBaixado()){
-								adicionaLivroBaixadoNoPainel(design, livro, false);
-							}else{
-								adicionaLivroNoPainel(design, livro, false);
-							}
-					}
-				}
-				split.setRightComponent(new JScrollPane(pnlEstanteResultadoPesquisa));
-			}
-		});
-		
-		btnOrdemDescescente.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JPanel pnlEstanteResultadoPesquisa = new JPanel();
-				DesignGridLayout design = new DesignGridLayout(pnlEstanteResultadoPesquisa);
-				adicionaToolBarLivros(design);
-				pnlEstanteResultadoPesquisa.setBackground(Color.white);
-				
-				Collections.sort(listaLivro, new Comparator<Livro>() {
-					@Override
-					public int compare(Livro livro1, Livro livro2) {
-						return  livro2.getTitulo().compareTo(livro1.getTitulo());
-					}
-				});
-				
-				if(listaLivro!=null){
-					for (Livro livro : listaLivro) {
-							if(livro.isBaixado()){
-								adicionaLivroBaixadoNoPainel(design, livro, false);
-							}else{
-								adicionaLivroNoPainel(design, livro, false);
-							}
-					}
-				}
-				split.setRightComponent(new JScrollPane(pnlEstanteResultadoPesquisa));
-			}
-		});
-		
-		btnPesquisa.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JPanel pnlEstanteResultadoPesquisa = new JPanel();
-				DesignGridLayout design = new DesignGridLayout(pnlEstanteResultadoPesquisa);
-
-				adicionaToolBarLivros(design);
-
-				pnlEstanteResultadoPesquisa.setBackground(Color.white);
-
-				//Fazendo a pesquisa por título, versão e codigo loja.
-				if(listaLivro!=null){
-					for (Livro livro : listaLivro) {
-						
-						if(	   (livro.getTitulo()!=null &&
-										livro.getTitulo().toLowerCase().
-										contains(txtPesquisa.getText().toLowerCase())
-								||
-								(livro.getVersao()!=null &&
-										livro.getVersao().toLowerCase().
-										contains(txtPesquisa.getText().toLowerCase())
-										)
-								||
-								
-								(livro.getCodigoloja()!=null &&
-								livro.getCodigoloja().toLowerCase().
-								contains(txtPesquisa.getText().toLowerCase())
-								)
-							)
-						   ){
-							if(livro.isBaixado()){
-								adicionaLivroBaixadoNoPainel(design, livro, false);
-							}else{
-								adicionaLivroNoPainel(design, livro, false);
+									(livro.getCodigoloja()!=null &&
+									livro.getCodigoloja().toLowerCase().
+									contains(txtPesquisa.getText().toLowerCase())
+											)
+									)
+									){
+								if(livro.isBaixado()){
+									adicionaLivroBaixadoNoPainel(design, livro, false);
+								}else{
+									adicionaLivroNoPainel(design, livro, false);
+								}
 							}
 						}
 					}
+					split.setRightComponent(new JScrollPane(pnlEstanteResultadoPesquisa));
 				}
-				split.setRightComponent(new JScrollPane(pnlEstanteResultadoPesquisa));
-			}
-		});
-		
-		designGridLayoutContext.row().center().add(toolBarPnl);
+			});
+			
+			btnOrdemDescescente.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					textoPesquisa = txtPesquisa.getText();
+					JPanel pnlEstanteResultadoPesquisa = new JPanel();
+					DesignGridLayout design = new DesignGridLayout(pnlEstanteResultadoPesquisa);
+					adicionaToolBarLivros(design);
+					pnlEstanteResultadoPesquisa.setBackground(Color.white);
+					
+					Collections.sort(listaLivro, new Comparator<Livro>() {
+						@Override
+						public int compare(Livro livro1, Livro livro2) {
+							return  livro2.getTitulo().compareTo(livro1.getTitulo());
+						}
+					});
+					
+					if(listaLivro!=null){
+						for (Livro livro : listaLivro) {
+							if(	   (livro.getTitulo()!=null &&
+									livro.getTitulo().toLowerCase().
+									contains(txtPesquisa.getText().toLowerCase())
+									||
+									(livro.getVersao()!=null &&
+									livro.getVersao().toLowerCase().
+									contains(txtPesquisa.getText().toLowerCase())
+											)
+									||
+
+									(livro.getCodigoloja()!=null &&
+									livro.getCodigoloja().toLowerCase().
+									contains(txtPesquisa.getText().toLowerCase())
+											)
+									)
+									){
+								if(livro.isBaixado()){
+									adicionaLivroBaixadoNoPainel(design, livro, false);
+								}else{
+									adicionaLivroNoPainel(design, livro, false);
+								}
+							}
+						}
+					}
+					split.setRightComponent(new JScrollPane(pnlEstanteResultadoPesquisa));
+				}
+			});
+			
+			btnPesquisa.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					textoPesquisa = txtPesquisa.getText();
+					
+					JPanel pnlEstanteResultadoPesquisa = new JPanel();
+					DesignGridLayout design = new DesignGridLayout(pnlEstanteResultadoPesquisa);
+	
+					adicionaToolBarLivros(design);
+	
+					pnlEstanteResultadoPesquisa.setBackground(Color.white);
+	
+					//Fazendo a pesquisa por título, versão e codigo loja.
+					if(listaLivro!=null){
+						for (Livro livro : listaLivro) {
+							
+							if(	   (livro.getTitulo()!=null &&
+											livro.getTitulo().toLowerCase().
+											contains(txtPesquisa.getText().toLowerCase())
+									||
+									(livro.getVersao()!=null &&
+											livro.getVersao().toLowerCase().
+											contains(txtPesquisa.getText().toLowerCase())
+											)
+									||
+									
+									(livro.getCodigoloja()!=null &&
+									livro.getCodigoloja().toLowerCase().
+									contains(txtPesquisa.getText().toLowerCase())
+									)
+								)
+							   ){
+								if(livro.isBaixado()){
+									adicionaLivroBaixadoNoPainel(design, livro, false);
+								}else{
+									adicionaLivroNoPainel(design, livro, false);
+								}
+							}
+						}
+					}
+					split.setRightComponent(new JScrollPane(pnlEstanteResultadoPesquisa));
+				}
+			});
+		designGridLayoutContext.row().center().add(toolBarLivros);
 	}
 
 	/**
