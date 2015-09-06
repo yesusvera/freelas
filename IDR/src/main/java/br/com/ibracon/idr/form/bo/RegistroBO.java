@@ -1,5 +1,6 @@
 package br.com.ibracon.idr.form.bo;
 
+import java.awt.Window;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -675,7 +676,7 @@ public class RegistroBO {
 		}
 	}
 
-	public boolean registrarDispositivo(RequestRegistrar requestRegistrar, FormPrincipal formPrincipal) {
+	public boolean registrarDispositivo(RequestRegistrar requestRegistrar, Window parentWindow) {
 		logger.info("Registrando o dispositivo");
 		ConnectionRegistrar connectionRegistrar = new ConnectionRegistrar();
 		try {
@@ -708,7 +709,7 @@ public class RegistroBO {
 					registroXML.setRequestRegistrar(requestRegistrar);
 					registroXML.setResponseRegistrar(responseRegistrar);
 					
-					formPrincipal.registroXML = registroXML;
+					FormPrincipal.formPrincipal.registroXML = registroXML;
 					return true;
 				}
 			}

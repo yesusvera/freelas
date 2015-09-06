@@ -3,35 +3,39 @@ package br.com.ibracon.idr.form.modal;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.awt.Window;
 
-import javax.swing.JFrame;
 import javax.swing.JProgressBar;
 import javax.swing.JWindow;
 
 import org.apache.log4j.Logger;
 
 public class JanelaProgresso extends JWindow {
-	
+
 	static Logger logger = Logger.getLogger(JanelaProgresso.class);
 
 	private static final long serialVersionUID = -7763925838311676458L;
 
 	private JProgressBar progresso = new JProgressBar();
 
-	JFrame frm = null;
-
-	public JanelaProgresso(JFrame owner) {
+	public JanelaProgresso(Window owner) {
 		super(owner);
-		frm = owner;
+
 		getContentPane().setLayout(new FlowLayout());
 		centralizaDialog();
 		configuracoesBasicas();
-		pack();
+
+		validate();
 	}
 
 	private void configuracoesBasicas() {
 		progresso.setMinimum(1);
 		progresso.setMaximum(100);
+		progresso.setStringPainted(true);
+		progresso.setBorderPainted(false);
+
+//		getContentPane().setBackground(new Color(35, 142, 35));
+//		getContentPane().setForeground(Color.white);
 		getContentPane().add(progresso);
 	}
 
@@ -45,18 +49,20 @@ public class JanelaProgresso extends JWindow {
 
 	public void aumentaPercentual(final int percentual) {
 		progresso.setValue(progresso.getValue() + percentual);
-		progresso.repaint();
+		progresso.validate();
+		validate();
 	}
 
 	public void setTexto(String texto) {
-		progresso.setStringPainted(true);
+
 		progresso.setString(texto);
+		 validate();
 		pack();
 	}
 
 	public void setPercentual(int percentual) {
 		progresso.setValue(percentual);
-		progresso.repaint();
+		progresso.validate();
 	}
 
 	public void aparecer() {
@@ -73,6 +79,9 @@ public class JanelaProgresso extends JWindow {
 		JanelaProgresso jp = new JanelaProgresso(null);
 		jp.aparecer();
 
+		jp.setTexto("Fazendo um texto longo para testar como o progress se comporta.");
+
+		jp.aumentaPercentual(10);
 		logger.debug("teste");
 	}
 

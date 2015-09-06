@@ -24,7 +24,7 @@ import javax.swing.JTextField;
 import org.apache.log4j.Logger;
 
 import br.com.ibracon.idr.form.FormPrincipal;
-import br.com.ibracon.idr.form.criptografia.CriptografiaUtil;
+import br.com.ibracon.idr.form.criptografia.FileCrypt;
 
 public class ProxyBO {
 	static Logger logger = Logger.getLogger(ProxyBO.class);
@@ -37,22 +37,44 @@ public class ProxyBO {
 	}
 
 	public Properties findProxyProperties() {
-
+		
 		logger.info("Capturando properties de configuração de proxy");
+
+		String dirProxyProperties = instalacaoBO.getDiretorioInstalacao()
+				+ File.separator + "proxy.properties";
+		String dirProxyPropertiesTmp = instalacaoBO.getDiretorioInstalacao()
+				+ File.separator + "proxy.tmp.properties";
+		
+		FileCrypt cripto = new FileCrypt(FileCrypt.CHAVE_LIVRO_IDR);
+		try {
+			cripto.descriptografa(new
+			 FileInputStream(dirProxyProperties),
+			 new FileOutputStream(dirProxyPropertiesTmp));
+		} catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException
+				| InvalidAlgorithmParameterException | FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 		FileInputStream input;
 		try {
-			input = new FileInputStream(instalacaoBO.getDiretorioInstalacao()
-					+ File.separator + "proxy.properties");
+			input = new FileInputStream(dirProxyPropertiesTmp);
+			
 			Properties prop = new Properties();
 			prop.load(input);
+			
 			return prop;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}finally {
+			//delete tmpproxy descriptografado
+			new File(dirProxyPropertiesTmp).delete();
 		}
-		return new Properties();
+		
+		Properties propReturn =  new Properties();
+		
+		return propReturn;
 	}
 
 	public static ResourceBundle findSOProperties() {
@@ -64,10 +86,28 @@ public class ProxyBO {
 		try {
 			String dirProxyProperties = instalacaoBO.getDiretorioInstalacao()
 					+ File.separator + "proxy.properties";
-			logger.debug("Salvando configuração de proxy em : "
-					+ dirProxyProperties);
-			properties.store(new FileOutputStream(dirProxyProperties),
+			String dirProxyPropertiesTmp = instalacaoBO.getDiretorioInstalacao()
+					+ File.separator + "proxy.tmp.properties";
+			
+//			logger.debug("Salvando configuração de proxy em : "
+//					+ dirProxyPropertiesTmp);
+			
+			properties.store(new FileOutputStream(dirProxyPropertiesTmp),
 					"Alterando configuracoes");
+			
+			FileCrypt cripto = new FileCrypt(FileCrypt.CHAVE_LIVRO_IDR);
+			try {
+				cripto.criptografa(new
+				 FileInputStream(dirProxyPropertiesTmp),
+				 new FileOutputStream(dirProxyProperties));
+			} catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException
+					| InvalidAlgorithmParameterException e) {
+				e.printStackTrace();
+			}
+			
+			//delete tmpproxy descriptografado
+			new File(dirProxyPropertiesTmp).delete();
+
 		} catch (FileNotFoundException e1) {
 			logger.error(e1);
 			e1.printStackTrace();
@@ -144,12 +184,10 @@ public class ProxyBO {
 					
 					Properties properties = new Properties();
 					
-					
-					
 					properties.setProperty("proxy", proxyField.getText());
 					properties.setProperty("porta",  portaField.getText());
-					properties.setProperty("usuario", CriptografiaUtil.encrypt(usuarioField.getText(), "IBRACON", CriptografiaUtil.ALGORITMO_DES));
-					properties.setProperty("senha",  CriptografiaUtil.encrypt(senhaField.getText(), "IBRACON", CriptografiaUtil.ALGORITMO_DES));
+					properties.setProperty("usuario", usuarioField.getText());
+					properties.setProperty("senha",  senhaField.getText());
 
 					salvarProxyProperties(properties);
 					

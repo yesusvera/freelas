@@ -47,13 +47,15 @@ public abstract class ConnectionWS {
 
 	public ResponseWS serviceConnect(RequestWS requestWS, String ws_servico)
 			throws Exception {
+		
 		JanelaProgresso jp = new JanelaProgresso(FormPrincipal.formPrincipal);
+		
+		jp.aparecer();
+		jp.aumentaPercentual(5);
+		jp.setTexto("   Conectando-se ao serviço do Ibracon.   " );
+		
 		ResponseWS response = null;
 		try {
-			jp.aparecer();
-			jp.aumentaPercentual(5);
-			
-			jp.setTexto("   Conectando-se ao serviço do Ibracon.   " );
 			
 			if (!ws_servico.equals(WS_REGISTRAR)
 					&& !ws_servico.equals(WS_ESTANTES)

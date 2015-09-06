@@ -153,7 +153,21 @@ public class PDFViewer extends JPanel implements Scrollable {
      */
     public PDFViewer(Collection<ViewerFeature> features) {
         Util.initialize();
-        this.features = Collections.unmodifiableCollection(features);
+        List<ViewerFeature> allFeatures = new ArrayList<>(ViewerFeature.getAllEnabledFeatures());
+		List<ViewerFeature> selectedFeatures = new ArrayList<>();
+		
+		for(ViewerFeature vf: allFeatures){ 
+			if(!vf.toString().equalsIgnoreCase("Menus") && !vf.toString().equalsIgnoreCase("Widget:Open") && !vf.toString().equalsIgnoreCase("Widget:Save")
+					 && !vf.toString().equalsIgnoreCase("Widget:ManageIdentities") && !vf.toString().equalsIgnoreCase("Widget:SelectArea")
+					 && !vf.toString().equalsIgnoreCase("Widget:AnnotationAddLine")&& !vf.toString().equalsIgnoreCase("Widget:GeneralInfo")){
+					selectedFeatures.add(vf);
+			}
+		}
+        if(features!=null){
+        	this.features = Collections.unmodifiableCollection(features);
+        }else{
+        	this.features = Collections.unmodifiableCollection(selectedFeatures);
+        }
         setPropertyManager(new PropertyManager() {
             public String getProperty(final String key) {
                 try {

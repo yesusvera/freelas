@@ -44,7 +44,7 @@ public class JanelaConfProxy extends JDialog {
 		super(frame);
 		configuracoesBasicas();
 		acrescentaComponentes();
-		setSize(300,150);
+		setSize(300, 180);
 		centralizaDialog();
 		carregaInformacoesProperties();
 	}
@@ -53,8 +53,8 @@ public class JanelaConfProxy extends JDialog {
 		Properties propProxy = new ProxyBO().findProxyProperties();
 		proxyField.setText(propProxy.getProperty("proxy"));
 		portaField.setText(propProxy.getProperty("porta"));
-//		usuarioField.setText(propProxy.getProperty("usuario"));
-//		passwordField.setText(propProxy.getProperty("senha"));
+		usuarioField.setText(propProxy.getProperty("usuario"));
+		passwordField.setText(propProxy.getProperty("senha"));
 //		ignorarTextArea.setText(propProxy.getProperty("ignorar"));
 //		utilizarSistemaCheckBox.setSelected(new Boolean(propProxy.getProperty("proxySistema")));
 	}

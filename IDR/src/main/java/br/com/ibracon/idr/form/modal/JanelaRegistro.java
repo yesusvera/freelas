@@ -194,7 +194,7 @@ public class JanelaRegistro extends JDialog {
 					return;
 				}
 
-				RequestRegistrar requestRegistrar = new RequestRegistrar();
+				final RequestRegistrar requestRegistrar = new RequestRegistrar();
 
 				requestRegistrar.setBairro(bairroField.getText());
 				requestRegistrar.setCep(cepField.getText());
@@ -220,15 +220,22 @@ public class JanelaRegistro extends JDialog {
 					requestRegistrar.setAssociado("n");
 				}
 
-				if (registroBO.registrarDispositivo(requestRegistrar,
-						formPrincipal)) {
-					// new JanelaBoasVindas(formPrincipal);
-					EstantesBO estantesBO = new EstantesBO();
-					estantesBO.conectarEstante(formPrincipal, "", "");
-					formPrincipal.mostraLivrosBaixados();
-					getInstance().hide();
-					dispose();
-				}
+				getInstance().setVisible(false);
+				
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						if (registroBO.registrarDispositivo(requestRegistrar, formPrincipal)) {
+							// new JanelaBoasVindas(formPrincipal);
+							EstantesBO estantesBO = new EstantesBO();
+							estantesBO.conectarEstante(formPrincipal, "", "");
+							formPrincipal.mostraLivrosBaixados();
+							dispose();
+						}else{
+							getInstance().setVisible(true);
+						}
+					}
+				}).start();;
 			}
 
 		});

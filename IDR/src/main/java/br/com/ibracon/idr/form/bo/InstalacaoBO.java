@@ -1,10 +1,19 @@
 package br.com.ibracon.idr.form.bo;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.NoSuchPaddingException;
 
 import org.apache.log4j.Logger;
 
 import br.com.ibracon.idr.form.FormPrincipal;
+import br.com.ibracon.idr.form.criptografia.FileCrypt;
 import br.com.ibracon.idr.form.util.FileUtil;
 
 
@@ -95,15 +104,35 @@ public class InstalacaoBO {
 	 * Copiar properties dir instalacao.
 	 */
 	public void copiarArquivos() {
-		FileUtil.copiar(FormPrincipal.class.getResourceAsStream("configuracoes/ibracon.pdf"), getPathInstalacao()
-				+ File.separator + "ibracon.pdf");
-		logger.info("Copiando arquivo ibracon.pdf");
-		FileUtil.copiar(FormPrincipal.class.getResourceAsStream("configuracoes/nota.properties"), getPathInstalacao()
-				+ File.separator + "nota.properties");
-		logger.info("Copiando arquivo nota.properties");
-		FileUtil.copiar(FormPrincipal.class.getResourceAsStream("configuracoes/proxy.properties"), getPathInstalacao()
-				+ File.separator + "proxy.properties");
-		logger.info("Copiando arquivo proxy.properties");
+//		FileUtil.copiar(FormPrincipal.class.getResourceAsStream("configuracoes/ibracon.pdf"), getPathInstalacao()
+//				+ File.separator + "ibracon.pdf");
+//		logger.info("Copiando arquivo ibracon.pdf");
+
+		String pathNotas = getPathInstalacao() + File.separator + "nota.properties";
+		String pathProxyTmp =  getPathInstalacao() + File.separator + "proxy.tmp.properties";
+		String pathProxy =  getPathInstalacao() + File.separator + "proxy.properties";
+		
+		if(!new File(pathNotas).exists()){
+			FileUtil.copiar(FormPrincipal.class.getResourceAsStream("configuracoes/nota.properties"),pathNotas );
+			logger.info("Copiando arquivo nota.properties");
+		}
+		if(!new File(pathProxy).exists()){
+			FileUtil.copiar(FormPrincipal.class.getResourceAsStream("configuracoes/proxy.properties"),pathProxyTmp);
+			logger.info("Copiando arquivo proxy.properties");
+			
+			FileCrypt cripto = new FileCrypt(FileCrypt.CHAVE_LIVRO_IDR);
+			try {
+				cripto.criptografa(new
+				 FileInputStream(pathProxyTmp),
+				 new FileOutputStream(pathProxy));
+			} catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException
+					| InvalidAlgorithmParameterException | FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		//remover proxytmp
+		new File(pathProxyTmp).delete();
 	}
 
 	

@@ -89,7 +89,7 @@ public class RegistrarLivroBO {
 								+ tituloCortado
 								+ "... ("
 								+ format.format((double) (outFile.length() / 1024) / 1024)
-								+ " MB)");
+								+ " MB)       ");
 					}
 					out.flush();
 
