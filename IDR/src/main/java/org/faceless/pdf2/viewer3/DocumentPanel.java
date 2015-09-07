@@ -896,7 +896,7 @@ public class DocumentPanel extends JPanel {
                 splitpane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
                 splitpane.setOneTouchExpandable(true);
                 splitpane.setDividerSize(8);
-                splitpane.setResizeWeight(0);
+                splitpane.setResizeWeight(0.4);
                 splitpane.setContinuousLayout(true);
                 initialsize = 120;
                 thresholdsize = 120;
