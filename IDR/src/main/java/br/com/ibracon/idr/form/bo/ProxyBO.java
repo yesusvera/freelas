@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 
 import br.com.ibracon.idr.form.FormPrincipal;
 import br.com.ibracon.idr.form.criptografia.FileCrypt;
+import br.com.ibracon.idr.form.util.IdrUtil;
 
 public class ProxyBO {
 	static Logger logger = Logger.getLogger(ProxyBO.class);
@@ -117,25 +118,28 @@ public class ProxyBO {
 		}
 	}
 
-	public boolean internetAtiva() {
-		try {
-			java.net.URL mandarMail = new java.net.URL("http://www.google.com.br");
-			java.net.URLConnection conn = mandarMail.openConnection();
-
-			java.net.HttpURLConnection httpConn = (java.net.HttpURLConnection) conn;
-			httpConn.connect();
-			int x = httpConn.getResponseCode();
-			if (x == 200) {
-				return true;
-			}
-		} catch (java.net.MalformedURLException urlmal) {
-		} catch (java.io.IOException ioexcp) {
-		} 
-		
-		return false;
-	}
+//	public boolean internetAtiva() {
+//		try {
+//			java.net.URL mandarMail = new java.net.URL("http://www.google.com.br");
+//			java.net.URLConnection conn = mandarMail.openConnection();
+//
+//			java.net.HttpURLConnection httpConn = (java.net.HttpURLConnection) conn;
+//			httpConn.connect();
+//			int x = httpConn.getResponseCode();
+//			if (x == 200) {
+//				return true;
+//			}
+//		} catch (java.net.MalformedURLException urlmal) {
+//		} catch (java.io.IOException ioexcp) {
+//		} 
+//		
+//		return false;
+//	}
 
 	public void configurarProxy() {
+		
+		FormPrincipal.usarProxy = true;
+		
 		logger.info("Configurando proxy no sistema operacional");
 		
 		Properties prop = findProxyProperties();
@@ -151,26 +155,32 @@ public class ProxyBO {
 		System.setProperty("http.proxyPort",porta);
 
 		// Usuario e senha
-		System.setProperty("http.proxyUser", "teste");
-		System.setProperty("http.proxyPassword", "teste");
+//		System.setProperty("http.proxyUser", usuario);
+//		System.setProperty("http.proxyPassword", senha);
 	}
 	
 	 
 
 	public void dialogConfigurarProxy(FormPrincipal formPrincipal) throws InvalidKeyException, BadPaddingException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, UnsupportedEncodingException, InvalidKeySpecException {
 		logger.info("Perguntando se deseja configurar proxy.");
-		if (!internetAtiva()) {
+		if (!IdrUtil.internetEstaAtiva()) {
 			if (JOptionPane
 					.showConfirmDialog(
 							formPrincipal,
-							"Você está sem conexão com a internet. Sua rede possui proxy?",
+							"Você está sem conexão com a internet, falha ao conectar nos servidores do ibracon. \nSua rede de internet possui proxy?",
 							"Leitor IDR - Falha de autenticação",
 							JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
 				
-				JTextField proxyField = new JTextField();
-				JTextField portaField = new JTextField();
-				JTextField usuarioField = new JTextField();
-				JPasswordField senhaField = new JPasswordField();
+				Properties prop = new ProxyBO().findProxyProperties();
+				final String usuario = prop.getProperty("usuario");
+				final String senha = prop.getProperty("senha");
+				final String porta = prop.getProperty("porta");
+				final String host = prop.getProperty("proxy");
+				
+				JTextField proxyField = new JTextField(host);
+				JTextField portaField = new JTextField(porta);
+				JTextField usuarioField = new JTextField(usuario);
+				JPasswordField senhaField = new JPasswordField(senha);
 				
 				if (JOptionPane.showConfirmDialog(formPrincipal,
 						new Object[] { 
@@ -198,9 +208,6 @@ public class ProxyBO {
 					JOptionPane.showMessageDialog(null,
 							"Autenticação inválida. Tente novamente");
 				}
-
-				
-
 			}
 		}
 	}

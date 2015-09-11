@@ -21,6 +21,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import br.com.ibracon.idr.form.FormPrincipal;
 import br.com.ibracon.idr.form.bo.PropertiesBO;
+import br.com.ibracon.idr.form.bo.ProxyBO;
 import br.com.ibracon.idr.form.modal.JanelaProgresso;
 import br.com.ibracon.idr.webservice.estante.ResponseEstante;
 import br.com.ibracon.idr.webservice.registrar.ResponseRegistrar;
@@ -97,13 +98,21 @@ public abstract class ConnectionWS {
 			HttpURLConnection connection = (HttpURLConnection) url
 					.openConnection();
 
-			jp.aumentaPercentual(5);
-			logger.info("Request-Method" + "GET");
-
-			connection.setRequestProperty("Request-Method", "GET");
+			if(FormPrincipal.usarProxy){
+				Properties prop = new ProxyBO().findProxyProperties();
+				final String usuario = prop.getProperty("usuario");
+				final String senha = prop.getProperty("senha");
+				sun.misc.BASE64Encoder encoder = new sun.misc.BASE64Encoder();
+				String encodedUserPwd = encoder.encode((usuario+":"+senha).getBytes());
+				connection.setRequestProperty("Proxy-Authorization", "Basic " + encodedUserPwd);
+			}else{
+				logger.info("Request-Method" + "GET");
+				connection.setRequestProperty("Request-Method", "GET");
+			}
 			connection.setDoInput(true);
 			connection.setDoOutput(false);
 
+			jp.aumentaPercentual(5);
 			// IMPRIME RESPOSTA NO CONSOLE
 			try {
 				jp.aumentaPercentual(5);
@@ -166,7 +175,16 @@ public abstract class ConnectionWS {
 		URL url = new URL(urlString);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		InputStream arquivoXML = connection.getInputStream();
-		connection.setRequestProperty("Request-Method", "GET");
+		if(FormPrincipal.usarProxy){
+			Properties prop = new ProxyBO().findProxyProperties();
+			final String usuario = prop.getProperty("usuario");
+			final String senha = prop.getProperty("senha");
+			sun.misc.BASE64Encoder encoder = new sun.misc.BASE64Encoder();
+			String encodedUserPwd = encoder.encode((usuario+":"+senha).getBytes());
+			connection.setRequestProperty("Proxy-Authorization", "Basic " + encodedUserPwd);
+		}else{
+			connection.setRequestProperty("Request-Method", "GET");
+		}
 		connection.setDoInput(true);
 		connection.setDoOutput(false);
 		BufferedReader br = new BufferedReader(

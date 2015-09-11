@@ -8,6 +8,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.Properties;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -15,6 +16,7 @@ import javax.swing.ImageIcon;
 import org.apache.log4j.Logger;
 
 import br.com.ibracon.idr.form.FormPrincipal;
+import br.com.ibracon.idr.form.bo.ProxyBO;
 import br.com.ibracon.idr.form.model.EnumSO;
 
 public class IdrUtil {
@@ -60,6 +62,16 @@ public class IdrUtil {
 			URL url = new URL("http://www.ibracon.com.br");
 			HttpURLConnection urlConnect = (HttpURLConnection) url
 					.openConnection();
+			
+			if(FormPrincipal.usarProxy){
+				Properties prop = new ProxyBO().findProxyProperties();
+				final String usuario = prop.getProperty("usuario");
+				final String senha = prop.getProperty("senha");
+				sun.misc.BASE64Encoder encoder = new sun.misc.BASE64Encoder();
+				String encodedUserPwd = encoder.encode((usuario+":"+senha).getBytes());
+				urlConnect.setRequestProperty("Proxy-Authorization", "Basic " + encodedUserPwd);
+			}
+				
 			Object objData = urlConnect.getContent();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();

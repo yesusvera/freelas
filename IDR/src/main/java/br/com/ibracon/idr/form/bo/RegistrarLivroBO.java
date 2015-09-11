@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.NumberFormat;
+import java.util.Properties;
 
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
@@ -58,7 +59,16 @@ public class RegistrarLivroBO {
 					logger.info("conectando com a url de download " + url);
 					HttpURLConnection httpConnection = (HttpURLConnection) url
 							.openConnection();
-
+					
+					if(FormPrincipal.usarProxy){
+						Properties prop = new ProxyBO().findProxyProperties();
+						final String usuario = prop.getProperty("usuario");
+						final String senha = prop.getProperty("senha");
+						sun.misc.BASE64Encoder encoder = new sun.misc.BASE64Encoder();
+						String encodedUserPwd = encoder.encode((usuario+":"+senha).getBytes());
+						httpConnection.setRequestProperty("Proxy-Authorization", "Basic " + encodedUserPwd);
+					}
+					
 					logger.info("Abrindo a conexão via protocolo http");
 					InputStream in = httpConnection.getInputStream();
 
@@ -110,6 +120,16 @@ public class RegistrarLivroBO {
 					URL urlFoto = new URL(livro.getFoto().replace(" ", "%20"));
 					httpConnection = (HttpURLConnection) urlFoto
 							.openConnection();
+					
+					if(FormPrincipal.usarProxy){
+						Properties prop = new ProxyBO().findProxyProperties();
+						final String usuario = prop.getProperty("usuario");
+						final String senha = prop.getProperty("senha");
+						sun.misc.BASE64Encoder encoder = new sun.misc.BASE64Encoder();
+						String encodedUserPwd = encoder.encode((usuario+":"+senha).getBytes());
+						httpConnection.setRequestProperty("Proxy-Authorization", "Basic " + encodedUserPwd);
+					}
+					
 					in = httpConnection.getInputStream();
 					progresso.setTexto("   Baixando Foto ");
 					progresso.setPercentual(10);

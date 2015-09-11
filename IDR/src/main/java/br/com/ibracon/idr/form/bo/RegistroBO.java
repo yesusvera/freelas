@@ -497,7 +497,6 @@ public class RegistroBO {
 				
 				// DELETA O DESCRIPTOGRAFADO
 				fileXmlDescript.delete();
-
 				
 				formPrincipal.registroXML = registroXML;
 				
@@ -541,9 +540,7 @@ public class RegistroBO {
 
 						logger.debug(responseRegistrar);
 
-						
 						verificarVersaoLeitor(responseRegistrar);
-						
 						
 						if (responseRegistrar.getErro() != null
 								&& !responseRegistrar.getErro().equals("0")) {
@@ -552,7 +549,6 @@ public class RegistroBO {
 									"Erro ao registrar",
 									JOptionPane.ERROR_MESSAGE);
 						} else {
-
 							// SE ESTA ATIVADO
 							if (responseRegistrar.getStatus().equalsIgnoreCase(
 									"ativado")) {

@@ -14,16 +14,20 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
-import java.net.Authenticator;
+import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
-import java.net.PasswordAuthentication;
+import java.net.Proxy;
+import java.net.SocketAddress;
 import java.net.URL;
+import java.net.URLConnection;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -75,7 +79,6 @@ import br.com.ibracon.idr.form.bo.LivroIdrBO;
 import br.com.ibracon.idr.form.bo.ProxyBO;
 import br.com.ibracon.idr.form.bo.RegistrarLivroBO;
 import br.com.ibracon.idr.form.bo.RegistroBO;
-import br.com.ibracon.idr.form.criptografia.CriptografiaUtil;
 import br.com.ibracon.idr.form.modal.JanelaBoasVindas;
 import br.com.ibracon.idr.form.modal.JanelaConfProxy;
 import br.com.ibracon.idr.form.modal.JanelaRegistro;
@@ -147,6 +150,7 @@ public class FormPrincipal extends JFrame {
 
 	public LivroIDR livroIDR = null;
 
+	public static boolean usarProxy;
 	// Specify the look and feel to use by defining the LOOKANDFEEL constant
 	// Valid values are: null (use the default), "Metal", "System", "Motif",
 	// and "GTK"
@@ -286,17 +290,41 @@ public class FormPrincipal extends JFrame {
 		final JProgressBar progressBar = new JProgressBar(JProgressBar.VERTICAL);
 
 		try {
-			URL url = new URL(livro.getFoto().replace(" ", "%20"));
-
+			
 			JLabel lblLivro = new JLabel();
+			URL url = new URL(livro.getFoto().replace(" ", "%20"));
+			
+			if(FormPrincipal.usarProxy){
+				Properties prop = new ProxyBO().findProxyProperties();
+				final String usuario = prop.getProperty("usuario");
+				final String senha = prop.getProperty("senha");
+		        final String porta = prop.getProperty("porta");
+		    	final String host = prop.getProperty("proxy");
+		    		
+	            SocketAddress address = new InetSocketAddress(host, Integer.parseInt(porta));
+	            
+	            Proxy proxy = new Proxy(Proxy.Type.HTTP, address);
+	            // Open a connection to the URL using the proxy information.
+	            URLConnection conn = url.openConnection(proxy);
+	            sun.misc.BASE64Encoder encoder = new sun.misc.BASE64Encoder();
+				String encodedUserPwd = encoder.encode((usuario+":"+senha).getBytes());
+				conn.setRequestProperty("Proxy-Authorization", "Basic " + encodedUserPwd);
+	            InputStream inStream = conn.getInputStream();
+	             
+	             // BufferedImage image = ImageIO.read(url);
+	             // Use the InputStream flavor of ImageIO.read() instead.
+	            BufferedImage image = ImageIO.read(inStream);
+	            lblLivro = new JLabel(new ImageIcon(image));
+	            
+			}else{
+				try {
+					Image image = ImageIO.read(url);
+					lblLivro = new JLabel(new ImageIcon(image));
+				} catch (IIOException ioe) {
+					logger.debug("Não consegui ler: " + url);
+				}
 
-			try {
-				Image image = ImageIO.read(url);
-				lblLivro = new JLabel(new ImageIcon(image));
-			} catch (IIOException ioe) {
-				logger.debug("Não consegui ler: " + url);
 			}
-
 			JButton btnBaixar = new JButton(IdrUtil.getImageIcon("gfx/download.png"));
 			btnBaixar.setBorderPainted(false);
 			btnBaixar.setBackground(Color.WHITE);
@@ -930,24 +958,24 @@ public class FormPrincipal extends JFrame {
 		formPrincipal = new FormPrincipal();
 
 		// AUTENTICAÇÃO DE PROXY
-		Authenticator.setDefault(new Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				Properties prop = new ProxyBO().findProxyProperties();
-				final String usuario = CriptografiaUtil.decrypt(prop.getProperty("usuario"), "IBRACON",
-						CriptografiaUtil.ALGORITMO_DES);
-				final String senha = CriptografiaUtil.decrypt(prop.getProperty("senha"), "IBRACON",
-						CriptografiaUtil.ALGORITMO_DES);
-
-				logger.info("Configurando proxy no Authenticator.setDefault");
-
-				if (usuario != null && senha != null && !usuario.equals("") && !senha.equals("")) {
-					return new PasswordAuthentication(usuario, senha.toCharArray());
-				} else {
-					JOptionPane.showMessageDialog(null, "Autenticação inválida. Tente novamente");
-					return null;
-				}
-			}
-		});
+//		Authenticator.setDefault(new Authenticator() {
+//			protected PasswordAuthentication getPasswordAuthentication() {
+//				Properties prop = new ProxyBO().findProxyProperties();
+//				final String usuario = CriptografiaUtil.decrypt(prop.getProperty("usuario"), "IBRACON",
+//						CriptografiaUtil.ALGORITMO_DES);
+//				final String senha = CriptografiaUtil.decrypt(prop.getProperty("senha"), "IBRACON",
+//						CriptografiaUtil.ALGORITMO_DES);
+//
+//				logger.info("Configurando proxy no Authenticator.setDefault");
+//
+//				if (usuario != null && senha != null && !usuario.equals("") && !senha.equals("")) {
+//					return new PasswordAuthentication(usuario, senha.toCharArray());
+//				} else {
+//					JOptionPane.showMessageDialog(null, "Autenticação inválida. Tente novamente");
+//					return null;
+//				}
+//			}
+//		});
 
 		JPanel pnlEstanteDeDireito = new JPanel();
 		DesignGridLayout design = new DesignGridLayout(pnlEstanteDeDireito);
