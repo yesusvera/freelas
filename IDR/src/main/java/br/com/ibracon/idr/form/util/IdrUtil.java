@@ -108,6 +108,12 @@ public class IdrUtil {
 		return new ImageIcon(img);
 	}
 	
+	public static void freeMemorySugested(){
+		System.gc();
+		Runtime.getRuntime().runFinalization();
+		Runtime.getRuntime().gc();
+	}
+	
 	public static void main(String[] args) {
 		logger.debug(verificarSO());
 		logger.debug(System.getProperties());

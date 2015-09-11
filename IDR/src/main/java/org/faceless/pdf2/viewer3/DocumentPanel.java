@@ -754,7 +754,7 @@ public class DocumentPanel extends JPanel {
 	private void initTabbedPane() {
 		if (tabbedpane == null) {
             tabbedpane = new JTabbedPane(JTabbedPane.TOP);
-            tabbedpane.setMinimumSize(new Dimension(0, 0));
+            tabbedpane.setMinimumSize(new Dimension(150, 0));
             tabbedpane.addChangeListener(new ChangeListener() {
                 public void stateChanged(ChangeEvent event) {
                     if (splitpaneopen) {
@@ -807,7 +807,10 @@ public class DocumentPanel extends JPanel {
      */
     public SidePanel getSelectedSidePanel() {
         if (splitpane.getDividerLocation()!=splitpane.getMinimumDividerLocation()) {
-            return (SidePanel)tabbedpane.getSelectedComponent();
+        	if(tabbedpane.getSelectedComponent() instanceof SidePanel){
+        		return (SidePanel)tabbedpane.getSelectedComponent();
+        	}
+        	return null;
         } else {
             return null;
         }
@@ -896,7 +899,7 @@ public class DocumentPanel extends JPanel {
                 splitpane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
                 splitpane.setOneTouchExpandable(true);
                 splitpane.setDividerSize(8);
-                splitpane.setResizeWeight(0.4);
+                splitpane.setResizeWeight(0);
                 splitpane.setContinuousLayout(true);
                 initialsize = 120;
                 thresholdsize = 120;
@@ -1004,6 +1007,8 @@ public class DocumentPanel extends JPanel {
             
             tabbedpane.add("Índice", scrollIndice);
             tabbedpane.add("Notas", notas);
+            
+            tabbedpane.setSelectedIndex(1);
             
             if (currentsize != 0) {
                 SwingUtilities.invokeLater(new Runnable() {

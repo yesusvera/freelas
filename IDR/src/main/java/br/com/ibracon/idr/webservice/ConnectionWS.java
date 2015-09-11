@@ -23,6 +23,7 @@ import br.com.ibracon.idr.form.FormPrincipal;
 import br.com.ibracon.idr.form.bo.PropertiesBO;
 import br.com.ibracon.idr.form.bo.ProxyBO;
 import br.com.ibracon.idr.form.modal.JanelaProgresso;
+import br.com.ibracon.idr.form.util.IdrUtil;
 import br.com.ibracon.idr.webservice.estante.ResponseEstante;
 import br.com.ibracon.idr.webservice.registrar.ResponseRegistrar;
 import br.com.ibracon.idr.webservice.registrarLivro.ResponseRegistrarLivro;
@@ -48,6 +49,8 @@ public abstract class ConnectionWS {
 
 	public ResponseWS serviceConnect(RequestWS requestWS, String ws_servico)
 			throws Exception {
+		
+		IdrUtil.freeMemorySugested();
 		
 		JanelaProgresso jp = new JanelaProgresso(FormPrincipal.formPrincipal);
 		

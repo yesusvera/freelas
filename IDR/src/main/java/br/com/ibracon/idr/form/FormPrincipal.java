@@ -636,9 +636,12 @@ public class FormPrincipal extends JFrame {
 
 		layout.row().grid().add(btnTodos);
 		layout.row().grid().add(btnBaixar);
-		layout.row().grid().add(btnMeusLivros);
 		layout.row().grid().add(btnBaixados);
 
+		
+		layout.row(300).grid().add(new JLabel(" "));
+		
+		layout.row().grid().add(btnMeusLivros);
 	}
 
 	/**
@@ -873,23 +876,6 @@ public class FormPrincipal extends JFrame {
 		split.setRightComponent(painelCentral);
 	}
 
-	public void centralizarPageNoPainelCentral() {
-		logger.info("Centralizando o pdf no painel central");
-		Dimension screen = pnlPage.getSize();
-		int x = (screen.width - page.getWidth()) / 2;
-		int y = (screen.height - page.getHeight()) / 2;
-		page.setLocation(x, y);
-	}
-
-	/**
-	 * Erro ao abrir.
-	 * 
-	 * @param message
-	 *            the message
-	 */
-	public void erroAoAbrir(String message) {
-		JOptionPane.showMessageDialog(split, message, "Erro ao abrir o arquivo.", JOptionPane.ERROR_MESSAGE);
-	}
 
 	public static Image getFaviIcon(String fileName) {
 		URL url = null;
@@ -1026,6 +1012,8 @@ public class FormPrincipal extends JFrame {
 	 * @param livro
 	 */
 	public void abrirLivroAPINova(final Livro livro) {
+		IdrUtil.freeMemorySugested();
+		
 		PDFViewer viewerLeitorIbracon = new PDFViewer(null);
 		JFrame frame = new JFrame();
 		frame.setTitle(livro.getTitulo());
