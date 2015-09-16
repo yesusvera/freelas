@@ -47,6 +47,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -178,6 +179,61 @@ public class FormPrincipal extends JFrame {
 			telaSplash.setVisible(true);
 		}
 	};
+	Action informacoesAppAction = new AbstractAction("Informações do aplicativo...") {
+		public void actionPerformed(ActionEvent evt) {
+			RegistroBO inf = new RegistroBO();
+		    
+		    File[] roots = File.listRoots();
+		    long maxMemory = Runtime.getRuntime().maxMemory();
+		    
+			String text = 	"Leitor Ibracon - 2015 \n"+
+							"Java: " + System.getProperty("java.version") + "\n" +
+							"Serial HD:" + inf.getHDSerial() + "\n" +
+							"IP:" + inf.ipMaquinaCliente() + "\n" +
+							"MacAdress:" + inf.macAdressMaquinaCliente() + "\n\n" +
+							
+							"-------- HARDWARE -------- \n"+
+							
+							"Processadores (cores): " + 
+							        Runtime.getRuntime().availableProcessors()+"\n" +
+							"Memória livre (bytes): " + 
+							        Runtime.getRuntime().freeMemory()+"\n" +
+							"Máximo memória (bytes): " + 
+							        (maxMemory == Long.MAX_VALUE ? "no limit" : maxMemory)+"\n" +
+							"Total memória disponível na JVM (bytes): " + 
+							        Runtime.getRuntime().totalMemory() +"\n";
+			
+			
+							for (File root : roots) {
+								text += "Sistema de Arquivos root: " + root.getAbsolutePath()+"\n" +
+								"Espaço total (bytes): " + root.getTotalSpace()+"\n" +
+								"Espaço livre (bytes): " + root.getFreeSpace()+"\n" +
+								"Espaço usado (bytes): " + root.getUsableSpace()+"\n";
+							 }
+							
+							text+="\n\n--------Registro--------\n\n " + registroXML;
+							
+			JDialog informacoesAPPDialog = new JDialog(getInstance());
+			informacoesAPPDialog.setModal(true);
+			informacoesAPPDialog.setSize(500,500);
+		
+			JTextArea textArea = new JTextArea();
+			textArea.setWrapStyleWord(true);
+			textArea.setLineWrap(true);
+			textArea.setText(text);
+			
+			informacoesAPPDialog.getContentPane().add(textArea);
+
+			
+			informacoesAPPDialog.setVisible(true);
+			
+
+			Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+			int x = (screen.width - getWidth()) / 2;
+			int y = (screen.height - getHeight()) / 2;
+			informacoesAPPDialog.setLocation(x, y);
+		}
+	};
 
 	/** The quit action. */
 	Action quitAction = new AbstractAction("Sair do leitor") {
@@ -195,7 +251,6 @@ public class FormPrincipal extends JFrame {
 				// an alternative way to set the Metal L&F is to replace the
 				// previous line with:
 				// lookAndFeel = "javax.swing.plaf.metal.MetalLookAndFeel";
-
 			}
 
 			else if (LOOKANDFEEL.equals("System")) {
@@ -822,9 +877,11 @@ public class FormPrincipal extends JFrame {
 
 		JMenu ajuda = new JMenu("Ajuda");
 		ajuda.add(sobreAction);
-
+		ajuda.add(informacoesAppAction);
+		
 		mb.add(ajuda);
 
+		
 		setJMenuBar(mb);
 		// pack();
 

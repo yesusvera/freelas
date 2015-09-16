@@ -273,9 +273,9 @@ public class DocumentPanel extends JPanel {
                         String a1 = map1.allKeys()==null ? "[]" : Arrays.asList(map1.allKeys()).toString();
                         String a2 = map2.allKeys()==null ? "[]" : Arrays.asList(map2.allKeys()).toString();
                         String a3 = map3.allKeys()==null ? "[]" : Arrays.asList(map3.allKeys()).toString();
-                        System.out.println("InputMap: c="+jc.getClass().getName()+" f="+a1+" a="+a2+" w="+a3);
+//                        System.out.println("InputMap: c="+jc.getClass().getName()+" f="+a1+" a="+a2+" w="+a3);
                     } else {
-                        System.out.println("InputMap: c="+c.getClass().getName());
+//                        System.out.println("InputMap: c="+c.getClass().getName());
                     }
                     c = c.getParent();
                 }

@@ -166,4 +166,12 @@ public class RequestRegistrar extends RequestWS {
 
 		return parameters;
 	}
+	@Override
+	public String toString() {
+		return "RequestRegistrar [registro=" + registro + ", cliente=" + cliente + ", endereco=" + endereco
+				+ ", numero=" + numero + ", complemento=" + complemento + ", bairro=" + bairro + ", cidade=" + cidade
+				+ ", uf=" + uf + ", cep=" + cep + ", email=" + email + ", senha=" + senha + ", serial=" + serial
+				+ ", macadress=" + macadress + ", ip=" + ip + ", documento=" + documento + ", telefone=" + telefone
+				+ ", dispositivo=" + dispositivo + ", associado=" + associado + "]";
+	}
 }

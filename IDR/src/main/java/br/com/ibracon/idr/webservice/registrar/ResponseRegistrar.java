@@ -40,8 +40,7 @@ public class ResponseRegistrar extends ResponseWS {
 	}
 	@Override
 	public String toString() {
-		return "ResponseRegistrar [codCliente=" + codCliente
-				+ ", codDispositivo=" + codDispositivo + ", status=" + status
-				+ ", urlApp=" + urlApp + "]";
+		return "ResponseRegistrar [codCliente=" + codCliente + ", codDispositivo=" + codDispositivo + ", status="
+				+ status + ", urlApp=" + urlApp + "]";
 	}
 }

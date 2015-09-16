@@ -23,4 +23,8 @@ public class RegistroXml {
 		this.responseRegistrar = responseRegistrar;
 	}
 	
+	@Override
+	public String toString() {
+		return "RegistroXml [requestRegistrar=" + requestRegistrar + ", responseRegistrar=" + responseRegistrar + "]";
+	}
 }
