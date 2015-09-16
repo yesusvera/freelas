@@ -186,13 +186,13 @@ public class FormPrincipal extends JFrame {
 		    File[] roots = File.listRoots();
 		    long maxMemory = Runtime.getRuntime().maxMemory();
 		    
-			String text = 	"Leitor Ibracon - 2015 \n"+
+			String text = 	"--------Leitor Ibracon - 2015 ----------- \n"+
 							"Java: " + System.getProperty("java.version") + "\n" +
 							"Serial HD:" + inf.getHDSerial() + "\n" +
 							"IP:" + inf.ipMaquinaCliente() + "\n" +
 							"MacAdress:" + inf.macAdressMaquinaCliente() + "\n\n" +
 							
-							"-------- HARDWARE -------- \n"+
+							"----------- HARDWARE ----------- \n"+
 							
 							"Processadores (cores): " + 
 							        Runtime.getRuntime().availableProcessors()+"\n" +
@@ -211,7 +211,7 @@ public class FormPrincipal extends JFrame {
 								"Espaço usado (bytes): " + root.getUsableSpace()+"\n";
 							 }
 							
-							text+="\n\n--------Registro--------\n\n " + registroXML;
+							text+="\n\n----------- Registro -----------\n\n " + registroXML;
 							
 			JDialog informacoesAPPDialog = new JDialog(getInstance());
 			informacoesAPPDialog.setModal(true);
@@ -221,6 +221,7 @@ public class FormPrincipal extends JFrame {
 			textArea.setWrapStyleWord(true);
 			textArea.setLineWrap(true);
 			textArea.setText(text);
+			textArea.setEditable(false);
 			
 			informacoesAPPDialog.getContentPane().add(textArea);
 
