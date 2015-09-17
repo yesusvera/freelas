@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -186,7 +188,7 @@ public class FormPrincipal extends JFrame {
 		    File[] roots = File.listRoots();
 		    long maxMemory = Runtime.getRuntime().maxMemory();
 		    
-			String text = 	"--------Leitor Ibracon - 2015 ----------- \n"+
+			String textTmp = "--------Leitor Ibracon - 2015 ----------- \n"+
 							"Java: " + System.getProperty("java.version") + "\n" +
 							"Serial HD:" + inf.getHDSerial() + "\n" +
 							"IP:" + inf.ipMaquinaCliente() + "\n" +
@@ -203,17 +205,17 @@ public class FormPrincipal extends JFrame {
 							"Total memória disponível na JVM (bytes): " + 
 							        Runtime.getRuntime().totalMemory() +"\n";
 			
-			
 							for (File root : roots) {
-								text += "Sistema de Arquivos root: " + root.getAbsolutePath()+"\n" +
+								textTmp += "Sistema de Arquivos root: " + root.getAbsolutePath()+"\n" +
 								"Espaço total (bytes): " + root.getTotalSpace()+"\n" +
 								"Espaço livre (bytes): " + root.getFreeSpace()+"\n" +
 								"Espaço usado (bytes): " + root.getUsableSpace()+"\n";
 							 }
 							
-							text+="\n\n----------- Registro -----------\n\n " + registroXML;
+							textTmp+="\n\n----------- Registro -----------\n\n " + registroXML;
+			final String text = textTmp;
 							
-			JDialog informacoesAPPDialog = new JDialog(getInstance());
+			final JDialog informacoesAPPDialog = new JDialog(getInstance());
 			informacoesAPPDialog.setModal(true);
 			informacoesAPPDialog.setSize(500,500);
 		
@@ -223,8 +225,22 @@ public class FormPrincipal extends JFrame {
 			textArea.setText(text);
 			textArea.setEditable(false);
 			
-			informacoesAPPDialog.getContentPane().add(textArea);
-
+			informacoesAPPDialog.getContentPane().add(textArea, BorderLayout.CENTER);
+			
+			
+			JButton btnCopiar = new JButton("Copiar para a área de transferência");
+			
+			btnCopiar.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					  Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+				      StringSelection selection = new StringSelection(text);
+				      clipboard.setContents(selection, null);
+				      JOptionPane.showMessageDialog(informacoesAPPDialog, "Texto copiado para área de transferência.");
+				}
+			});
+		
+			informacoesAPPDialog.getContentPane().add(btnCopiar, BorderLayout.SOUTH);
 			
 			informacoesAPPDialog.setVisible(true);
 			
