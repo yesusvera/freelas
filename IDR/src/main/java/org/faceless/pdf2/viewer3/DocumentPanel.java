@@ -167,7 +167,10 @@ public class DocumentPanel extends JPanel {
     
     final int panelindex;               // For debugging
     private static int globalpanelindex;        // For debugging
-
+    
+    //ACRESCENTADO POR YESUS SET/2015
+    private boolean temProcurar;
+    
     /**
      * Create a new DocumentPanel
      */
@@ -729,6 +732,19 @@ public class DocumentPanel extends JPanel {
                 } catch (Throwable e) {}    // Just in case old interface was used.
                 String name = UIManager.getString("PDFViewer."+panel.getName());
                 comp.setBackground(Color.WHITE);
+                
+                
+                //PARA EVITAR DUPLICIDADE DE RESULTADOS: YESUS
+                if(name.equalsIgnoreCase("procurar")){
+                	if(temProcurar){
+                		tabbedpane.removeTabAt(tabbedpane.getTabCount()-1);
+                	}
+            	}
+                
+                if(name.equalsIgnoreCase("procurar")){
+            		temProcurar=true;
+            	}
+                
                 if (icon == null || "true".equals(getProperty("useNamedSidePanels"))) {
                     tabbedpane.addTab(name, comp);
                 } else {
@@ -1642,9 +1658,16 @@ public class DocumentPanel extends JPanel {
         }
     }
     
+    
+    /**
+     * ADICIONADO POR YESUS SET/2015
+     */
     public void refreshTabs(){
     	tabbedpane.remove(1);
     	tabbedpane.remove(1);
+    	tabbedpane.remove(1);
+    	
+    	temProcurar = false;
   	
   	    carregarIndice();
         carregarNotas();

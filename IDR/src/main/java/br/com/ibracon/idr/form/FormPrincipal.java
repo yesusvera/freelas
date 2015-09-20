@@ -253,7 +253,7 @@ public class FormPrincipal extends JFrame {
 	};
 
 	/** The quit action. */
-	Action quitAction = new AbstractAction("Sair do leitor") {
+	Action quitAction = new AbstractAction("Sair do leitor IBRACON") {
 		public void actionPerformed(ActionEvent evt) {
 			doQuit();
 		}

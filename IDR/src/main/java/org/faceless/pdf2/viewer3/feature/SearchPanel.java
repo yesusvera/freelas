@@ -154,7 +154,24 @@ public class SearchPanel extends SidePanelFactory {
         private Collection<ChangeListener> listeners;
         private float progress;
         private Icon icon;
-
+        
+        /**
+         * Acrescentado por YESUS SET/2015
+         */
+       public void selecioneResultadoNoIndice(int i){
+    	   try{
+				final JList<Object> results = new JList<Object>(resultlist);
+				Object result = results.getModel().getElementAt(i);
+				if (result instanceof Result) {
+					results.setSelectedIndex(i);
+					texttool.select(((Result) result).result);
+				}
+				results.setSelectedIndex(i);
+    	   }catch(Exception e){
+    		   e.printStackTrace();
+    	   }
+       }
+        
         /**
          * Create a new Results object.
          */

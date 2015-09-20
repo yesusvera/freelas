@@ -28,6 +28,9 @@ public class SearchField extends ViewerWidget implements DocumentPanelListener
 {
     private SearchPanel.Field field;
     private SearchPanel.Results createdResults;
+    //Acrescentado por yesus set/2015
+    private String ultimaPesquisa="";
+    private int indiceResultadoSelecionado=0;
 
     public SearchField() {
         super("SearchField");
@@ -39,7 +42,21 @@ public class SearchField extends ViewerWidget implements DocumentPanelListener
         setComponent("Search", field);
         field.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                field.transferFocus();
+//                field.transferFocus();
+            	
+            	
+                //Acrescentado por yesus set/2015
+            	//Quando for a mesma palavra correr pelos resultados marcando os mesmos.
+            	
+            	if(ultimaPesquisa.equalsIgnoreCase(field.getText())){
+            		System.out.println("mesma pesquisa!!!");
+            		createdResults.selecioneResultadoNoIndice(indiceResultadoSelecionado++);
+            		return;
+            	}
+            	
+            	ultimaPesquisa = field.getText();
+            	indiceResultadoSelecionado = 0;
+            	
                 final DocumentPanel docpanel = getViewer().getActiveDocumentPanel();
                 SearchPanel.Results results = null;
                 // 1. Try to find Results panel in existing side panels.
@@ -81,6 +98,7 @@ public class SearchField extends ViewerWidget implements DocumentPanelListener
                 results.addChangeListener(field);
                 docpanel.setSelectedSidePanel(results);
                 results.search(field.getText());
+                createdResults.selecioneResultadoNoIndice(indiceResultadoSelecionado);
             }
         });
     }
